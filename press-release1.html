@@ -17,7 +17,74 @@
   <link rel="stylesheet" type="text/css" href="assets/css/custom.min.css">
   <link rel="apple-touch-icon" href="assets/img/app-icon-192.png">
   <link rel="icon" href="assets/img/app-icon-32.png">
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <style>
+    .showlink {
+      display: none !important;
+      position: absolute;
+      background: white;
+      border: 1px solid #ccc;
+      z-index: 999;
+      min-width: 150px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .showlink.force-show {
+      display: block !important;
+    }
+
+    /* Force dropdown to show */
+    .t-NavigationBar-menu {
+      display: none !important;
+      position: absolute !important;
+      background: white !important;
+      border: 1px solid #ccc !important;
+      z-index: 9999 !important;
+      min-width: 150px !important;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2) !important;
+    }
+
+    /* Show when force-show is applied */
+    .t-NavigationBar-menu.force-show {
+      display: block !important;
+    }
+
+    .t-NavigationBar-menu {
+      display: none;
+    }
+
+    .t-NavigationBar-menu.show {
+      display: block;
+    }
+
+    .t-NavigationBar-menu {
+      z-index: 9999;
+    }
+
+    .t-NavigationBar-menu {
+      display: none;
+      position: absolute;
+      background: #fff;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+      z-index: 100;
+      padding: 10px;
+      border-radius: 5px;
+    }
+  </style>
   <style type="text/css">
+    .toast-container {
+      right: 0.5%;
+    }
+
+    #successToast {
+      background: #198754 !important;
+    }
+
+    #errorToast {
+      background: #ff0000 !important;
+    }
+
     @font-face {
       font-family: 'FontApex';
       src: url('../font/apex-5-icon-font.woff2') format('woff2'),
@@ -334,6 +401,31 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="../../../../../cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <!-- Toast -->
+  <div class="toast-container position-fixed p-3 custom_toast" x-data="transButtonComponent()">
+    <div id="errorToast" class="toast align-items-center text-bg-primary border-0 " role="alert" aria-live="assertive"
+      aria-atomic="true">
+      <div class="d-flex">
+        <div class="toast-body">
+          <p id="errorMessage" class="mb-0"></p>
+        </div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+          aria-label="Close"></button>
+      </div>
+    </div>
+    <div id="successToast" class="toast align-items-center text-bg-primary border-0 " role="alert" aria-live="assertive"
+      aria-atomic="true">
+      <div class="d-flex">
+        <div class="toast-body">
+          <p id="successMessage" class="mb-0"></p>
+        </div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+          aria-label="Close"></button>
+      </div>
+    </div>
+  </div>
+  <!-- Toast -->
+
   <div id="preloader"></div>
 </head>
 
@@ -341,319 +433,316 @@
   class="t-PageBody t-PageBody--hideLeft t-PageBody--hideActions no-anim t-PageTemplate--standard   apex-top-nav apex-icons-fontapex apex-theme-vita-copy-2-copy-1"
   id="t_PageBody">
   <a href="#main" id="t_Body_skipToContent">Skip to Main Content</a>
-  <form role="none" action="wwv_flow.accept?p_context=info-prdept103/press-release1/314438547945874" method="post"
-    name="wwv_flow" id="wwvFlowForm" data-oj-binding-provider="none" novalidate autocomplete="off">
-    <input type="hidden" name="p_flow_id" value="103" id="pFlowId" /><input type="hidden" name="p_flow_step_id"
-      value="33" id="pFlowStepId" /><input type="hidden" name="p_instance" value="314438547945874"
-      id="pInstance" /><input type="hidden" name="p_page_submission_id"
-      value="NzMwNTYyMjMzNjYzNDc3MzUwNzMxNDI4MDk1MjI4NDc4OTU3MjU&#x2F;efvrBKlPd1D05WdPioyYy3gb6yIGnbo4oICNya5NehNDVkr2SJuWVd-v8Koo6q7I-CYTbj5eyeoPHE62u2_DZw"
-      id="pPageSubmissionId" /><input type="hidden" name="p_request" value="" id="pRequest" /><input type="hidden"
-      name="p_reload_on_submit" value="S" id="pReloadOnSubmit" /><input type="hidden"
-      value="info-prdept103&#x2F;press-release1&#x2F;314438547945874" id="pContext" /><input type="hidden"
-      value="73056223366347735073142809522847895725" id="pSalt" />
-    <header class="t-Header" id="t_Header" role="banner">
 
-      <div class="t-Header-navBar">
+  <header class="t-Header" id="t_Header" role="banner">
 
-        <div class="t-Header-navBar--start">
+    <div class="t-Header-navBar">
 
-          <div class="t-Header-navBar--end">
-            <div
-              class="t-Form-fieldContainer rel-col t-Form-fieldContainer--large t-Form-fieldContainer--normalDisplay apex-item-wrapper apex-item-wrapper--has-initial-value apex-item-wrapper--select-list"
-              id="P0_LANGUAGE_CONTAINER">
-              <div class="t-Form-labelContainer col col-null">
-                <label for="P0_LANGUAGE" id="P0_LANGUAGE_LABEL" class="t-Form-label"></label>
-              </div>
-              <div class="t-Form-inputContainer col col-null">
-                <div class="t-Form-itemWrapper"><select id="P0_LANGUAGE" name="P0_LANGUAGE"
-                    class="selectlist&#x20;apex-item-select" data-native-menu="false" size="1">
-                    <option value="en" selected="selected">English</option>
-                    <option value="ta">Tamil</option>
-                  </select></div><span id="P0_LANGUAGE_error_placeholder" class="a-Form-error"
-                  data-template-id="32751098700172723_ET"></span>
-              </div>
+      <div class="t-Header-navBar--start">
+
+        <div class="t-Header-navBar--end">
+          <div
+            class="t-Form-fieldContainer rel-col t-Form-fieldContainer--large t-Form-fieldContainer--normalDisplay apex-item-wrapper apex-item-wrapper--has-initial-value apex-item-wrapper--select-list"
+            id="P0_LANGUAGE_CONTAINER">
+            <div class="t-Form-labelContainer col col-null">
+              <label for="P0_LANGUAGE" id="P0_LANGUAGE_LABEL" class="t-Form-label"></label>
+            </div>
+            <div class="t-Form-inputContainer col col-null">
+              <div class="t-Form-itemWrapper"><select id="P0_LANGUAGE" name="P0_LANGUAGE"
+                  class="selectlist&#x20;apex-item-select" data-native-menu="false" size="1">
+                  <option value="en" selected="selected">English</option>
+                  <option value="ta">Tamil</option>
+                </select></div><span id="P0_LANGUAGE_error_placeholder" class="a-Form-error"
+                data-template-id="32751098700172723_ET"></span>
             </div>
           </div>
-          <div class="t-Header-navBar--center">
-            <ul class="t-NavigationBar " id="32861498506172843">
-              <li class="t-NavigationBar-item a-pwaInstall">
-                <a class="t-Button t-Button--icon t-Button--header t-Button--navBar" href="#action$a-pwa-install"
-                  title="" target="">
-                  <span class="t-Icon fa&#x20;fa-cloud-download" aria-hidden="true"></span><span
-                    class="t-Button-label">Install App</span><span class="t-Button-badge"></span>
-                </a>
-              </li>
-              <li class="t-NavigationBar-item has-username">
-                <a class="t-Button t-Button--icon t-Button--header t-Button--navBar" href="#" title="" target="">
-                  <span class="t-Icon fa&#x20;fa-user" aria-hidden="true"></span><span
-                    class="t-Button-label admin-name-change">nobody</span><span class="t-Button-badge"></span>
-                </a>
-              </li>
-            </ul>
-          </div>
-          <div class="t-Header-navBar--end"></div>
-          <a href="https://www.facebook.com/TNDIPR" class="fa fa-facebook" target='_blank'></a>
-          <a href="https://twitter.com/TNDIPRNEWS" class="fa fa-twitter " target='_blank'></a>
-          <!--<a href="https://www.instagram.com/tndipr" class="fa fa-instagram"></a> -->
-          <a href="https://www.instagram.com/tndipr"><img src="r/dipr/103/files/static/v358/instagram.jpeg"
-              style="height:35px;" class="fa fa-twitter" target='_blank'>
-            <a href="https://www.youtube.com/c/tndipr21" class="fa fa-youtube" target='_blank'></a>
-
-
         </div>
+        <div class="t-Header-navBar--center">
+          <ul class="t-NavigationBar " id="32861498506172843">
+            <li class="t-NavigationBar-item a-pwaInstall">
+              <a class="t-Button t-Button--icon t-Button--header t-Button--navBar" href="#action$a-pwa-install" title=""
+                target="">
+                <span class="t-Icon fa&#x20;fa-cloud-download" aria-hidden="true"></span><span
+                  class="t-Button-label">Install App</span><span class="t-Button-badge"></span>
+              </a>
+            </li>
+            <li class="t-NavigationBar-item has-username shownav">
+              <button class="t-Button t-Button--icon t-Button--header t-Button--navBar" type="button">
+                <span class="t-Icon fa fa-user" aria-hidden="true"></span>
+                <span class="t-Button-label admin-name-change">Username</span>
+                <span class="t-Button-badge"></span>
+                <span class="a-Icon icon-down-arrow" aria-hidden="true"></span>
+              </button>
+              <!-- <div class="t-NavigationBar-menu showlink">
+                <ul>
+                  <li>
+                    <a href="#">Sign Out</a>
+                  </li>
+                </ul>
+              </div> -->
+            </li>
+          </ul>
+        </div>
+        <div class="t-Header-navBar--end"></div>
+        <a href="https://www.facebook.com/TNDIPR" class="fa fa-facebook" target='_blank'></a>
+        <a href="https://twitter.com/TNDIPRNEWS" class="fa fa-twitter " target='_blank'></a>
+        <!--<a href="https://www.instagram.com/tndipr" class="fa fa-instagram"></a> -->
+        <a href="https://www.instagram.com/tndipr"><img src="r/dipr/103/files/static/v358/instagram.jpeg"
+            style="height:35px;" class="fa fa-twitter" target='_blank'>
+          <a href="https://www.youtube.com/c/tndipr21" class="fa fa-youtube" target='_blank'></a>
+
 
       </div>
 
-      <!-- <div class=" nobgcolor ">
+    </div>
+
+    <!-- <div class=" nobgcolor ">
 <img id="first_image" style=" height: 100%;" src = 'r/dipr/103/files/static/v358/left-png.png' > <span class="alignCenter"><center> Information and Public Relations Department </br> செய்தி – மக்கள் தொடர்புத்துறை </center></span>
     <img id="last_image" style=" height: 100%;" src = "r/dipr/103/files/static/v358/right-png.png" > 
 
    </div> -->
-      <div class="nobgcolor">
-        <div class="widthFixed">
-          <!-- <img id="first_image" class="header-images" src="r/dipr/103/files/static/v358/left-png.png"> -->
-          <div class="center-text">
-            <center>Information and Public Relations Department <br> <span class="txtBlue">செய்தி – மக்கள்
-                தொடர்புத்துறை</span></center>
+    <div class="nobgcolor">
+      <div class="widthFixed">
+        <!-- <img id="first_image" class="header-images" src="r/dipr/103/files/static/v358/left-png.png"> -->
+        <div class="center-text">
+          <center>Information and Public Relations Department <br> <span class="txtBlue">செய்தி – மக்கள்
+              தொடர்புத்துறை</span></center>
+        </div>
+        <!-- <img id="last_image" class="header-images" src="r/dipr/103/files/static/v358/right-png.png"> -->
+      </div>
+    </div>
+
+    <div class="t-Header-nav">
+      <div class="t-Header-nav-list js-tabLike js-tabLike" id="t_MenuNav">
+        <ul>
+          <li class="a-MenuBar-item" data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+              class="a-MenuBar-label" href="index.html" title="" target="">Home</a></li>
+          <li class="a-MenuBar-item" data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+              class="a-MenuBar-label" href="about_page.html" title="" target="">About Us</a></li>
+          <li class="a-MenuBar-item" data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+              class="a-MenuBar-label" href="gallery1.html" title="" target="">Photo &#x2F; Video</a></li>
+          <li class="a-MenuBar-item a-Menu--current" data-current="true" data-id="" data-disabled="" data-hide=""
+            data-shortcut="" data-icon=""><a class="a-MenuBar-label" href="press-release1.html" title="" target="">Press
+              Release &#x2F; Press Note</a></li>
+          <li class="a-MenuBar-item" data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+              class="a-MenuBar-label" href="government-orders.html" title="" target="">Government Orders</a></li>
+          <li class="a-MenuBar-item" data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+              class="a-MenuBar-label" href="sections.html" title="" target="">Sections</a></li>
+          <li class="a-MenuBar-item" data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+              class="a-MenuBar-label" href="download-forms.html" title="" target="">Download Forms</a></li>
+          <li class="a-MenuBar-item admin-menu-show" data-id="" data-disabled="" data-hide="" data-shortcut=""
+            data-icon=""><a class="a-MenuBar-label" href="admin-google-sheets.html" title="" target="">Google
+              Sheets - Report</a>
+          </li>
+          <li class="a-MenuBar-item admin-menu-show" data-id="" data-disabled="" data-hide="" data-shortcut=""
+            data-icon=""><a class="a-MenuBar-label" href="" title="" target="">Administration</a>
+            <ul style="display: none">
+              <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+                  href="admin-photo-upload.html" title="" target="">Photo&#x2F;Video Upload</a>
+              </li>
+              <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+                  href="admin-press-release.html" title="" target="">Upload Press Release</a>
+              </li>
+              <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+                  href="admin-section-content.html" title="" target="">Sections Content</a>
+              </li>
+              <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+                  href="admin-goverment-orders.html" title="" target="">Upload Government
+                  Orders</a></li>
+              <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+                  href="admin-sections-data-report.html" title="" target="">Sections Data
+                  Report</a></li>
+              <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+                  href="admin-forms-report.html" title="" target="">Forms Report</a></li>
+              <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+                  href="admin-memorial-video-report.html" title="" target="">memorial_video_report</a></li>
+              <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a href="admin-monuments.html"
+                  title="" target="">Monuments</a></li>
+              <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a href="admin-arangams.html"
+                  title="" target="">Arangams</a></li>
+              <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+                  href="admin-commemoration-pillars.html" title="" target="">Commemoration
+                  Pillars</a></li>
+              <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+                  href="admin-commemoration-arch.html" title="" target="">Commemoration
+                  Arch</a></li>
+              <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+                  href="admin-department-pictures.html" title="" target="">Department
+                  Pictures</a></li>
+              <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+                  href="admin-department-details.html" title="" target="">Department
+                  Details</a></li>
+              <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+                  href="admin-conclusion-photos.html" title="" target="">Conclusion_Photos</a>
+              </li>
+              <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+                  href="admin-google-sheets.html" title="" target="">Google Sheets</a></li>
+              <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+                  href="admin-press-notes.html" title="" target="">Upload Press Note</a></li>
+              <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a href="admin-add-user.html"
+                  title="" target="">Add
+                  User</a></li>
+              <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+                  href="admin-navigation-list-entry.html" title="" target="">Navigation Menu Report</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </header>
+
+  <div class="t-Body">
+
+    <div class="t-Body-main">
+      <div class="t-Body-title" id="t_Body_title">
+        <nav id="R38515424824741653" role="navigation" aria-label="Press&#x20;Release"
+          class="t-BreadcrumbRegion t-BreadcrumbRegion--showBreadcrumb t-BreadcrumbRegion--useBreadcrumbTitle">
+          <div class="t-BreadcrumbRegion-top">
+            <div class="t-BreadcrumbRegion-buttons t-BreadcrumbRegion-buttons--start"></div>
+            <div class="t-BreadcrumbRegion-body">
+              <div class="t-BreadcrumbRegion-breadcrumb">
+                <ul class="t-Breadcrumb ">
+                  <li class="t-Breadcrumb-item is-active" aria-current="page">
+                    <h1 class="t-Breadcrumb-label">Press Release</h1>
+                  </li>
+                </ul>
+              </div>
+              <div class="t-BreadcrumbRegion-title">
+                <h1 id="R38515424824741653_heading" class="t-BreadcrumbRegion-titleText" data-apex-heading>Press
+                  Release</h1>
+              </div>
+            </div>
+            <div class="t-BreadcrumbRegion-buttons t-BreadcrumbRegion-buttons--end"></div>
           </div>
-          <!-- <img id="last_image" class="header-images" src="r/dipr/103/files/static/v358/right-png.png"> -->
-        </div>
+          <div class="t-BreadcrumbRegion-bottom"></div>
+        </nav>
       </div>
-
-      <div class="t-Header-nav">
-        <div class="t-Header-nav-list js-tabLike js-tabLike" id="t_MenuNav">
-          <ul>
-            <li class="a-MenuBar-item" data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
-                class="a-MenuBar-label" href="index.html" title="" target="">Home</a></li>
-            <li class="a-MenuBar-item" data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
-                class="a-MenuBar-label" href="about_page.html" title="" target="">About Us</a></li>
-            <li class="a-MenuBar-item" data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
-                class="a-MenuBar-label" href="gallery1.html" title="" target="">Photo &#x2F; Video</a></li>
-            <li class="a-MenuBar-item a-Menu--current" data-current="true" data-id="" data-disabled="" data-hide=""
-              data-shortcut="" data-icon=""><a class="a-MenuBar-label" href="press-release1.html" title=""
-                target="">Press Release &#x2F; Press Note</a></li>
-            <li class="a-MenuBar-item" data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
-                class="a-MenuBar-label" href="government-orders.html" title="" target="">Government Orders</a></li>
-            <li class="a-MenuBar-item" data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
-                class="a-MenuBar-label" href="sections.html" title="" target="">Sections</a></li>
-            <li class="a-MenuBar-item" data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
-                class="a-MenuBar-label" href="download-forms.html" title="" target="">Download Forms</a></li>
-            <li class="a-MenuBar-item admin-menu-show" data-id="" data-disabled="" data-hide="" data-shortcut=""
-              data-icon=""><a class="a-MenuBar-label" href="../admin-google-sheets.html" title="" target="">Google
-                Sheets - Report</a>
-            </li>
-            <li class="a-MenuBar-item admin-menu-show" data-id="" data-disabled="" data-hide="" data-shortcut=""
-              data-icon=""><a class="a-MenuBar-label" href="" title="" target="">Administration</a>
-              <ul style="display: none">
-                <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
-                    href="../admin-photo-upload.html" title="" target="">Photo&#x2F;Video Upload</a>
-                </li>
-                <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
-                    href="../admin-press-release.html" title="" target="">Upload Press Release</a>
-                </li>
-                <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
-                    href="../admin-section-content.html" title="" target="">Sections Content</a>
-                </li>
-                <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
-                    href="../admin-goverment-orders.html" title="" target="">Upload Government
-                    Orders</a></li>
-                <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
-                    href="../admin-sections-data-report.html" title="" target="">Sections Data
-                    Report</a></li>
-                <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
-                    href="../admin-forms-report.html" title="" target="">Forms Report</a></li>
-                <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
-                    href="../admin-memorial-video-report.html" title="" target="">memorial_video_report</a></li>
-                <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
-                    href="../admin-monuments.html" title="" target="">Monuments</a></li>
-                <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
-                    href="../admin-arangams.html" title="" target="">Arangams</a></li>
-                <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
-                    href="../admin-commemoration-pillars.html" title="" target="">Commemoration
-                    Pillars</a></li>
-                <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
-                    href="../admin-commemoration-arch.html" title="" target="">Commemoration
-                    Arch</a></li>
-                <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
-                    href="../admin-department-pictures.html" title="" target="">Department
-                    Pictures</a></li>
-                <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
-                    href="../admin-department-details.html" title="" target="">Department
-                    Details</a></li>
-                <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
-                    href="../admin-conclusion-photos.html" title="" target="">Conclusion_Photos</a>
-                </li>
-                <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
-                    href="../admin-google-sheets.html" title="" target="">Google Sheets</a></li>
-                <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
-                    href="../admin-press-notes.html" title="" target="">Upload Press Note</a></li>
-                <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
-                    href="../admin-add-user.html" title="" target="">Add
-                    User</a></li>
-                <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
-                    href="../admin-navigation-list-entry.html" title="" target="">Navigation Menu Report</a></li>
-              </ul>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </header>
-
-    <div class="t-Body">
-
-      <div class="t-Body-main">
-        <div class="t-Body-title" id="t_Body_title">
-          <nav id="R38515424824741653" role="navigation" aria-label="Press&#x20;Release"
-            class="t-BreadcrumbRegion t-BreadcrumbRegion--showBreadcrumb t-BreadcrumbRegion--useBreadcrumbTitle">
-            <div class="t-BreadcrumbRegion-top">
-              <div class="t-BreadcrumbRegion-buttons t-BreadcrumbRegion-buttons--start"></div>
-              <div class="t-BreadcrumbRegion-body">
-                <div class="t-BreadcrumbRegion-breadcrumb">
-                  <ul class="t-Breadcrumb ">
-                    <li class="t-Breadcrumb-item is-active" aria-current="page">
-                      <h1 class="t-Breadcrumb-label">Press Release</h1>
-                    </li>
-                  </ul>
-                </div>
-                <div class="t-BreadcrumbRegion-title">
-                  <h1 id="R38515424824741653_heading" class="t-BreadcrumbRegion-titleText" data-apex-heading>Press
-                    Release</h1>
+      <div class="t-Body-content" id="t_Body_content">
+        <main id="main" class="t-Body-mainContent">
+          <span id="APEX_SUCCESS_MESSAGE" data-template-id="33086037481442559_S"
+            class="apex-page-success u-hidden"></span><span id="APEX_ERROR_MESSAGE"
+            data-template-id="33086037481442559_E" class="apex-page-error u-hidden"></span>
+          <div class="t-Body-fullContent"></div>
+          <div class="t-Body-contentInner">
+            <div class="container">
+              <div class="row ">
+                <div class="col col-12 apex-col-auto col-start col-end">
+                  <div id="R22879691196163085" class=""></div>
                 </div>
               </div>
-              <div class="t-BreadcrumbRegion-buttons t-BreadcrumbRegion-buttons--end"></div>
-            </div>
-            <div class="t-BreadcrumbRegion-bottom"></div>
-          </nav>
-        </div>
-        <div class="t-Body-content" id="t_Body_content">
-          <main id="main" class="t-Body-mainContent">
-            <span id="APEX_SUCCESS_MESSAGE" data-template-id="33086037481442559_S"
-              class="apex-page-success u-hidden"></span><span id="APEX_ERROR_MESSAGE"
-              data-template-id="33086037481442559_E" class="apex-page-error u-hidden"></span>
-            <div class="t-Body-fullContent"></div>
-            <div class="t-Body-contentInner">
-              <div class="container">
-                <div class="row ">
-                  <div class="col col-12 apex-col-auto col-start col-end">
-                    <div id="R22879691196163085" class=""></div>
-                  </div>
-                </div>
-                <div class="row ">
-                  <div class="col col-4  col-start">
-                    <div
-                      class="t-Form-fieldContainer t-Form-fieldContainer--floatingLabel  apex-item-wrapper apex-item-wrapper--date-picker-apex apex-item-wrapper--date-picker-apex-popup"
-                      id="P33_SELECT_DATE_CONTAINER">
-                      <div class="t-Form-labelContainer">
-                        <label for="P33_SELECT_DATE" id="P33_SELECT_DATE_LABEL" class="t-Form-label">Select Date</label>
-                      </div>
-                      <div class="t-Form-inputContainer">
-                        <div class="t-Form-itemWrapper"><a-date-picker id="P33_SELECT_DATE" change-month="true"
-                            change-year="true" display-as="popup" display-weeks="none" format="MM&#x2F;DD&#x2F;YYYY"
-                            previous-next-distance="one-month" show-days-outside-month="visible" show-on="focus"
-                            show-time="false" size="30" time-increment-minute="15" today-button="true"
-                            valid-example="09&#x2F;27&#x2F;2024" year-selection-range="5"><input aria-haspopup="dialog"
-                              class="apex-item-text&#x20;apex-item-datepicker" name="P33_SELECT_DATE" size="30"
-                              type="text"><button aria-haspopup="dialog" aria-label="Select&#x20;Date"
-                              class="a-Button&#x20;a-Button--calendar" tabindex="-1" title="Select&#x20;Date"
-                              type="button"><span class="a-Icon icon-calendar"></span></button></a-date-picker></div>
-                        <span id="P33_SELECT_DATE_error_placeholder" class="a-Form-error"
-                          data-template-id="32751268491172723_ET"></span>
-                      </div>
+              <div class="row ">
+                <div class="col col-4  col-start">
+                  <div
+                    class="t-Form-fieldContainer t-Form-fieldContainer--floatingLabel  apex-item-wrapper apex-item-wrapper--date-picker-apex apex-item-wrapper--date-picker-apex-popup"
+                    id="P33_SELECT_DATE_CONTAINER">
+                    <div class="t-Form-labelContainer">
+                      <label for="P33_SELECT_DATE" id="P33_SELECT_DATE_LABEL" class="t-Form-label">Select Date</label>
+                    </div>
+                    <div class="t-Form-inputContainer">
+                      <div class="t-Form-itemWrapper"><a-date-picker id="P33_SELECT_DATE" change-month="true"
+                          change-year="true" display-as="popup" display-weeks="none" format="MM&#x2F;DD&#x2F;YYYY"
+                          previous-next-distance="one-month" show-days-outside-month="visible" show-on="focus"
+                          show-time="false" size="30" time-increment-minute="15" today-button="true"
+                          valid-example="09&#x2F;27&#x2F;2024" year-selection-range="5"><input aria-haspopup="dialog"
+                            class="apex-item-text&#x20;apex-item-datepicker" name="P33_SELECT_DATE" size="30"
+                            type="text"><button aria-haspopup="dialog" aria-label="Select&#x20;Date"
+                            class="a-Button&#x20;a-Button--calendar" tabindex="-1" title="Select&#x20;Date"
+                            type="button"><span class="a-Icon icon-calendar"></span></button></a-date-picker></div>
+                      <span id="P33_SELECT_DATE_error_placeholder" class="a-Form-error"
+                        data-template-id="32751268491172723_ET"></span>
                     </div>
                   </div>
                 </div>
-                <div class="row ">
-                  <div class="col col-12 apex-col-auto col-start col-end">
-                    <div class="t-TabsRegion t-TabsRegion-mod--simple apex-tabs-region" id="R37774441313031133">
-                      <input type="hidden" name="P33_FILE_ID" id="P33_FILE_ID" value=""><input type="hidden"
-                        name="P33_NOTE_FILE_ID" id="P33_NOTE_FILE_ID" value="">
-                      <div class="t-TabsRegion-items">
-                        <div data-label="Press&#x20;Release" id="SR_R37972155424464867">
-                          <div id="R37972155424464867" role="region" aria-label="Press&#x20;Release"
-                            class="t-IRR-region ">
-                            <div class="t-Region-orderBy"></div>
+              </div>
+              <div class="row ">
+                <div class="col col-12 apex-col-auto col-start col-end">
+                  <div class="t-TabsRegion t-TabsRegion-mod--simple apex-tabs-region" id="R37774441313031133">
+                    <input type="hidden" name="P33_FILE_ID" id="P33_FILE_ID" value=""><input type="hidden"
+                      name="P33_NOTE_FILE_ID" id="P33_NOTE_FILE_ID" value="">
+                    <div class="t-TabsRegion-items">
+                      <div data-label="Press&#x20;Release" id="SR_R37972155424464867">
+                        <div id="R37972155424464867" role="region" aria-label="Press&#x20;Release"
+                          class="t-IRR-region ">
+                          <div class="t-Region-orderBy"></div>
 
-                            <div id="R37972155424464867_ir" class="a-IRR-container">
-                              <div id="R37972155424464867_worksheet_region" class="a-IRR" aria-live="polite">
-                                <div id="R37972155424464867_single_row_view" class="a-IRR-singleRowView"></div>
-                                <div id="R37972155424464867_full_view" class="a-IRR-fullView">
-                                  <div id="R37972155424464867_column_search_drop" class="a-IRR-colSearch"></div>
-                                  <div id="R37972155424464867_content" class="a-IRR-content ">
-                                    <div id="R37972155424464867_dialog_js" class="a-IRR-dialogBody"
-                                      style="display:none"></div><input type="hidden"
-                                      id="R37972155424464867_worksheet_id" value="39772618284043940" />
-                                    <input type="hidden" id="R37972155424464867_app_user" value="nobody" />
-                                    <input type="hidden" id="R37972155424464867_report_id" value="39795179353075589" />
-                                    <input type="hidden" id="R37972155424464867_view_mode" value="REPORT" />
-                                    <input type="hidden" id="R37972155424464867_row_select" value="50" />
-                                    <div role="region" aria-label="Report&#x20;settings&#x20;of&#x20;Press&#x20;Release"
-                                      class="a-MediaBlock a-IRR-controlsContainer"
-                                      id="R37972155424464867_control_panel">
-                                      <div class="a-MediaBlock-graphic">
-                                        <h3 aria-hidden="true" class="u-vh">Report Settings</h3>
-                                        <span role="heading" aria-level="3"><button type="button"
-                                            class="a-Button a-IRR-button a-IRR-button--controls"><span
-                                              class="a-Icon a-Collapsible-icon icon-down-arrow"
-                                              aria-hidden="true"></span></button></span>
-                                      </div>
-                                      <div class="a-MediaBlock-content">
-                                        <ul role="none" class="a-IRR-controls">
-
-
-                                          <li class="a-IRR-controls-item a-IRR-controls-item--controlBreak"
-                                            aria-labelledby="control_text_PR_DATE" role="region"><span
-                                              class="a-IRR-controls-cell"><input class="a-IRR-controlsCheckbox"
-                                                data-setting="break" data-break-column="PR_DATE"
-                                                aria-label="Control&#x20;Break" aria-describedby="control_text_PR_DATE"
-                                                type="checkbox" id="control_PR_DATE" checked="checked" /><label
-                                                for="control_PR_DATE" aria-hidden="true"
-                                                class="a-IRR-controlsCheckboxLabel"></label></span><span
-                                              class="a-IRR-controls-cell"><span
-                                                class="a-Icon a-IRR-controlsIcon icon-irr-control-break"
-                                                aria-hidden="true"></span></span><span
-                                              class="a-IRR-controls-cell a-IRR-controls-cell--label"><button
-                                                type="button" aria-describedby="control_text_PR_DATE"
-                                                aria-controls="control_PR_DATE"
-                                                class="a-IRR-button--edit a-IRR-controlsLabel" data-setting="break"
-                                                data-break-column="PR_DATE"><span aria-hidden="true">Pr Date</span><span
-                                                  aria-hidden="true" class="u-vh" id="control_text_PR_DATE">Control
-                                                  Break: Pr Date</span><span class="u-vh">Edit Control
-                                                  Break</span></button></span><span
-                                              class="a-IRR-controls-cell a-IRR-controls-cell--remove"><button
-                                                class="a-Button a-IRR-button a-Button--noUI a-IRR-button--remove"
-                                                aria-label="Remove&#x20;Control&#x20;Break"
-                                                aria-describedby="control_text_PR_DATE" aria-controls="control_PR_DATE"
-                                                type="button" data-setting="break" data-break-column="PR_DATE"><span
-                                                  aria-hidden="true" class="a-Icon icon-remove"></span><span
-                                                  class="u-vh">Remove Control Break</span></button></span></li>
-
-                                        </ul>
-                                      </div>
-                                      <div class="a-IRR-reportSummaryContainer"
-                                        id="R37972155424464867_control_panel_summary" style="display: none;">
-                                        <ul class="a-IRR-reportSummary">
-                                          <li class="a-IRR-reportSummary-item a-IRR-reportSummary-item--controlBreak"><a
-                                              href="#" class="a-IRR-reportSummary-label" data-setting="break"><span
-                                                class="a-IRR-reportSummary-icon" aria-label="Control&#x20;Break"
-                                                role="img"><span
-                                                  class="a-Icon icon-irr-control-break"></span></span><span
-                                                class="a-IRR-reportSummary-value">Pr Date</span></a></li>
-                                        </ul>
-                                      </div>
+                          <div id="R37972155424464867_ir" class="a-IRR-container">
+                            <div id="R37972155424464867_worksheet_region" class="a-IRR" aria-live="polite">
+                              <div id="R37972155424464867_single_row_view" class="a-IRR-singleRowView"></div>
+                              <div id="R37972155424464867_full_view" class="a-IRR-fullView">
+                                <div id="R37972155424464867_column_search_drop" class="a-IRR-colSearch"></div>
+                                <div id="R37972155424464867_content" class="a-IRR-content ">
+                                  <div id="R37972155424464867_dialog_js" class="a-IRR-dialogBody" style="display:none">
+                                  </div><input type="hidden" id="R37972155424464867_worksheet_id"
+                                    value="39772618284043940" />
+                                  <input type="hidden" id="R37972155424464867_app_user" value="nobody" />
+                                  <input type="hidden" id="R37972155424464867_report_id" value="39795179353075589" />
+                                  <input type="hidden" id="R37972155424464867_view_mode" value="REPORT" />
+                                  <input type="hidden" id="R37972155424464867_row_select" value="50" />
+                                  <div role="region" aria-label="Report&#x20;settings&#x20;of&#x20;Press&#x20;Release"
+                                    class="a-MediaBlock a-IRR-controlsContainer" id="R37972155424464867_control_panel">
+                                    <div class="a-MediaBlock-graphic">
+                                      <h3 aria-hidden="true" class="u-vh">Report Settings</h3>
+                                      <span role="heading" aria-level="3"><button type="button"
+                                          class="a-Button a-IRR-button a-IRR-button--controls"><span
+                                            class="a-Icon a-Collapsible-icon icon-down-arrow"
+                                            aria-hidden="true"></span></button></span>
                                     </div>
-                                    <style id="R37972155424464867_worksheet_css" type="text/css">
-                                    </style>
-                                    <div role="region" aria-label="Chart&#x20;view&#x20;of&#x20;Press&#x20;Release"
-                                      id="R37972155424464867_chart" class="a-IRR-chartView"></div>
-                                    <div role="region"
-                                      aria-label="Group&#x20;by&#x20;view&#x20;of&#x20;Press&#x20;Release"
-                                      id="R37972155424464867_group_by" class="a-IRR-groupByView"></div>
-                                    <div role="region" aria-label="Pivot&#x20;view&#x20;of&#x20;Press&#x20;Release"
-                                      id="R37972155424464867_pivot" class="a-IRR-pivotView"></div>
-                                    <div role="region" aria-label="Data&#x20;view&#x20;of&#x20;Press&#x20;Release"
-                                      id="R37972155424464867_data_panel" class="a-IRR-reportView">
-                                      <div class="a-IRR-tableContainer">
-                                        <!-- <table aria-label="Press&#x20;Release,&#x20;Report&#x20;&#x3D;&#x20;Primary&#x20;Default,&#x20;View&#x20;&#x3D;&#x20;Report" class="a-IRR-table" id="press_release_data_table">
+                                    <div class="a-MediaBlock-content">
+                                      <ul role="none" class="a-IRR-controls">
+
+
+                                        <li class="a-IRR-controls-item a-IRR-controls-item--controlBreak"
+                                          aria-labelledby="control_text_PR_DATE" role="region"><span
+                                            class="a-IRR-controls-cell"><input class="a-IRR-controlsCheckbox"
+                                              data-setting="break" data-break-column="PR_DATE"
+                                              aria-label="Control&#x20;Break" aria-describedby="control_text_PR_DATE"
+                                              type="checkbox" id="control_PR_DATE" checked="checked" /><label
+                                              for="control_PR_DATE" aria-hidden="true"
+                                              class="a-IRR-controlsCheckboxLabel"></label></span><span
+                                            class="a-IRR-controls-cell"><span
+                                              class="a-Icon a-IRR-controlsIcon icon-irr-control-break"
+                                              aria-hidden="true"></span></span><span
+                                            class="a-IRR-controls-cell a-IRR-controls-cell--label"><button type="button"
+                                              aria-describedby="control_text_PR_DATE" aria-controls="control_PR_DATE"
+                                              class="a-IRR-button--edit a-IRR-controlsLabel" data-setting="break"
+                                              data-break-column="PR_DATE"><span aria-hidden="true">Pr Date</span><span
+                                                aria-hidden="true" class="u-vh" id="control_text_PR_DATE">Control
+                                                Break: Pr Date</span><span class="u-vh">Edit Control
+                                                Break</span></button></span><span
+                                            class="a-IRR-controls-cell a-IRR-controls-cell--remove"><button
+                                              class="a-Button a-IRR-button a-Button--noUI a-IRR-button--remove"
+                                              aria-label="Remove&#x20;Control&#x20;Break"
+                                              aria-describedby="control_text_PR_DATE" aria-controls="control_PR_DATE"
+                                              type="button" data-setting="break" data-break-column="PR_DATE"><span
+                                                aria-hidden="true" class="a-Icon icon-remove"></span><span
+                                                class="u-vh">Remove Control Break</span></button></span></li>
+
+                                      </ul>
+                                    </div>
+                                    <div class="a-IRR-reportSummaryContainer"
+                                      id="R37972155424464867_control_panel_summary" style="display: none;">
+                                      <ul class="a-IRR-reportSummary">
+                                        <li class="a-IRR-reportSummary-item a-IRR-reportSummary-item--controlBreak"><a
+                                            href="#" class="a-IRR-reportSummary-label" data-setting="break"><span
+                                              class="a-IRR-reportSummary-icon" aria-label="Control&#x20;Break"
+                                              role="img"><span class="a-Icon icon-irr-control-break"></span></span><span
+                                              class="a-IRR-reportSummary-value">Pr Date</span></a></li>
+                                      </ul>
+                                    </div>
+                                  </div>
+                                  <style id="R37972155424464867_worksheet_css" type="text/css">
+                                  </style>
+                                  <div role="region" aria-label="Chart&#x20;view&#x20;of&#x20;Press&#x20;Release"
+                                    id="R37972155424464867_chart" class="a-IRR-chartView"></div>
+                                  <div role="region"
+                                    aria-label="Group&#x20;by&#x20;view&#x20;of&#x20;Press&#x20;Release"
+                                    id="R37972155424464867_group_by" class="a-IRR-groupByView"></div>
+                                  <div role="region" aria-label="Pivot&#x20;view&#x20;of&#x20;Press&#x20;Release"
+                                    id="R37972155424464867_pivot" class="a-IRR-pivotView"></div>
+                                  <div role="region" aria-label="Data&#x20;view&#x20;of&#x20;Press&#x20;Release"
+                                    id="R37972155424464867_data_panel" class="a-IRR-reportView">
+                                    <div class="a-IRR-tableContainer">
+                                      <!-- <table aria-label="Press&#x20;Release,&#x20;Report&#x20;&#x3D;&#x20;Primary&#x20;Default,&#x20;View&#x20;&#x3D;&#x20;Report" class="a-IRR-table" id="press_release_data_table">
 <tr><th colspan="1" scope="colgroup" class="a-IRR-header a-IRR-header--group" id="B41889826777581078_1">Pr Date: 09&#x2F;27&#x2F;2024</th></tr>
 <tr><th class="a-IRR-header u-tL" id="C39772817176043942" ><a aria-haspopup="dialog" class="a-IRR-headerLink" data-column="39772817176043942" href="#">Press File Name</a></th></tr>
 
@@ -666,186 +755,179 @@
 <tr ><td class=" u-tL" headers="C39772817176043942 B41889826777581078_4" ><a href="press-release1ab7e.pdf?p33_file_id=7963&amp;request=APPLICATION_PROCESS%3DGET_FILE&amp;cs=1KFpgjUCCH5LuujB_4An_JyQCiZONBUgacvFck-kpwS7YeAGR1BUEPxw1qA9kh50JqqB1q5025dNcjam8Sjle2g" target='_blank'>DIPR-P.R.NO-1504-Hon&#x27;ble CM Press Release - Kolathur Building inaguration and work inspection-Date 24.09.2024.pdf</a></td></tr><tr ><td class=" u-tL" headers="C39772817176043942 B41889826777581078_4" ><a href="DIPR-P.R.No.1513-Tamil%2bDevelopment%2bDepartment-Press%2bRelease-Date%2b24.09.2024.pdf_%3b%20filename_%3dUTF-8%27%27DIPR-P.R.No.1513-Tamil%2bDevelopment%2bDepartment-Press%2bRelease-Date%2b24.09.20249164.pdf%3b%20E2?p33_file_id=7983&amp;request=APPLICATION_PROCESS%3DGET_FILE&amp;cs=1XiLPokL5gGOYH5ATsHtsIbWVq1VJ4Q6fKLB2XDpjI7XM3eMuF4ZKO_EBarSwuPA_j56QlL7BPa19g16h68emnQ" target='_blank'>DIPR-P.R.No.1513-Tamil Development Department-Press Release-Date 24.09.2024.pdf</a></td></tr><tr ><td class=" u-tL" headers="C39772817176043942 B41889826777581078_4" ><a href="press-release149d3.pdf?p33_file_id=7967&amp;request=APPLICATION_PROCESS%3DGET_FILE&amp;cs=1xHGzki3AGeUgAqRZfjQcvmxxaQ063pdohGBSsqIDIxNfKPhbZ5Q2HvgEqSrzCVDlNFIW1H1SH7idWGvcECG-ow" target='_blank'>DIPR-P.R.NO-1506-Hon&#x27;ble CM Press Release-kalaignar ninaivu kalaithurai vithagar viruthu-Date 24.09.2024.pdf</a></td></tr><tr ><td class=" u-tL" headers="C39772817176043942 B41889826777581078_4" ><a href="press-release12621.pdf?p33_file_id=8002&amp;request=APPLICATION_PROCESS%3DGET_FILE&amp;cs=1d0JDL4Uf3mThmOh9KWRKPjtt_9fHsXsJFWBjqYOumJy48pbXfHJseTCr6w3s0t6nHKzkhG51j0g0ga5RD6KdGg" target='_blank'>DIPR-P.R.No.1514-Hon&#x27;ble CM Press Release - Sports Dept - High Cash Incentive to 45th Chess Olympiad winners from TN-Date 24.09.2024.pdf</a></td></tr><tr ><td class=" u-tL" headers="C39772817176043942 B41889826777581078_4" ><a href="press-release18fa7.pdf?p33_file_id=7975&amp;request=APPLICATION_PROCESS%3DGET_FILE&amp;cs=19rsG6JHHFgd8v2SDQOhgHZfMtLmvc03WZa9Kq_kZcNDNZzT0qZ1eJEZNbmi51GmXqAH4zzq3_mPf9kH5tLmqXw" target='_blank'>DIPR-P.R.NO-1507-Hon&#x27;ble PWD Minister Press Rlease-Kalaignar Centenary Super Speciality Hospital Building Awarded as Gold status -Tamil-Date 24.09.2024.pdf</a></td></tr><tr ><td class=" u-tL" headers="C39772817176043942 B41889826777581078_4" ><a href="press-release17a8d.pdf?p33_file_id=7974&amp;request=APPLICATION_PROCESS%3DGET_FILE&amp;cs=1TaPP0WOjbqeK97OXfq1x3E1yostbcp71aZBxdXRXO82NHaA72-z87rCDZA2Aai8zxUSDKhT94LO3pNaCFPI8Cg" target='_blank'>DIPR-P.R.NO-1507-Hon&#x27;ble PWD Minister Press Rlease-Kalaignar Centenary Super Speciality Hospital Building Awarded as Gold status -English-Date 24.09.2024.pdf</a></td></tr><tr ><td class=" u-tL" headers="C39772817176043942 B41889826777581078_4" ><a href="press-release1539a.pdf?p33_file_id=7973&amp;request=APPLICATION_PROCESS%3DGET_FILE&amp;cs=1gev4bg6Uk15y7UbrQtQuVKNFM3icIonbzRUQKQ8SEytMiWJ7nPtGY4jxfTHTIWC0iio97W9oTOJr2d3RzKbsGg" target='_blank'>DIPR-P.R.No.1512-Municipal Administration and Water Supply Department-Press Release-Date 24.09.2024.pdf</a></td></tr><tr ><td class=" u-tL" headers="C39772817176043942 B41889826777581078_4" ><a href="press-release17c57.pdf?p33_file_id=7972&amp;request=APPLICATION_PROCESS%3DGET_FILE&amp;cs=1lIuuT120S9sDaPYQYHtYa6UvjuHCw-PplMMq7p5eTzBFRIfUaEJAetqHN3j8cWYM2xl5p7bthU7kNmGkIEL6WA" target='_blank'>DIPR-P.R.No.1511-Municipal Administration and Water Supply Department-Press Release-Date 24.09.2024.pdf</a></td></tr><tr ><td class=" u-tL" headers="C39772817176043942 B41889826777581078_4" ><a href="press-release1c814.pdf?p33_file_id=7971&amp;request=APPLICATION_PROCESS%3DGET_FILE&amp;cs=1rNKj8KU9mPiQZhJI0wlsz8SJu5Uxp-6zY_wSjp3djOGpZXRO1WDJkBgP8YG5dNKBTrWijC9CrtK6uweDPB20mQ" target='_blank'>DIPR-P.R.No.1510-Hon&#x27;ble Minister for Youth Welfare and Sports Development-TNSDC-Naan Mudhalvan-Press Release-Date 24.09.2024.pdf</a></td></tr><tr ><td class=" u-tL" headers="C39772817176043942 B41889826777581078_4" ><a href="press-release12651.pdf?p33_file_id=7970&amp;request=APPLICATION_PROCESS%3DGET_FILE&amp;cs=1Q3u6WUet4Fa2BeLrRhKUGUuvWVhyo0FCtPcnY9z-cz93xgi230S8QgT6NcNW0QEj0Y0ybNPruf7kwQkI1z-I9A" target='_blank'>DIPR-P.R.No.1509-WRD-Kodayar Radhapuram Canal Water Release-Press Release-Date 24.09.2024.pdf</a></td></tr><tr ><td class=" u-tL" headers="C39772817176043942 B41889826777581078_4" ><a href="press-release1420b.pdf?p33_file_id=7969&amp;request=APPLICATION_PROCESS%3DGET_FILE&amp;cs=1eGISEdkXzTN8OGbwqfVv-knOz8WgoJ9JisOf2BUs5p8Qdl36g5VBZf1QmzpnoTfIBVY8hL2DhpGltFeLzWdI6g" target='_blank'>DIPR-P.R.No.1508-Hon&#x27;ble Minister for Labour Welfare and Skill Development-TNLWB-Press Release-Date 24.09.2024.pdf</a></td></tr><tr ><td class=" u-tL" headers="C39772817176043942 B41889826777581078_4" ><a href="press-release16184.pdf?p33_file_id=7964&amp;request=APPLICATION_PROCESS%3DGET_FILE&amp;cs=1i4htPMGuU_fxj12373_q6fb3P9J1ptOW-CR4D8LwbB8ey0Mp4h3zctnQmdxEdlJGO4MV811r-4xrYCNMLnNKHQ" target='_blank'>DIPR-P.R.NO-1505-Hon&#x27;ble CM Condolence Message - Death of Father in Law of Thiru J. Kumaragurubaran, IAS - Date 24.09.2024.pdf</a></td></tr><tr><th colspan="1" scope="colgroup" class="a-IRR-header a-IRR-header--group" id="B41889826777581078_5">Pr Date: 09&#x2F;23&#x2F;2024</th></tr>
 <tr><th class="a-IRR-header u-tL"  #ARIA_SORT#><span class="a-IRR-headerLabel">Press File Name</span></th></tr>
 <tr ><td class=" u-tL" headers="C39772817176043942 B41889826777581078_5" ><a href="DIPR%2bPR%2bNO%2b-%2b1496%2b-%2bTransport%2bPress%2bRelease%2b-%2b23.09.2024.pdf_%3b%20filename_%3dUTF-8%27%27DIPR%2bPR%2bNO%2b-%2b1496%2b-%2bTransport%2bPress%2bRelease%2b-%2b23.09.2024af23.pdf%3b%202Epdf%3b?p33_file_id=7929&amp;request=APPLICATION_PROCESS%3DGET_FILE&amp;cs=1DRTKJG08qnyLiHLjSj1K1THDiHSirIWPtuwhpgKyB_QjU3t1lSCTCeoJQNOYbfpAGIvsbcPbsT5OmEQwLRel0g" target='_blank'>DIPR PR NO - 1496 - Transport Press Release - 23.09.2024.pdf</a></td></tr><tr ><td class=" u-tL" headers="C39772817176043942 B41889826777581078_5" ><a href="press-release1ea45.pdf?p33_file_id=7924&amp;request=APPLICATION_PROCESS%3DGET_FILE&amp;cs=1gn6-nB3IJyKNogxB-FSJRBDA8Il0H-W0eNGnCP2-MMjweLAcXudbpPhO6zKB5dzVjWEhBl8cZm8Oi6zBZiMzMw" target='_blank'>DIPR PR NO - 1495 - HCM Press Release - Industries Dept - Mini Tidel Park at Thanjavur &amp; Salem Inauguration - 23.9.2024.pdf</a></td></tr><tr ><td class=" u-tL" headers="C39772817176043942 B41889826777581078_5" ><a href="press-release13c6a.pdf?p33_file_id=7923&amp;request=APPLICATION_PROCESS%3DGET_FILE&amp;cs=17SAwZPhT3Pb3jBCw15X6jXiT11lEbrlg-VrChqq1Rlo7-yNy2CW1EYkfgK0_5UdSl7eBEFhlg9xwKBMOx0Hcuw" target='_blank'>DIPR PR NO - 1492 - HCM Press Release - E&amp;F Dept - Appt order for Asst Forest Conservator and TNPCB Asst Engineers - 23.9.2024.pdf</a></td></tr><tr ><td class=" u-tL" headers="C39772817176043942 B41889826777581078_5" ><a href="press-release1f415.pdf?p33_file_id=7941&amp;request=APPLICATION_PROCESS%3DGET_FILE&amp;cs=1b2YI6lGRR2FfGGJeWHOD3eqdYGptS-2EUcbPOQ8aRqC9lPiiCZD2TErtC-DqE-t4eKH9RjNzQgQBMKt5JjMFZg" target='_blank'>DIPR-P.R.NO-1502-Hon&#x27;ble CM Speech - CPI(M)  Demised General Secy Thiru Sitaram Yechury photo unveiling function - Dt.23.09.2024.pdf</a></td></tr><tr ><td class=" u-tL" headers="C39772817176043942 B41889826777581078_5" ><a href="press-release118bb.pdf?p33_file_id=7939&amp;request=APPLICATION_PROCESS%3DGET_FILE&amp;cs=1-TiZhzPVAEQAqlqD5IEaTNkL7i3DmVgDXHPH2ywfNH6DEfifYtODg5sS_xxjceqikrtoadWmndrstFJkIIFr0A" target='_blank'>DIPR-P.R.NO-1500-Handlooms Dept.-Press Release-3rd Buyer Seller Meet-Dt.23.09.2024.pdf</a></td></tr><tr ><td class=" u-tL" headers="C39772817176043942 B41889826777581078_5" ><a href="press-release17c07.pdf?p33_file_id=7937&amp;request=APPLICATION_PROCESS%3DGET_FILE&amp;cs=19adzCvrypx8wOW0Am_atqbIEFSm4wLw2_Mlm-usP3E1vso-IPzv_jHx5H8ChB18zt8ylIgazL7IHJHcO25Yrfg" target='_blank'>DIPR-P.R.NO-1499-Hon&#x27;ble TNLA Speaker-10th CPA Indian Region Conference- Press Release-English-Dt.23.09.2024.pdf</a></td></tr><tr ><td class=" u-tL" headers="C39772817176043942 B41889826777581078_5" ><a href="press-release1fc39.pdf?p33_file_id=7927&amp;request=APPLICATION_PROCESS%3DGET_FILE&amp;cs=1_qz-Eaw4Kkk2zzxYXmqJQu4px9aP832W4AOKsEjAMfWlfmlrzF9ItxOGqLj32PtHOLZJxCGaflPmzSZw6wvhJA" target='_blank'>DIPR PR NO - 1493 - HCM Press Release - Tamil Nadu Civil Supplies Corp and  Cooperation Dept Building inauguration - 23.9.2024.pdf</a></td></tr><tr ><td class=" u-tL" headers="C39772817176043942 B41889826777581078_5" ><a href="press-release1a7bc.pdf?p33_file_id=7921&amp;request=APPLICATION_PROCESS%3DGET_FILE&amp;cs=1g-jotUIAPg0JElIUNw8KwVJVmTnnNJqMKYqlHWj9aSACCROKBlCnZI1w4m7OOoFprhfZBDKUrW2TpXMspcGKqA" target='_blank'>DIPR PR NO - 1494 - HCM Press Release - CM D.O. Letter to Hon&#x27;ble Minister-External Affairs-Fishermen - 23.09.2024.pdf</a></td></tr><tr ><td class=" u-tL" headers="C39772817176043942 B41889826777581078_5" ><a href="press-release1615a.pdf?p33_file_id=7961&amp;request=APPLICATION_PROCESS%3DGET_FILE&amp;cs=16RTo8NN5FW1Gxlv1ZNGsWrW9hWM0C50ZznI_Yk3LcA6m4WjwyXFV52mP7mXtr5cCA5cGnqAjShf3dHpahu7EVg" target='_blank'>DIPR-P.R.NO-1503-Hon&#x27;ble Minister for TD &amp; Information Minister -Press Byte Inspection of Valluvar Kottam - Dt.23.09.2024.pdf</a></td></tr><tr ><td class=" u-tL" headers="C39772817176043942 B41889826777581078_5" ><a href="press-release1077b.pdf?p33_file_id=7931&amp;request=APPLICATION_PROCESS%3DGET_FILE&amp;cs=1i2FmnAds5SzVRuWFWJ-UCWhDgtlBnrZ9AhUtAxKY0uFOQ_Wu0ZONgWGV2sYYb38YvAwkZfChQYz-_DLrzVuwOA" target='_blank'>DIPR-P.R.NO-1497-Hon&#x27;ble Minister for TD and Information -Press Release-Journalist Welfare Amount Issued Dt.23.09.2024.pdf</a></td></tr></table> -->
-                                        <table class="t-Report-report" id="report_table_COPPR"
-                                          aria-label="Corporations">
-                                          <!-- <thead>
+                                      <table class="t-Report-report" id="report_table_COPPR" aria-label="Corporations">
+                                        <!-- <thead>
     <tr>
       <th class="t-Report-colHead" align="left" id="NAME">Name</th>
     </tr>
   </thead> -->
-                                          <tbody id="press_release_data_table">
-                                            <!-- Dynamic rows will be inserted here -->
-                                          </tbody>
-                                        </table>
-                                      </div>
-                                      <div role="region" aria-label="Pagination&#x20;of&#x20;Press&#x20;Release"
-                                        class="a-IRR-paginationWrap a-IRR-paginationWrap--bottom">
-                                        <ul class="a-IRR-pagination">
-                                          <li aria-hidden="true" class="a-IRR-pagination-item is-disabled"></li>
-                                          <li class="a-IRR-pagination-item"><span class="a-IRR-pagination-label"> 1 -
-                                              50</span></li>
-                                          <li class="a-IRR-pagination-item"><button type="button"
-                                              class="a-Button a-IRR-button a-IRR-button--pagination"
-                                              aria-controls="R37972155424464867" title="Next" aria-label="Next"
-                                              data-pagination="pgR_min_row=51max_rows=50rows_fetched=50"><span
-                                                class="a-Icon icon-right-chevron" aria-hidden="true"></span></button>
-                                          </li>
-                                        </ul>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                              <div role="dialog" aria-label="Column&#x20;Actions" aria-modal="true"
-                                class="a-IRR-sortWidget" id="R37972155424464867_sort_widget" style="display:none;">
-                                <h1 class="u-vh" aria-roledescription="Visually&#x20;hidden&#x20;dialog&#x20;title">
-                                  Column Actions</h1>
-                                <ul role="toolbar" class="a-IRR-sortWidget-actions"
-                                  id="R37972155424464867_sort_widget_actions">
-                                  <li role="none" class="a-IRR-sortWidget-actions-item"
-                                    id="R37972155424464867_sort_widget_action_up"><button
-                                      class="a-Button a-IRR-button a-IRR-sortWidget-button" type="button"
-                                      title="Sort&#x20;Ascending" aria-label="Sort&#x20;Ascending"
-                                      data-option="up"><span aria-hidden="true"
-                                        class="a-Icon icon-irr-sort-asc"></span></button></li>
-                                  <li role="none" class="a-IRR-sortWidget-actions-item"
-                                    id="R37972155424464867_sort_widget_action_down"><button
-                                      class="a-Button a-IRR-button a-IRR-sortWidget-button" type="button"
-                                      title="Sort&#x20;Descending" aria-label="Sort&#x20;Descending"
-                                      data-option="down"><span aria-hidden="true"
-                                        class="a-Icon icon-irr-sort-desc"></span></button></li>
-                                  <li role="none" class="a-IRR-sortWidget-actions-item"
-                                    id="R37972155424464867_sort_widget_action_hide"><button
-                                      class="a-Button a-IRR-button a-IRR-sortWidget-button" type="button"
-                                      title="Hide&#x20;Column" aria-label="Hide&#x20;Column" data-option="hide"><span
-                                        aria-hidden="true" class="a-Icon icon-irr-remove-col"></span></button></li>
-                                  <li role="none" class="a-IRR-sortWidget-actions-item"
-                                    id="R37972155424464867_sort_widget_action_break"><button
-                                      class="a-Button a-IRR-button a-IRR-sortWidget-button" type="button"
-                                      title="Control&#x20;Break" aria-label="Control&#x20;Break"
-                                      data-option="break"><span aria-hidden="true"
-                                        class="a-Icon icon-irr-control-break"></span></button></li>
-                                  <li role="none" class="a-IRR-sortWidget-actions-item"
-                                    id="R37972155424464867_sort_widget_action_help"><button
-                                      class="a-Button a-IRR-button a-IRR-sortWidget-button" type="button" title="Help"
-                                      aria-label="Help" data-option="help" aria-pressed="false"><span aria-hidden="true"
-                                        class="a-Icon icon-irr-help"></span></button></li>
-                                  <li role="none" class="a-IRR-sortWidget-actions-item"
-                                    id="R37972155424464867_sort_widget_action_computation"><button
-                                      class="a-Button a-IRR-button a-IRR-sortWidget-button" type="button"
-                                      title="Compute" aria-label="Compute" data-option="computation"><span
-                                        aria-hidden="true" class="a-Icon icon-irr-calculator"></span></button></li>
-                                </ul>
-                                <div role="region" aria-label="Help" class="a-IRR-sortWidget-help"
-                                  id="R37972155424464867_sort_widget_help"></div>
-                                <div role="search" class="a-IRR-sortWidget-search"
-                                  id="R37972155424464867_sort_widget_search"><label
-                                    for="R37972155424464867_sort_widget_search_field"><span aria-hidden="true"
-                                      class="a-IRR-sortWidget-searchLabel"></span><span
-                                      class="u-vh">Search</span></label><input
-                                    id="R37972155424464867_sort_widget_search_field"
-                                    class="a-IRR-sortWidget-searchField" type="text" placeholder="Filter..." />
-                                  <div role="group" aria-label="Filter&#x20;suggestions" class="a-IRR-sortWidget-rows"
-                                    id="R37972155424464867_sort_widget_rows"></div>
-                                </div>
-                              </div>
-                            </div>
-
-
-                          </div>
-                        </div>
-                        <div data-label="Press&#x20;Notes" id="SR_R37774366901031132">
-                          <div id="R37774366901031132" role="region" aria-label="Press&#x20;Notes"
-                            class="t-IRR-region t-IRR-region--noBorders">
-                            <div class="t-Region-orderBy"></div>
-
-                            <div id="R37774366901031132_ir" class="a-IRR-container">
-                              <div id="R37774366901031132_worksheet_region" class="a-IRR" aria-live="polite">
-                                <div id="R37774366901031132_single_row_view" class="a-IRR-singleRowView"></div>
-                                <div id="R37774366901031132_full_view" class="a-IRR-fullView">
-                                  <div id="R37774366901031132_column_search_drop" class="a-IRR-colSearch"></div>
-                                  <div id="R37774366901031132_content" class="a-IRR-content ">
-                                    <div id="R37774366901031132_dialog_js" class="a-IRR-dialogBody"
-                                      style="display:none"></div><input type="hidden"
-                                      id="R37774366901031132_worksheet_id" value="39773459969043948" />
-                                    <input type="hidden" id="R37774366901031132_app_user" value="nobody" />
-                                    <input type="hidden" id="R37774366901031132_report_id" value="39801994445096893" />
-                                    <input type="hidden" id="R37774366901031132_view_mode" value="REPORT" />
-                                    <input type="hidden" id="R37774366901031132_row_select" value="50" />
-                                    <div role="region" aria-label="Report&#x20;settings&#x20;of&#x20;Press&#x20;Notes"
-                                      class="a-MediaBlock a-IRR-controlsContainer"
-                                      id="R37774366901031132_control_panel">
-                                      <div class="a-MediaBlock-graphic">
-                                        <h3 aria-hidden="true" class="u-vh">Report Settings</h3>
-                                        <span role="heading" aria-level="3"><button type="button"
-                                            class="a-Button a-IRR-button a-IRR-button--controls"><span
-                                              class="a-Icon a-Collapsible-icon icon-down-arrow"
-                                              aria-hidden="true"></span></button></span>
-                                      </div>
-                                      <div class="a-MediaBlock-content">
-                                        <ul role="none" class="a-IRR-controls">
-
-
-                                          <li class="a-IRR-controls-item a-IRR-controls-item--controlBreak"
-                                            aria-labelledby="control_text_PN_DATE" role="region"><span
-                                              class="a-IRR-controls-cell"><input class="a-IRR-controlsCheckbox"
-                                                data-setting="break" data-break-column="PN_DATE"
-                                                aria-label="Control&#x20;Break" aria-describedby="control_text_PN_DATE"
-                                                type="checkbox" id="control_PN_DATE" checked="checked" /><label
-                                                for="control_PN_DATE" aria-hidden="true"
-                                                class="a-IRR-controlsCheckboxLabel"></label></span><span
-                                              class="a-IRR-controls-cell"><span
-                                                class="a-Icon a-IRR-controlsIcon icon-irr-control-break"
-                                                aria-hidden="true"></span></span><span
-                                              class="a-IRR-controls-cell a-IRR-controls-cell--label"><button
-                                                type="button" aria-describedby="control_text_PN_DATE"
-                                                aria-controls="control_PN_DATE"
-                                                class="a-IRR-button--edit a-IRR-controlsLabel" data-setting="break"
-                                                data-break-column="PN_DATE"><span aria-hidden="true">Pn Date</span><span
-                                                  aria-hidden="true" class="u-vh" id="control_text_PN_DATE">Control
-                                                  Break: Pn Date</span><span class="u-vh">Edit Control
-                                                  Break</span></button></span><span
-                                              class="a-IRR-controls-cell a-IRR-controls-cell--remove"><button
-                                                class="a-Button a-IRR-button a-Button--noUI a-IRR-button--remove"
-                                                aria-label="Remove&#x20;Control&#x20;Break"
-                                                aria-describedby="control_text_PN_DATE" aria-controls="control_PN_DATE"
-                                                type="button" data-setting="break" data-break-column="PN_DATE"><span
-                                                  aria-hidden="true" class="a-Icon icon-remove"></span><span
-                                                  class="u-vh">Remove Control Break</span></button></span></li>
-
-                                        </ul>
-                                      </div>
-                                      <div class="a-IRR-reportSummaryContainer"
-                                        id="R37774366901031132_control_panel_summary" style="display: none;">
-                                        <ul class="a-IRR-reportSummary">
-                                          <li class="a-IRR-reportSummary-item a-IRR-reportSummary-item--controlBreak"><a
-                                              href="#" class="a-IRR-reportSummary-label" data-setting="break"><span
-                                                class="a-IRR-reportSummary-icon" aria-label="Control&#x20;Break"
-                                                role="img"><span
-                                                  class="a-Icon icon-irr-control-break"></span></span><span
-                                                class="a-IRR-reportSummary-value">Pn Date</span></a></li>
-                                        </ul>
-                                      </div>
-                                    </div>
-                                    <style id="R37774366901031132_worksheet_css" type="text/css">
-                                    </style>
-                                    <div role="region" aria-label="Chart&#x20;view&#x20;of&#x20;Press&#x20;Notes"
-                                      id="R37774366901031132_chart" class="a-IRR-chartView">
-                                      <table class="t-Report-report" id="report_table_COPPR" aria-label="Corporations">
-                                        <!-- <thead>
-      <tr>
-        <th class="t-Report-colHead" align="left" id="NAME">Name</th>
-      </tr>
-    </thead> -->
-                                        <tbody id="press_notes_data_table">
+                                        <tbody id="press_release_data_table">
                                           <!-- Dynamic rows will be inserted here -->
                                         </tbody>
                                       </table>
                                     </div>
-                                    <!--<div role="region" aria-label="Group&#x20;by&#x20;view&#x20;of&#x20;Press&#x20;Notes" id="R37774366901031132_group_by" class="a-IRR-groupByView"></div><div role="region" aria-label="Pivot&#x20;view&#x20;of&#x20;Press&#x20;Notes" id="R37774366901031132_pivot" class="a-IRR-pivotView"></div><div role="region" aria-label="Data&#x20;view&#x20;of&#x20;Press&#x20;Notes" id="R37774366901031132_data_panel" class="a-IRR-reportView"><div role="region" aria-label="Message" class="a-IRR-noDataMsg"><div class="a-IRR-noDataMsg-icon"><span class="a-Icon icon-irr-no-results" aria-hidden="true"></span></div><span class="a-IRR-noDataMsg-text"></span></div></div></div></div></div><div role="dialog" aria-label="Column&#x20;Actions" aria-modal="true" class="a-IRR-sortWidget" id="R37774366901031132_sort_widget" style="display:none;"><h1 class="u-vh" aria-roledescription="Visually&#x20;hidden&#x20;dialog&#x20;title">Column Actions</h1><ul role="toolbar" class="a-IRR-sortWidget-actions" id="R37774366901031132_sort_widget_actions"><li role="none" class="a-IRR-sortWidget-actions-item" id="R37774366901031132_sort_widget_action_up"><button class="a-Button a-IRR-button a-IRR-sortWidget-button" type="button" title="Sort&#x20;Ascending" aria-label="Sort&#x20;Ascending" data-option="up"><span aria-hidden="true" class="a-Icon icon-irr-sort-asc"></span></button></li><li role="none" class="a-IRR-sortWidget-actions-item" id="R37774366901031132_sort_widget_action_down"><button class="a-Button a-IRR-button a-IRR-sortWidget-button" type="button" title="Sort&#x20;Descending" aria-label="Sort&#x20;Descending" data-option="down"><span aria-hidden="true" class="a-Icon icon-irr-sort-desc"></span></button></li><li role="none" class="a-IRR-sortWidget-actions-item" id="R37774366901031132_sort_widget_action_hide"><button class="a-Button a-IRR-button a-IRR-sortWidget-button" type="button" title="Hide&#x20;Column" aria-label="Hide&#x20;Column" data-option="hide"><span aria-hidden="true" class="a-Icon icon-irr-remove-col"></span></button></li><li role="none" class="a-IRR-sortWidget-actions-item" id="R37774366901031132_sort_widget_action_break"><button class="a-Button a-IRR-button a-IRR-sortWidget-button" type="button" title="Control&#x20;Break" aria-label="Control&#x20;Break" data-option="break"><span aria-hidden="true" class="a-Icon icon-irr-control-break"></span></button></li><li role="none" class="a-IRR-sortWidget-actions-item" id="R37774366901031132_sort_widget_action_help"><button class="a-Button a-IRR-button a-IRR-sortWidget-button" type="button" title="Help" aria-label="Help" data-option="help" aria-pressed="false"><span aria-hidden="true" class="a-Icon icon-irr-help"></span></button></li><li role="none" class="a-IRR-sortWidget-actions-item" id="R37774366901031132_sort_widget_action_computation"><button class="a-Button a-IRR-button a-IRR-sortWidget-button" type="button" title="Compute" aria-label="Compute" data-option="computation"><span aria-hidden="true" class="a-Icon icon-irr-calculator"></span></button></li></ul><div role="region" aria-label="Help" class="a-IRR-sortWidget-help" id="R37774366901031132_sort_widget_help"></div><div role="search" class="a-IRR-sortWidget-search" id="R37774366901031132_sort_widget_search"><label for="R37774366901031132_sort_widget_search_field"><span aria-hidden="true" class="a-IRR-sortWidget-searchLabel"></span><span class="u-vh">Search</span></label><input id="R37774366901031132_sort_widget_search_field" class="a-IRR-sortWidget-searchField" type="text" placeholder="Filter..." /><div role="group" aria-label="Filter&#x20;suggestions" class="a-IRR-sortWidget-rows" id="R37774366901031132_sort_widget_rows"></div></div></div></div> -->
-
-
+                                    <div role="region" aria-label="Pagination&#x20;of&#x20;Press&#x20;Release"
+                                      class="a-IRR-paginationWrap a-IRR-paginationWrap--bottom">
+                                      <ul class="a-IRR-pagination">
+                                        <li aria-hidden="true" class="a-IRR-pagination-item is-disabled"></li>
+                                        <li class="a-IRR-pagination-item"><span class="a-IRR-pagination-label"> 1 -
+                                            50</span></li>
+                                        <li class="a-IRR-pagination-item"><button type="button"
+                                            class="a-Button a-IRR-button a-IRR-button--pagination"
+                                            aria-controls="R37972155424464867" title="Next" aria-label="Next"
+                                            data-pagination="pgR_min_row=51max_rows=50rows_fetched=50"><span
+                                              class="a-Icon icon-right-chevron" aria-hidden="true"></span></button>
+                                        </li>
+                                      </ul>
+                                    </div>
                                   </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div role="dialog" aria-label="Column&#x20;Actions" aria-modal="true"
+                              class="a-IRR-sortWidget" id="R37972155424464867_sort_widget" style="display:none;">
+                              <h1 class="u-vh" aria-roledescription="Visually&#x20;hidden&#x20;dialog&#x20;title">
+                                Column Actions</h1>
+                              <ul role="toolbar" class="a-IRR-sortWidget-actions"
+                                id="R37972155424464867_sort_widget_actions">
+                                <li role="none" class="a-IRR-sortWidget-actions-item"
+                                  id="R37972155424464867_sort_widget_action_up"><button
+                                    class="a-Button a-IRR-button a-IRR-sortWidget-button" type="button"
+                                    title="Sort&#x20;Ascending" aria-label="Sort&#x20;Ascending" data-option="up"><span
+                                      aria-hidden="true" class="a-Icon icon-irr-sort-asc"></span></button></li>
+                                <li role="none" class="a-IRR-sortWidget-actions-item"
+                                  id="R37972155424464867_sort_widget_action_down"><button
+                                    class="a-Button a-IRR-button a-IRR-sortWidget-button" type="button"
+                                    title="Sort&#x20;Descending" aria-label="Sort&#x20;Descending"
+                                    data-option="down"><span aria-hidden="true"
+                                      class="a-Icon icon-irr-sort-desc"></span></button></li>
+                                <li role="none" class="a-IRR-sortWidget-actions-item"
+                                  id="R37972155424464867_sort_widget_action_hide"><button
+                                    class="a-Button a-IRR-button a-IRR-sortWidget-button" type="button"
+                                    title="Hide&#x20;Column" aria-label="Hide&#x20;Column" data-option="hide"><span
+                                      aria-hidden="true" class="a-Icon icon-irr-remove-col"></span></button></li>
+                                <li role="none" class="a-IRR-sortWidget-actions-item"
+                                  id="R37972155424464867_sort_widget_action_break"><button
+                                    class="a-Button a-IRR-button a-IRR-sortWidget-button" type="button"
+                                    title="Control&#x20;Break" aria-label="Control&#x20;Break" data-option="break"><span
+                                      aria-hidden="true" class="a-Icon icon-irr-control-break"></span></button></li>
+                                <li role="none" class="a-IRR-sortWidget-actions-item"
+                                  id="R37972155424464867_sort_widget_action_help"><button
+                                    class="a-Button a-IRR-button a-IRR-sortWidget-button" type="button" title="Help"
+                                    aria-label="Help" data-option="help" aria-pressed="false"><span aria-hidden="true"
+                                      class="a-Icon icon-irr-help"></span></button></li>
+                                <li role="none" class="a-IRR-sortWidget-actions-item"
+                                  id="R37972155424464867_sort_widget_action_computation"><button
+                                    class="a-Button a-IRR-button a-IRR-sortWidget-button" type="button" title="Compute"
+                                    aria-label="Compute" data-option="computation"><span aria-hidden="true"
+                                      class="a-Icon icon-irr-calculator"></span></button></li>
+                              </ul>
+                              <div role="region" aria-label="Help" class="a-IRR-sortWidget-help"
+                                id="R37972155424464867_sort_widget_help"></div>
+                              <div role="search" class="a-IRR-sortWidget-search"
+                                id="R37972155424464867_sort_widget_search"><label
+                                  for="R37972155424464867_sort_widget_search_field"><span aria-hidden="true"
+                                    class="a-IRR-sortWidget-searchLabel"></span><span
+                                    class="u-vh">Search</span></label><input
+                                  id="R37972155424464867_sort_widget_search_field" class="a-IRR-sortWidget-searchField"
+                                  type="text" placeholder="Filter..." />
+                                <div role="group" aria-label="Filter&#x20;suggestions" class="a-IRR-sortWidget-rows"
+                                  id="R37972155424464867_sort_widget_rows"></div>
+                              </div>
+                            </div>
+                          </div>
+
+
+                        </div>
+                      </div>
+                      <div data-label="Press&#x20;Notes" id="SR_R37774366901031132">
+                        <div id="R37774366901031132" role="region" aria-label="Press&#x20;Notes"
+                          class="t-IRR-region t-IRR-region--noBorders">
+                          <div class="t-Region-orderBy"></div>
+
+                          <div id="R37774366901031132_ir" class="a-IRR-container">
+                            <div id="R37774366901031132_worksheet_region" class="a-IRR" aria-live="polite">
+                              <div id="R37774366901031132_single_row_view" class="a-IRR-singleRowView"></div>
+                              <div id="R37774366901031132_full_view" class="a-IRR-fullView">
+                                <div id="R37774366901031132_column_search_drop" class="a-IRR-colSearch"></div>
+                                <div id="R37774366901031132_content" class="a-IRR-content ">
+                                  <div id="R37774366901031132_dialog_js" class="a-IRR-dialogBody" style="display:none">
+                                  </div><input type="hidden" id="R37774366901031132_worksheet_id"
+                                    value="39773459969043948" />
+                                  <input type="hidden" id="R37774366901031132_app_user" value="nobody" />
+                                  <input type="hidden" id="R37774366901031132_report_id" value="39801994445096893" />
+                                  <input type="hidden" id="R37774366901031132_view_mode" value="REPORT" />
+                                  <input type="hidden" id="R37774366901031132_row_select" value="50" />
+                                  <div role="region" aria-label="Report&#x20;settings&#x20;of&#x20;Press&#x20;Notes"
+                                    class="a-MediaBlock a-IRR-controlsContainer" id="R37774366901031132_control_panel">
+                                    <div class="a-MediaBlock-graphic">
+                                      <h3 aria-hidden="true" class="u-vh">Report Settings</h3>
+                                      <span role="heading" aria-level="3"><button type="button"
+                                          class="a-Button a-IRR-button a-IRR-button--controls"><span
+                                            class="a-Icon a-Collapsible-icon icon-down-arrow"
+                                            aria-hidden="true"></span></button></span>
+                                    </div>
+                                    <div class="a-MediaBlock-content">
+                                      <ul role="none" class="a-IRR-controls">
+
+
+                                        <li class="a-IRR-controls-item a-IRR-controls-item--controlBreak"
+                                          aria-labelledby="control_text_PN_DATE" role="region"><span
+                                            class="a-IRR-controls-cell"><input class="a-IRR-controlsCheckbox"
+                                              data-setting="break" data-break-column="PN_DATE"
+                                              aria-label="Control&#x20;Break" aria-describedby="control_text_PN_DATE"
+                                              type="checkbox" id="control_PN_DATE" checked="checked" /><label
+                                              for="control_PN_DATE" aria-hidden="true"
+                                              class="a-IRR-controlsCheckboxLabel"></label></span><span
+                                            class="a-IRR-controls-cell"><span
+                                              class="a-Icon a-IRR-controlsIcon icon-irr-control-break"
+                                              aria-hidden="true"></span></span><span
+                                            class="a-IRR-controls-cell a-IRR-controls-cell--label"><button type="button"
+                                              aria-describedby="control_text_PN_DATE" aria-controls="control_PN_DATE"
+                                              class="a-IRR-button--edit a-IRR-controlsLabel" data-setting="break"
+                                              data-break-column="PN_DATE"><span aria-hidden="true">Pn Date</span><span
+                                                aria-hidden="true" class="u-vh" id="control_text_PN_DATE">Control
+                                                Break: Pn Date</span><span class="u-vh">Edit Control
+                                                Break</span></button></span><span
+                                            class="a-IRR-controls-cell a-IRR-controls-cell--remove"><button
+                                              class="a-Button a-IRR-button a-Button--noUI a-IRR-button--remove"
+                                              aria-label="Remove&#x20;Control&#x20;Break"
+                                              aria-describedby="control_text_PN_DATE" aria-controls="control_PN_DATE"
+                                              type="button" data-setting="break" data-break-column="PN_DATE"><span
+                                                aria-hidden="true" class="a-Icon icon-remove"></span><span
+                                                class="u-vh">Remove Control Break</span></button></span></li>
+
+                                      </ul>
+                                    </div>
+                                    <div class="a-IRR-reportSummaryContainer"
+                                      id="R37774366901031132_control_panel_summary" style="display: none;">
+                                      <ul class="a-IRR-reportSummary">
+                                        <li class="a-IRR-reportSummary-item a-IRR-reportSummary-item--controlBreak"><a
+                                            href="#" class="a-IRR-reportSummary-label" data-setting="break"><span
+                                              class="a-IRR-reportSummary-icon" aria-label="Control&#x20;Break"
+                                              role="img"><span class="a-Icon icon-irr-control-break"></span></span><span
+                                              class="a-IRR-reportSummary-value">Pn Date</span></a></li>
+                                      </ul>
+                                    </div>
+                                  </div>
+                                  <style id="R37774366901031132_worksheet_css" type="text/css">
+                                  </style>
+                                  <div role="region" aria-label="Chart&#x20;view&#x20;of&#x20;Press&#x20;Notes"
+                                    id="R37774366901031132_chart" class="a-IRR-chartView">
+                                    <table class="t-Report-report" id="report_table_COPPR" aria-label="Corporations">
+                                      <!-- <thead>
+      <tr>
+        <th class="t-Report-colHead" align="left" id="NAME">Name</th>
+      </tr>
+    </thead> -->
+                                      <tbody id="press_notes_data_table">
+                                        <!-- Dynamic rows will be inserted here -->
+                                      </tbody>
+                                    </table>
+                                  </div>
+                                  <!--<div role="region" aria-label="Group&#x20;by&#x20;view&#x20;of&#x20;Press&#x20;Notes" id="R37774366901031132_group_by" class="a-IRR-groupByView"></div><div role="region" aria-label="Pivot&#x20;view&#x20;of&#x20;Press&#x20;Notes" id="R37774366901031132_pivot" class="a-IRR-pivotView"></div><div role="region" aria-label="Data&#x20;view&#x20;of&#x20;Press&#x20;Notes" id="R37774366901031132_data_panel" class="a-IRR-reportView"><div role="region" aria-label="Message" class="a-IRR-noDataMsg"><div class="a-IRR-noDataMsg-icon"><span class="a-Icon icon-irr-no-results" aria-hidden="true"></span></div><span class="a-IRR-noDataMsg-text"></span></div></div></div></div></div><div role="dialog" aria-label="Column&#x20;Actions" aria-modal="true" class="a-IRR-sortWidget" id="R37774366901031132_sort_widget" style="display:none;"><h1 class="u-vh" aria-roledescription="Visually&#x20;hidden&#x20;dialog&#x20;title">Column Actions</h1><ul role="toolbar" class="a-IRR-sortWidget-actions" id="R37774366901031132_sort_widget_actions"><li role="none" class="a-IRR-sortWidget-actions-item" id="R37774366901031132_sort_widget_action_up"><button class="a-Button a-IRR-button a-IRR-sortWidget-button" type="button" title="Sort&#x20;Ascending" aria-label="Sort&#x20;Ascending" data-option="up"><span aria-hidden="true" class="a-Icon icon-irr-sort-asc"></span></button></li><li role="none" class="a-IRR-sortWidget-actions-item" id="R37774366901031132_sort_widget_action_down"><button class="a-Button a-IRR-button a-IRR-sortWidget-button" type="button" title="Sort&#x20;Descending" aria-label="Sort&#x20;Descending" data-option="down"><span aria-hidden="true" class="a-Icon icon-irr-sort-desc"></span></button></li><li role="none" class="a-IRR-sortWidget-actions-item" id="R37774366901031132_sort_widget_action_hide"><button class="a-Button a-IRR-button a-IRR-sortWidget-button" type="button" title="Hide&#x20;Column" aria-label="Hide&#x20;Column" data-option="hide"><span aria-hidden="true" class="a-Icon icon-irr-remove-col"></span></button></li><li role="none" class="a-IRR-sortWidget-actions-item" id="R37774366901031132_sort_widget_action_break"><button class="a-Button a-IRR-button a-IRR-sortWidget-button" type="button" title="Control&#x20;Break" aria-label="Control&#x20;Break" data-option="break"><span aria-hidden="true" class="a-Icon icon-irr-control-break"></span></button></li><li role="none" class="a-IRR-sortWidget-actions-item" id="R37774366901031132_sort_widget_action_help"><button class="a-Button a-IRR-button a-IRR-sortWidget-button" type="button" title="Help" aria-label="Help" data-option="help" aria-pressed="false"><span aria-hidden="true" class="a-Icon icon-irr-help"></span></button></li><li role="none" class="a-IRR-sortWidget-actions-item" id="R37774366901031132_sort_widget_action_computation"><button class="a-Button a-IRR-button a-IRR-sortWidget-button" type="button" title="Compute" aria-label="Compute" data-option="computation"><span aria-hidden="true" class="a-Icon icon-irr-calculator"></span></button></li></ul><div role="region" aria-label="Help" class="a-IRR-sortWidget-help" id="R37774366901031132_sort_widget_help"></div><div role="search" class="a-IRR-sortWidget-search" id="R37774366901031132_sort_widget_search"><label for="R37774366901031132_sort_widget_search_field"><span aria-hidden="true" class="a-IRR-sortWidget-searchLabel"></span><span class="u-vh">Search</span></label><input id="R37774366901031132_sort_widget_search_field" class="a-IRR-sortWidget-searchField" type="text" placeholder="Filter..." /><div role="group" aria-label="Filter&#x20;suggestions" class="a-IRR-sortWidget-rows" id="R37774366901031132_sort_widget_rows"></div></div></div></div> -->
+
+
                                 </div>
                               </div>
                             </div>
@@ -853,42 +935,43 @@
                         </div>
                       </div>
                     </div>
-          </main>
-          <footer class="t-Footer" id="t_Footer" role="contentinfo">
-            <div class="t-Footer-body">
-              <div class="t-Footer-content">
-                <div class="container">
-                  <div class="row ">
-                    <div class="col col-12 apex-col-auto col-start col-end">
-                      <div id="R11684238522218402" class="">Information & Public Relations Department, Secretariat,
-                        Chennai 600 009</div>
-                    </div>
+                  </div>
+        </main>
+        <footer class="t-Footer" id="t_Footer" role="contentinfo">
+          <div class="t-Footer-body">
+            <div class="t-Footer-content">
+              <div class="container">
+                <div class="row ">
+                  <div class="col col-12 apex-col-auto col-start col-end">
+                    <div id="R11684238522218402" class="">Information & Public Relations Department, Secretariat,
+                      Chennai 600 009</div>
                   </div>
                 </div>
               </div>
-              <div class="t-Footer-apex">
+            </div>
+            <div class="t-Footer-apex">
 
-                <div class="t-Footer-version">
-
-                </div>
-                <div class="t-Footer-customize">
-
-                </div>
+              <div class="t-Footer-version">
 
               </div>
+              <div class="t-Footer-customize">
+
+              </div>
+
             </div>
-            <div class="t-Footer-top">
-              <a href="#top" class="t-Footer-topButton" id="t_Footer_topButton" title="Start of page"
-                aria-label="Start of page"><span class="a-Icon icon-up-chevron" aria-hidden="true"></span></a>
-            </div>
-          </footer>
-        </div>
+          </div>
+          <div class="t-Footer-top">
+            <a href="#top" class="t-Footer-topButton" id="t_Footer_topButton" title="Start of page"
+              aria-label="Start of page"><span class="a-Icon icon-up-chevron" aria-hidden="true"></span></a>
+          </div>
+        </footer>
       </div>
     </div>
-    <div class="t-Body-inlineDialogs" id="t_Body_inlineDialogs"></div><input type="hidden" id="pPageFormRegionChecksums"
-      value="&#x5B;&#x5D;">
-    <input type="hidden" id="pPageItemsRowVersion" value="" /><input type="hidden" id="pPageItemsProtected"
-      value="&#x2F;ZifzQj2EfgPmm2q-axk6tc-tJls8oIuLeZlurVBQX2jNGXbUSNv4HRlJOAe9ZEe-k_GzwEIL-_cAZIsCE5mNZA" />
+  </div>
+  <div class="t-Body-inlineDialogs" id="t_Body_inlineDialogs"></div><input type="hidden" id="pPageFormRegionChecksums"
+    value="&#x5B;&#x5D;">
+  <input type="hidden" id="pPageItemsRowVersion" value="" /><input type="hidden" id="pPageItemsProtected"
+    value="&#x2F;ZifzQj2EfgPmm2q-axk6tc-tJls8oIuLeZlurVBQX2jNGXbUSNv4HRlJOAe9ZEe-k_GzwEIL-_cAZIsCE5mNZA" />
   </form>
 
 
@@ -899,9 +982,6 @@
       libVersions: { cropperJs: "1.6.1", domPurify: "3.1.2", fontapex: "2.3", fullcalendar: "6.1.11", hammer: "2.0.8", jquery: "3.6.4", jqueryUi: "1.13.2", maplibre: "4.0.1", markedJs: "12.0.1", prismJs: "1.29.0", oraclejet: "16.0.1", tinymce: "6.8.3", turndown: "7.1.3", monacoEditor: "0.47.0", lessJs: "4.2.0" }
     };
   </script>
-  <script
-    src="../../../../../static.oracle.com/cdn/apex/24.1.1/libraries/apex/minified/desktop_all.min4f88.js?v=24.1.1"></script>
-  <script src="wwv_flow.js_messages?p_app_id=103&p_lang=en&p_version=24.1.1-41853896899929"></script>
 
   <script type="text/javascript">
     apex.da.initDaEventList = function () {
@@ -932,8 +1012,32 @@
   <script src="assets/js/widget.report.min.js"></script>
   <script src="assets/js/aos.js"></script>
   <script src="assets/js/global.js"></script>
+  <script src="assets/js/basepath.js"></script>
+  <script src="assets/js/apiConfig.js"></script>
+
+  <script>
+    $(document).ready(function () {
 
 
+      $("#adminLoginBtn").on("click", function () {
+        window.location.href = "../admin-login.html";
+      });
+
+      $('.shownav').on('click', function (e) {
+        debugger;
+        e.stopPropagation(); // Prevent closing when clicking inside
+        $('.showlink').not($(this).find('.showlink')).removeClass('force-show'); // Close other dropdowns
+        $(this).find('.showlink').toggleClass('force-show');
+      });
+
+      // Click outside to hide dropdown
+      $(document).on('click', function () {
+        $('.showlink').removeClass('force-show');
+      });
+    });
+
+
+  </script>
   <script type="text/javascript">
     apex.jQuery(function () {
       apex.page.init(this, function () {
