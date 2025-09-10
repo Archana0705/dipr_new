@@ -987,20 +987,10 @@
     apex.da.initDaEventList = function () {
       apex.da.gEventList = [
         { "triggeringElementType": "ITEM", "triggeringElement": "P0_LANGUAGE_SELECTION", "bindType": "bind", "executionType": "IMMEDIATE", "bindEventType": "change", "anyActionsFireOnInit": false, actionList: [{ "eventResult": true, "executeOnPageInit": false, "stopExecutionOnError": true, "waitForResult": true, javascriptFunction: apex.da.executePlSqlCode, "ajaxIdentifier": "REEgVFlQRX5-Mzc0OTQ3NjY4MDA1MDg5MzI\u002FYL0mL5cX9ZeVJHWerlTq1g632WjP-MfE46JHbznp1Y0tz6vQ--xhgao_4NaKhn87uiXl7_P_XI1Xy_8Qw9KoYg", "attribute01": "#P0_LANGUAGE_SELECTION", "attribute04": "N", "action": "NATIVE_EXECUTE_PLSQL_CODE" }] },
-        { "triggeringElementType": "ITEM", "triggeringElement": "P33_SELECT_DATE1", "bindType": "bind", "executionType": "IMMEDIATE", "bindEventType": "change", "anyActionsFireOnInit": false, actionList: [{ "eventResult": true, "executeOnPageInit": false, "stopExecutionOnError": true, "affectedElementsType": "REGION", "affectedRegionId": "R37774366901031132", javascriptFunction: apex.da.refresh, "action": "NATIVE_REFRESH" }, { "eventResult": true, "executeOnPageInit": false, "stopExecutionOnError": true, "affectedElementsType": "REGION", "affectedRegionId": "R37972155424464867", javascriptFunction: apex.da.refresh, "action": "NATIVE_REFRESH" }] },
-        { "triggeringElementType": "ITEM", "triggeringElement": "P0_LANGUAGE", "bindType": "bind", "executionType": "IMMEDIATE", "bindEventType": "change", "anyActionsFireOnInit": false, actionList: [{ "eventResult": true, "executeOnPageInit": false, "stopExecutionOnError": true, "waitForResult": true, javascriptFunction: apex.da.executePlSqlCode, "ajaxIdentifier": "REEgVFlQRX5-NDM0MzQzOTA5NTkyMjI3NTI\u002FhEEg-dqZnSDc-EGwd6bMGSm1eSYj5smo6uimBZs4FNKOtnZmw6EjXyiAP2KRGFac9LPqx0ffn1-gmAPb045IBA", "attribute01": "#P0_LANGUAGE", "attribute04": "N", "action": "NATIVE_EXECUTE_PLSQL_CODE" }, { "eventResult": true, "executeOnPageInit": false, "stopExecutionOnError": true, javascriptFunction: apex.da.submitPage, "attribute02": "Y", "action": "NATIVE_SUBMIT_PAGE" }] },
-        { "triggeringElementType": "ITEM", "triggeringElement": "P33_SELECT_DATE", "bindType": "bind", "executionType": "IMMEDIATE", "bindEventType": "change", "anyActionsFireOnInit": false, actionList: [{ "eventResult": true, "executeOnPageInit": false, "stopExecutionOnError": true, javascriptFunction: apex.da.submitPage, "attribute02": "Y", "action": "NATIVE_SUBMIT_PAGE" }] }];
+        { "triggeringElementType": "ITEM", "triggeringElement": "P0_LANGUAGE", "bindType": "bind", "executionType": "IMMEDIATE", "bindEventType": "change", "anyActionsFireOnInit": false, actionList: [{ "eventResult": true, "executeOnPageInit": false, "stopExecutionOnError": true, "waitForResult": true, javascriptFunction: apex.da.executePlSqlCode, "ajaxIdentifier": "REEgVFlQRX5-NDM0MzQzOTA5NTkyMjI3NTI\u002FhEEg-dqZnSDc-EGwd6bMGSm1eSYj5smo6uimBZs4FNKOtnZmw6EjXyiAP2KRGFac9LPqx0ffn1-gmAPb045IBA", "attribute01": "#P0_LANGUAGE", "attribute04": "N", "action": "NATIVE_EXECUTE_PLSQL_CODE" }, { "eventResult": true, "executeOnPageInit": false, "stopExecutionOnError": true, javascriptFunction: apex.da.submitPage, "attribute02": "Y", "action": "NATIVE_SUBMIT_PAGE" }] }];
     }
   </script>
-
-
-  <script type="text/javascript">
-    function openPDF(pfilename) {
-      alert(pfilename);
-      window.open("https://sehubjapaciaas.objectstorage.us-ashburn-1.oci.customer-oci.com/n/sehubjapaciaas/b/TN_PRESS_RELEASE/o/" + pfilename, "_blank");
-    }
-  </script>
-
+  <script src="assets/js/apiConfig.js"></script>
   <script src="assets/js/jquery-3.6.0.min.js"></script>
   <script src="assets/js/desktop_all.min.js"></script>
   <script src="assets/js/widget.stickyWidget.min.js"></script>
@@ -1013,7 +1003,6 @@
   <script src="assets/js/aos.js"></script>
   <script src="assets/js/global.js"></script>
   <script src="assets/js/basepath.js"></script>
-  <script src="assets/js/apiConfig.js"></script>
 
   <script>
     $(document).ready(function () {
@@ -1091,6 +1080,30 @@
   </script>
 
   <script>
+    function showSuccessToast(message) {
+      const toastElement = document.getElementById('successToast');
+      const toastBody = document.getElementById('successMessage');
+
+      toastBody.textContent = message;
+
+      const toast = new bootstrap.Toast(toastElement, {
+        autohide: true,
+        delay: 3000
+      });
+      toast.show();
+    }
+    function showErrorToast(message) {
+      const toastElement = document.getElementById('errorToast');
+      const toastBody = document.getElementById('errorMessage');
+
+      toastBody.textContent = message;
+
+      const toast = new bootstrap.Toast(toastElement, {
+        autohide: true,
+        delay: 3000
+      });
+      toast.show();
+    }
     $(document).ready(function () {
       $('#preloader').hide();
 
@@ -1246,6 +1259,22 @@
           }
         }, 100);
       }
+      var appendSignout = '<div class="t-NavigationBar-menu showlink">' +
+        '<ul>' +
+        '<li>' +
+        '<a href="/index.html" class="signOutBtn">Sign Out</a>' +
+        '</li>' +
+        '</ul>' +
+        '</div>';
+
+      $('.t-NavigationBar-item.has-username.shownav').append(appendSignout);
+
+      $(".signOutBtn").on("click", function () {
+        event.preventDefault();
+        localStorage.removeItem("role");
+        localStorage.removeItem("userAdminName");
+        window.location.href = "/index.html";
+      });
     });
   </script>
 </body>

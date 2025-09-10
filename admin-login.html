@@ -17,14 +17,13 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
-  <link href="../assets/vendor/datatable/css/dataTables.css" rel="stylesheet">
+  <link href="assets/vendor/datatable/css/dataTables.css" rel="stylesheet">
   <!-- CSS File -->
-  <link rel="stylesheet" href="../assets/vendor/datatable/dataTables.bootstrap5.min.css">
+  <link rel="stylesheet" href="assets/vendor/datatable/dataTables.bootstrap5.min.css">
   <!-- Vendor CSS Files -->
-  <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="../assets/vendor/toastr/toastr.min.css" rel="stylesheet">
-  <!-- <base href="/ords/" /> -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/toastr/toastr.min.css" rel="stylesheet">
   <link rel="stylesheet"
     href="https://static.oracle.com/cdn/apex/24.1.7/libraries/oraclejet/16.0.10/css/libs/oj/16.0.10/redwood/oj-redwood-notag-min.css?v=24.1.7"
     type="text/css" />
@@ -38,6 +37,9 @@
     type="text/css" />
   <link rel="stylesheet" href="https://static.oracle.com/cdn/apex/24.1.7/themes/theme_42/23.1/css/Core.min.css?v=24.1.7"
     type="text/css" />
+  <link rel="stylesheet" type="text/css" href="assets/css/menu.css">
+  <!-- <base href="/ords/" /> -->
+
   <style>
     .t-Form-itemWrapper input[type="date"] {
       width: 70%;
@@ -1213,79 +1215,71 @@
       value="&#x2F;vD7fBxRAam3mHjcj50UL8pQyNu3ka625aJArB-y_q5WSI-zwy056GI6nKpPXmzG6l6r6IhNbuewSh_hGyK6UhQ" />
   </form>
 
-
-  <script>
-    var apex_img_dir = "https:\u002F\u002Fstatic.oracle.com\u002Fcdn\u002Fapex\u002F24.1.7\u002F";
-    var apex = {
-      env: { APP_USER: "DHIVAHAR", APP_ID: "103", APP_PAGE_ID: "17", APP_SESSION: "606351205798953", APP_FILES: "r\u002Fdipr\u002F103\u002Ffiles\u002Fstatic\u002Fv397\u002F", WORKSPACE_FILES: "r\u002Fdipr\u002Ffiles\u002Fstatic\u002Fv1\u002F", APEX_VERSION: "24.1.7", APEX_BASE_VERSION: "24.1" },
-      libVersions: { cropperJs: "1.6.1", domPurify: "3.1.6", fontapex: "2.3", fullcalendar: "6.1.11", hammer: "2.0.8", jquery: "3.6.4", jqueryUi: "1.13.2", maplibre: "4.0.1", markedJs: "12.0.1", prismJs: "1.29.0", oraclejet: "16.0.10", tinymce: "6.8.4", turndown: "7.1.3", monacoEditor: "0.47.0", lessJs: "4.2.0" }
-    };
-  </script>
-  <script src="https://static.oracle.com/cdn/apex/24.1.7/libraries/apex/minified/desktop_all.min.js?v=24.1.7"></script>
-  <script src="wwv_flow.js_messages?p_app_id=103&p_lang=en&p_version=24.1.7-44329441868468"></script>
-
-  <!-- <script type="text/javascript">
-    apex.da.initDaEventList = function () {
-      apex.da.gEventList = [
-        { "triggeringElementType": "ITEM", "triggeringElement": "P0_LANGUAGE_SELECTION", "bindType": "bind", "executionType": "IMMEDIATE", "bindEventType": "change", "anyActionsFireOnInit": false, actionList: [{ "eventResult": true, "executeOnPageInit": false, "stopExecutionOnError": true, "waitForResult": true, javascriptFunction: apex.da.executePlSqlCode, "ajaxIdentifier": "REEgVFlQRX5-Mzc0OTQ3NjY4MDA1MDg5MzI\u002FSO7vt39C9TQHB-SEDBuFCOkpp_ihyi67dmP0ufd6Js4pNSGu5v_1Wh4EvU03Enoo8w2oG9G80HTJcfZSDrscDg", "attribute01": "#P0_LANGUAGE_SELECTION", "attribute04": "N", "action": "NATIVE_EXECUTE_PLSQL_CODE" }] },
-        { "triggeringElementType": "ITEM", "triggeringElement": "P0_LANGUAGE", "bindType": "bind", "executionType": "IMMEDIATE", "bindEventType": "change", "anyActionsFireOnInit": false, actionList: [{ "eventResult": true, "executeOnPageInit": false, "stopExecutionOnError": true, "waitForResult": true, javascriptFunction: apex.da.executePlSqlCode, "ajaxIdentifier": "REEgVFlQRX5-NDM0MzQzOTA5NTkyMjI3NTI\u002Fpa3Aj0lYJUNZTKs0aczMu8B_oFdXmzoD930MKT_4t73jEPkRk6hQfmqg_bR5yB--NgceL9krPyBLr302jlUkag", "attribute01": "#P0_LANGUAGE", "attribute04": "N", "action": "NATIVE_EXECUTE_PLSQL_CODE" }, { "eventResult": true, "executeOnPageInit": false, "stopExecutionOnError": true, javascriptFunction: apex.da.submitPage, "attribute02": "Y", "action": "NATIVE_SUBMIT_PAGE" }] }];
-    }
-  </script> -->
-
-  <script>
-    (function () {
-      const pathParts = window.location.pathname.split('/');
-      const subFolder = pathParts[1];
-      const baseHref = (subFolder && subFolder !== 'index.html') ? `/${subFolder}/` : '/';
-
-      const base = document.createElement('base');
-      base.href = baseHref;
-      document.head.prepend(base);
-
-      // Optional: store for other JS use
-      window.basePath = baseHref;
-    })();
-  </script>
-
-  <script src="assets/js/crypto-js.min.js"></script>
   <script src="assets/js/jquery-3.6.0.min.js"></script>
-  <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="../assets/vendor/datatable/jquery.dataTables.min.js"></script>
-  <script src="../assets/vendor/datatable/dataTables.bootstrap5.min.js"></script>
-  <script src="../assets/vendor/datatables-buttons/js/dataTables.buttons.min.js"></script>
-  <script src="../assets/vendor/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
-
-  <script src="assets/js/jquery-ui.min.js"></script>
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-  <script src="assets/js/desktop_all.min.js"></script>
-  <script src="assets/js/theme42.min.js"></script>
-  <script src="assets/js/aos.js"></script>
-  <script src="assets/js/add.min.js"></script>
-  <script src="assets/js/widget.apexTabs.min.js"></script>
-  <script src="assets/js/widget.interactiveReport.min.js"></script>
-  <script src="assets/js/widget.iconList.min.js"></script>
-  <script src="assets/js/widget.stickyTableHeader.min.js"></script>
-  <script src="assets/js/widget.stickyWidget.min.js"></script>
-  <script src="assets/js/item.Colorpicker.min.js"></script>
-  <script src="assets/js/require.js"></script>
-  <script src="assets/js/requirejs.jetConfig.min.js"></script>
-  <script src="assets/js/jetCommonBundle.min.js"></script>
-  <script src="/assets/js/global.js"></script>
+  <!--  DataTables -->
+  <script src="assets/vendor/datatable/jquery.dataTables.min.js"></script>
+  <script src="assets/vendor/datatable/dataTables.bootstrap5.min.js"></script>
+  <script src="assets/vendor/datatables-buttons/js/dataTables.buttons.min.js"></script>
+  <script src="assets/vendor/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+
+  <!--  jQuery UI (for modal/dialog) -->
+  <script src="assets/js/jquery-ui.min.js"></script>
+
+  <!--  Your project scripts -->
+  <script src="assets/js/global.js"></script>
+  <script src="assets/js/fileValidator.js"></script>
   <script src="assets/js/basepath.js"></script>
   <script src="assets/js/apiConfig.js"></script>
+
+  <!-- Keep only if you use APEX widgets/themes -->
+  <script src="assets/js/desktop_all.min.js"></script>
+  <script src="assets/js/theme42.min.js"></script>
+
   <script>
-    $(function () {
-      $("#globalNavbarContainer").load("/assets/js/globalNavbar.html", function () {
-        // Once loaded, attach the JS logic
-        $.getScript("/assets/js/globalNavbar.js");
+    document.addEventListener("DOMContentLoaded", function () {
+      const links = document.querySelectorAll(".t-Header-nav a, .t-Header-nav ul li a");
+
+      links.forEach(link => {
+        const originalHref = link.getAttribute("href");
+        if (
+          !originalHref ||
+          originalHref.startsWith("http") ||
+          originalHref.startsWith(window.basePath)
+        ) return;
+
+        const fixedHref = window.basePath + originalHref.replace(/^(\.\.\/)+/, "");
+
+        console.log(`Rewriting ${originalHref} → ${fixedHref}`); // ✅ Debug log
+
+        link.setAttribute("href", fixedHref);
       });
     });
   </script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const navLinks = document.querySelectorAll(".t-Header-nav .a-MenuBar-label");
+
+      navLinks.forEach(link => {
+        let href = link.getAttribute("href");
+        if (!href || href.trim() === "" || href === "#" || href.startsWith("http")) {
+          return;
+        }
+        if (href.startsWith(window.basePath)) return;
+
+        const cleanedHref = href.replace(/^\/+/, '');
+        const updatedHref = window.basePath + cleanedHref;
+        link.setAttribute("href", updatedHref);
+      });
+    });
+
+  </script>
+
   <script>
     $(document).ready(function () {
       $('.signClick').on('click', function () {
-        debugger;
         var loguserName = $('#P9999_USERNAME').val();
         var logPass = $('#P9999_PASSWORD').val();
         var loginPayload = {
@@ -1348,7 +1342,7 @@
     }
 
     $(document).ready(function () {
-      debugger
+
       $('#preloader').hide();
       $(document).on({
         ajaxStart: function () {
@@ -1528,7 +1522,7 @@
 
 
       $("body").on("click", "#open-modal-btn", function () {
-        debugger;
+
         $("tr").removeClass("selected"); // Remove previously selected row
         const selectedRow = $(this).closest("tr"); // Get clicked row
         selectedRow.addClass("selected"); // Highlight the selected row
@@ -1574,7 +1568,7 @@
       });
 
       async function registerNewData() {
-        debugger
+
         try {
 
           var pressDate = $('#Press_create_date input').val() || "";
@@ -1651,7 +1645,7 @@
       });
 
       // $('#updateBtn').on('click', function () {
-      //   debugger;
+      //    
       //   const selectedRow = $('tr.selected'); // Ensure row is actually selected
       //   if (!selectedRow.length) {
       //     showErrorToast("No row selected for update.");
@@ -1674,7 +1668,7 @@
       // });
 
       $('#updateBtn').on('click', function () {
-        debugger;
+
         const selectedRow = $('tr.selected');
         if (!selectedRow.length) {
           showErrorToast("No row selected for update.");
@@ -1701,7 +1695,7 @@
       });
 
       async function updateData(id, file) {
-        debugger;
+
 
         const lang = $('#pressLangugage').val();
         const pressDate = $('#Press_create_date input').val();
@@ -1731,7 +1725,7 @@
       }
 
       function deleteData(id) {
-        debugger
+
         $('#preloader').show();
         $.ajax({
           url: `${BASE_API_URL}/general/governmentOrders/deletePressReleaseForm`,

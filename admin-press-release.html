@@ -1560,7 +1560,8 @@
         event.preventDefault();
         localStorage.removeItem("role");
         localStorage.removeItem("userAdminName");
-        window.location.href = "/index.html";
+        const target = `${window.basePath}/index.html`;
+  window.location.href = target;
       });
     });
 
@@ -1779,7 +1780,7 @@
         });
       }
       async function registerNewData() {
-        var role = localStorage.getItem("role");
+        var role = localStorage.getItem("operatorId");
         function convertDateFormat(dateString) {
           if (dateString === "") {
             return "";
@@ -1832,11 +1833,10 @@
             type: 'POST',
             contentType: 'application/json',
             data: JSON.stringify(registrationPayload),
-            success: function (response) {
-              // user_id.id = response.return_id;
-              // Court_id.COURT_ID = response.return_id;
-              //showSuccessToast("Submitted Successfully");
-              // setTimeout(() => window.location.href = "../police/index.html", 1000);
+            success: async function (response) {
+              await showSuccessToast('Data Submitted Successfully');
+              $('#uploadModal').dialog('close');
+              location.reload();
             },
             error: function (error) {
               console.error('Error:', error);

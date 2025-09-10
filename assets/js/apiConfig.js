@@ -6,5 +6,5 @@ const baseUrls = {
     prod: "https://tngis.tnega.org/lcap_api/dipr-lcap-api/v1",
 };
 
-const BASE_API_URL = baseUrls[environment];
-const BASE_UPLOAD_URL = BASE_API_URL.replace(/\/v1$/, '') + "/uploads/";
+window.BASE_API_URL = baseUrls[environment];
+window.BASE_UPLOAD_URL = window.BASE_API_URL.replace(/\/v1$/, '') + "/uploads/";
