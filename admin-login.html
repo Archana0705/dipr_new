@@ -1289,6 +1289,10 @@
         $.ajax({
           url: `${BASE_API_URL}/admin/login`,
           type: "POST",
+          headers: {
+          "X-App-Key": "dipr",
+          "X-App-Name": "dipr"
+          },
           contentType: 'application/json',
           data: JSON.stringify(loginPayload),
           success: function (response) {
