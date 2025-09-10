@@ -1164,6 +1164,11 @@
                               data-template-id="32751039808172722_ET"></span>
                           </div>
                         </div>
+                      <!-- Captcha -->
+                    <canvas id="captcha" width="150" height="50"></canvas>
+<br>
+<input type="text" id="captchaInput" placeholder="Enter Captcha">
+<button id="reloadCaptcha" type="button">🔄 Reload</button> 
                       </div>
                       <div class="t-Login-buttons"><button class="t-Button t-Button--hot signClick" type="button"
                           id="B32871041584172899"><span class="t-Button-label">Sign In</span></button><button
@@ -1278,50 +1283,146 @@
   </script>
 
   <script>
-    $(document).ready(function () {
-      $('.signClick').on('click', function () {
-        var loguserName = $('#P9999_USERNAME').val();
-        var logPass = $('#P9999_PASSWORD').val();
-        var loginPayload = {
-          "user_name": loguserName,
-          "password": logPass
-        };
-        $.ajax({
-          url: `${BASE_API_URL}/admin/login`,
-          type: "POST",
-          headers: {
+     let currentCaptcha = "";
+
+  // Generate numeric captcha
+  function generateCaptcha(length = 5) {
+    const numbers = "0123456789";
+    let result = "";
+    for (let i = 0; i < length; i++) {
+      result += numbers.charAt(Math.floor(Math.random() * numbers.length));
+    }
+    return result;
+  }
+
+  // Draw captcha on canvas
+  function drawCaptcha() {
+    currentCaptcha = generateCaptcha();
+    const canvas = document.getElementById("captcha");
+    const ctx = canvas.getContext("2d");
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Background
+    ctx.fillStyle = "#f2f2f2";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    // Text
+    ctx.font = "30px Arial";
+    ctx.fillStyle = "#000";
+    ctx.fillText(currentCaptcha, 25, 35);
+
+    // Noise
+    for (let i = 0; i < 4; i++) {
+      ctx.strokeStyle = "#888";
+      ctx.beginPath();
+      ctx.moveTo(Math.random() * canvas.width, Math.random() * canvas.height);
+      ctx.lineTo(Math.random() * canvas.width, Math.random() * canvas.height);
+      ctx.stroke();
+    }
+  }
+
+  // Reload button
+  $("#reloadCaptcha").on("click", function () {
+    drawCaptcha();
+  });
+
+  // Init captcha
+  $(document).ready(function () {
+    drawCaptcha();
+
+    $('.signClick').on('click', function () {
+      var loguserName = $('#P9999_USERNAME').val();
+      var logPass = $('#P9999_PASSWORD').val();
+      var captchaInput = $('#captchaInput').val().trim();
+
+      // ✅ First check captcha
+      if (captchaInput !== currentCaptcha) {
+        showErrorToast("Invalid captcha. Please try again.");
+        drawCaptcha(); // reload captcha on error
+        return;
+      }
+
+      // If captcha is correct → proceed with login
+      var loginPayload = {
+        "user_name": loguserName,
+        "password": logPass
+      };
+
+      $.ajax({
+        url: `${BASE_API_URL}/admin/login`,
+        type: "POST",
+        headers: {
           "X-App-Key": "dipr",
           "X-App-Name": "dipr"
-          },
-          contentType: 'application/json',
-          data: JSON.stringify(loginPayload),
-          success: function (response) {
-            if (response.success === 1) {
-              showSuccessToast("Login successfully!");
-              window.location.href = window.basePath + "/index.html";
-              // window.location.href = "/index.html";
-              localStorage.setItem("role", response.role);
-              localStorage.setItem("userAdminName", loguserName);
-            } else {
-              showErrorToast(response.message);
-            }
-          },
-          error: function () {
-
-          },
-          complete: function () {
-            $('#preloader').hide();
+        },
+        contentType: 'application/json',
+        data: JSON.stringify(loginPayload),
+        success: function (response) {
+          if (response.success === 1) {
+            showSuccessToast("Login successfully!");
+            window.location.href = window.basePath + "/index.html";
+            localStorage.setItem("role", response.role);
+            localStorage.setItem("userAdminName", loguserName);
+          } else {
+            showErrorToast(response.message);
+            drawCaptcha(); // reset captcha on login failure
           }
-        });
-      })
-    })
+        },
+        error: function () {
+          showErrorToast("Something went wrong. Please try again.");
+        },
+        complete: function () {
+          $('#preloader').hide();
+        }
+      });
+    });
+  });
+    // $(document).ready(function () {
+    //   $('.signClick').on('click', function () {
+    //     var loguserName = $('#P9999_USERNAME').val();
+    //     var logPass = $('#P9999_PASSWORD').val();
+    //     var loginPayload = {
+    //       "user_name": loguserName,
+    //       "password": logPass,
+
+    //     };
+    //     $.ajax({
+    //       url: `${BASE_API_URL}/admin/login`,
+    //       type: "POST",
+    //       headers: {
+    //       "X-App-Key": "dipr",
+    //       "X-App-Name": "dipr"
+    //       },
+    //       contentType: 'application/json',
+    //       data: JSON.stringify(loginPayload),
+    //       success: function (response) {
+    //         if (response.success === 1) {
+    //           showSuccessToast("Login successfully!");
+    //           window.location.href = window.basePath + "/index.html";
+    //           // window.location.href = "/index.html";
+    //           localStorage.setItem("role", response.role);
+    //           localStorage.setItem("userAdminName", loguserName);
+    //         } else {
+    //           showErrorToast(response.message);
+    //         }
+    //       },
+    //       error: function () {
+
+    //       },
+    //       complete: function () {
+    //         $('#preloader').hide();
+    //       }
+    //     });
+    //   })
+    // })
     function showSuccessToast(message) {
       const toastElement = document.getElementById('successToast');
       const toastBody = document.getElementById('successMessage');
 
       // Set the dynamic message
       toastBody.textContent = message;
-
+  
       // Initialize and show the toast
       const toast = new bootstrap.Toast(toastElement, {
         autohide: true,
@@ -1756,6 +1857,48 @@
         });
       }
     });
+
+    //  let currentCaptcha = "";
+
+    // // Generate numeric captcha
+    // function generateCaptcha(length = 5) {
+    //   const numbers = "0123456789";
+    //   let result = "";
+    //   for (let i = 0; i < length; i++) {
+    //     result += numbers.charAt(Math.floor(Math.random() * numbers.length));
+    //   }
+    //   return result;
+    // }
+
+    // // Draw captcha on canvas
+    // function drawCaptcha() {
+    //   currentCaptcha = generateCaptcha();
+    //   const canvas = document.getElementById("captcha");
+    //   const ctx = canvas.getContext("2d");
+
+    //   ctx.clearRect(0, 0, canvas.width, canvas.height);
+    //   ctx.font = "30px Arial";
+    //   ctx.fillStyle = "#000";
+    //   ctx.fillText(currentCaptcha, 25, 35);
+    // }
+
+    // // Validate user input
+    // function validateCaptcha() {
+    //   const userInput = document.getElementById("captchaInput").value;
+    //   const result = document.getElementById("result");
+
+    //   if (userInput === currentCaptcha) {
+    //     result.innerHTML = "✅ Correct!";
+    //     result.style.color = "green";
+    //   } else {
+    //     result.innerHTML = "❌ Incorrect. Try again!";
+    //     result.style.color = "red";
+    //     drawCaptcha(); // regenerate captcha
+    //   }
+    // }
+
+    // // Initialize
+    // drawCaptcha();
   </script>
 </body>
 
