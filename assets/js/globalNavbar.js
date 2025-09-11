@@ -6,7 +6,7 @@ $(document).ready(function () {
             const userAdminName = localStorage.getItem("userAdminName");
 
             if (userAdminName) {
-                $('.admin-name-change').text(userAdminName);
+                $('.admin-name-change').text(role);
                 $('.js-tabLike .admin-menu-show').css('display', 'block');
             }
 
