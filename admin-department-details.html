@@ -3800,45 +3800,84 @@
       }
 
 
-      async function registerNewData() {
-        //debugger
-        var role = localStorage.getItem("role");
-        var name = $('#Press_create_name').val() || 0;
-        var designation = $('#Press_create_designation').val() || 0;
-        var phone = $('#Press_create_phone').val() || 0;
-        var language = $('#pressCreateLangugage').val() || 0;
-        var sequence = $('#pressCreateSequence').val() || 0;
+async function registerNewData() {
+  const role = localStorage.getItem("role");
 
-        var insertPayload = {
-          "action": "insert",
-          "table": "UNIT_OFFICERS",
-          "NAME": name,
-          "DESIGNATION": designation,
-          "PHONE": phone,
-          "LANGUAGE": language,
-          "SEQUENCE": sequence
-        };
+  // Get values
+  let name = $('#Press_create_name').val().trim();
+  let designation = $('#Press_create_designation').val().trim();
+  let phone = $('#Press_create_phone').val().trim();
+  let language = $('#pressCreateLangugage').val();
+  let sequence = $('#pressCreateSequence').val();
+
+  // Sanitizer to prevent HTML Injection
+  function sanitizeInput(input) {
+    return $('<div>').text(input).html();
+  }
+
+  name = sanitizeInput(name);
+  designation = sanitizeInput(designation);
+  phone = sanitizeInput(phone);
+
+  // Validation
+  const namePattern = /^[a-zA-Z\s]+$/;
+  const phonePattern = /^[0-9]{10}$/;
+
+  if (!name) {
+    showErrorToast("Name is required.");
+    return;
+  }
+  if (!namePattern.test(name)) {
+    showErrorToast("Name can only contain letters and spaces.");
+    return;
+  }
+  if (!designation) {
+    showErrorToast("Designation is required.");
+    return;
+  }
+  if (!phonePattern.test(phone)) {
+    showErrorToast("Phone must be exactly 10 digits.");
+    return;
+  }
+  if (!language) {
+    showErrorToast("Please select a language.");
+    return;
+  }
+  if (!sequence) {
+    showErrorToast("Please select a sequence.");
+    return;
+  }
+
+  // Build safe payload
+  const insertPayload = {
+    "action": "insert",
+    "table": "UNIT_OFFICERS",
+    "NAME": name,
+    "DESIGNATION": designation,
+    "PHONE": phone,
+    "LANGUAGE": language,
+    "SEQUENCE": sequence
+  };
 
 
-        $.ajax({
-          url: `${BASE_API_URL}/general/commonApi`,
-          type: 'POST',
-          contentType: 'application/json',
-          data: JSON.stringify(insertPayload),
-          success: function (response) {
-            if (response.success === 1) {
-              showSuccessToast("Created successfully!");
-              setTimeout(() => window.location.href = "../admin-department-details.html", 1000);
-            } else {
-              showErrorToast(response.message);
-            }
-          },
-          error: function () {
-            showErrorToast("Failed.");
-          }
-        });
+  $.ajax({
+    url: `${BASE_API_URL}/general/commonApi`,
+    type: 'POST',
+    contentType: 'application/json',
+    data: JSON.stringify(insertPayload),
+    success: function (response) {
+      if (response.success === 1) {
+        showSuccessToast("Created successfully!");
+        setTimeout(() => window.location.href = "../admin-department-details.html", 1000);
+      } else {
+        showErrorToast(response.message);
       }
-
+    },
+    error: function () {
+      showErrorToast("Failed.");
+    }
+  });
+}
 
       async function registerDivData() {
         //debugger
