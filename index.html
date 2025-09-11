@@ -2705,40 +2705,60 @@
       });
     });
 
-    $('#subscribeBtn').on('click', async function () {
-      const name = $('#P1_YOUR_NAME').val().trim();
-      const email = $('#P1_YOUR_EMAIL').val().trim();
+  $('#subscribeBtn').on('click', async function () {
+  const name = $('#P1_YOUR_NAME').val().trim();
+  const email = $('#P1_YOUR_EMAIL').val().trim();
 
-      const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
-      if (name === "" || email === "") {
-        showErrorToast("Please fill all required fields");
-      } else if (!emailPattern.test(email)) {
-        showErrorToast("Please enter a valid email address");
-      } else {
-        const formData = new FormData();
-        formData.append('user_name', name);
-        formData.append('email_id', email);
+  // Error placeholders
+  const nameError = $("#P1_YOUR_NAME_error_placeholder");
+  const emailError = $("#P1_YOUR_EMAIL_error_placeholder");
 
-        $.ajax({
-          url: `${BASE_API_URL}/general/add_subscription`,
-          type: 'POST',
-          processData: false,
-          contentType: false,
-          data: formData,
-          success: function (response) {
-            console.log('Response:', response);
-            showSuccessToast("Subscription Added Successfully");
-            $('#P1_YOUR_NAME').val('');
-            $('#P1_YOUR_EMAIL').val('');
-          },
-          error: function (xhr, status, error) {
-            console.error('Error:', error);
-            showErrorToast("An error occurred while subscribing");
-          }
-        });
-      }
-    });
+  let isValid = true;
+
+  // Reset previous errors
+  nameError.text("");
+  emailError.text("");
+
+  if (name === "") {
+    nameError.text("Name is required.");
+    isValid = false;
+  }
+  if (email === "") {
+    emailError.text("Email is required.");
+    isValid = false;
+  } else if (!emailPattern.test(email)) {
+    emailError.text("Invalid email format.");
+    isValid = false;
+  }
+
+  if (!isValid) return; // stop here if errors exist
+
+  // If valid → submit
+  const formData = new FormData();
+  formData.append('user_name', name);
+  formData.append('email_id', email);
+
+  $.ajax({
+    url: `${BASE_API_URL}/general/add_subscription`,
+    type: 'POST',
+    processData: false,
+    contentType: false,
+    data: formData,
+    success: function (response) {
+      console.log('Response:', response);
+      showSuccessToast("Subscription Added Successfully");
+      $('#P1_YOUR_NAME').val('');
+      $('#P1_YOUR_EMAIL').val('');
+    },
+    error: function (xhr, status, error) {
+      console.error('Error:', error);
+      showErrorToast("An error occurred while subscribing");
+    }
+  });
+});
+
 
     $(document).ready(function () {
       var role = localStorage.getItem("role");
