@@ -1799,7 +1799,7 @@
       });
 
     });
-     if (localStorage.getItem("isLoggedIn") !== "true") {
+     if (!localStorage.getItem("userAdminName")) {
     window.location.href = "admin-login.html";
   }
   </script>
