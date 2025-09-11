@@ -1172,7 +1172,7 @@
 <button id="reloadCaptcha" type="button">🔄 Reload</button> 
                       </div>
                       <div class="t-Login-buttons"><button class="t-Button t-Button--hot signClick" type="button"
-                          id="B32871041584172899"><span class="t-Button-label">Sign In</span></button><button
+                          id="signClick"><span class="t-Button-label">Sign In</span></button><button
                           class="t-Button t-Button--hot " type="button" id="B22697085682097685"><span
                             class="t-Button-label">Forgot Password</span></button></div>
                       <div class="t-Login-links"></div>
@@ -1333,7 +1333,7 @@
   $(document).ready(function () {
     drawCaptcha();
 
-    $('.signClick').on('click', function () {
+    $('#signClick').on('click', function () {
       var loguserName = $('#P9999_USERNAME').val();
       var logPass = $('#P9999_PASSWORD').val();
       var captchaInput = $('#captchaInput').val().trim();
@@ -1367,27 +1367,38 @@
         dataType: "json",
         success: function (response) {
           const decrypted = decryptData(response?.data || "");
-          console.log(decrypted[0]?.result);
-            const secretKey = "55464654654646654";                        
-            let encryptedData = CryptoJS.AES.encrypt(
-                JSON.stringify(response.data),
-                secretKey
-            ).toString();
-          if (
-            Array.isArray(decrypted) &&
-            (
-              decrypted[0]?.result === true ||
-              decrypted[0]?.result === "SUCCESS"
-            )
-          ) {
-            showSuccessToast("Login successfully!");
-            window.location.href = window.basePath + "/index.html";
-            localStorage.setItem("role", decrypted[0]?.role || "");
-            localStorage.setItem("userAdminName", encryptedData);
-          } else {
-            const msg = decrypted[0]?.result || "Invalid login. Please try again.";
-            showErrorToast(msg);
-          }
+  console.log("Decrypted:", decrypted);
+
+  let loginResult = null;
+  try {
+    if (typeof decrypted[0]?.result === "string") {
+      loginResult = JSON.parse(decrypted[0].result);
+    } else {
+      loginResult = decrypted[0]?.result;
+    }
+  } catch (e) {
+    console.error("JSON parse error:", e);
+  }
+            const secretKey = "55464654654646654";
+              let encryptedData = CryptoJS.AES.encrypt(
+                                  JSON.stringify(loginResult),
+                                  secretKey
+                                  ).toString();
+                      if (
+                loginResult &&
+                (loginResult.status === true || loginResult === true || loginResult === "SUCCESS")
+              ) {
+                showSuccessToast("Login successfully!");
+                window.location.href = window.basePath + "/index.html";
+                localStorage.setItem("role", loginResult.role || "");
+                localStorage.setItem("district", loginResult.district || "");
+                localStorage.setItem("userAdminName", encryptedData);
+              } else {
+                const msg = loginResult?.status === false
+                  ? "Invalid login. Please try again."
+                  : decrypted[0]?.result || "Invalid login. Please try again.";
+                showErrorToast(msg);
+  }
         },
         error: function (xhr, status, error) {
           showErrorToast("Login request failed. Please try again.");

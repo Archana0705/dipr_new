@@ -1436,7 +1436,7 @@
       role = localStorage.getItem("role");
       var userAdminName = localStorage.getItem("userAdminName");
       if (role) {
-        $('.admin-name-change').text(userAdminName);
+        $('.admin-name-change').text(role);
         $('.js-tabLike .admin-menu-show').css('display', 'block');
         var interval = setInterval(function () {
           if ($('#t_MenuNav_7').length) {
