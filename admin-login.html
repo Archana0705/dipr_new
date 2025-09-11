@@ -1889,50 +1889,8 @@
       }
     });
 
-    //  let currentCaptcha = "";
-
-    // // Generate numeric captcha
-    // function generateCaptcha(length = 5) {
-    //   const numbers = "0123456789";
-    //   let result = "";
-    //   for (let i = 0; i < length; i++) {
-    //     result += numbers.charAt(Math.floor(Math.random() * numbers.length));
-    //   }
-    //   return result;
-    // }
-
-    // // Draw captcha on canvas
-    // function drawCaptcha() {
-    //   currentCaptcha = generateCaptcha();
-    //   const canvas = document.getElementById("captcha");
-    //   const ctx = canvas.getContext("2d");
-
-    //   ctx.clearRect(0, 0, canvas.width, canvas.height);
-    //   ctx.font = "30px Arial";
-    //   ctx.fillStyle = "#000";
-    //   ctx.fillText(currentCaptcha, 25, 35);
-    // }
-
-    // // Validate user input
-    // function validateCaptcha() {
-    //   const userInput = document.getElementById("captchaInput").value;
-    //   const result = document.getElementById("result");
-
-    //   if (userInput === currentCaptcha) {
-    //     result.innerHTML = "✅ Correct!";
-    //     result.style.color = "green";
-    //   } else {
-    //     result.innerHTML = "❌ Incorrect. Try again!";
-    //     result.style.color = "red";
-    //     drawCaptcha(); // regenerate captcha
-    //   }
-    // }
-
-    // // Initialize
-    // drawCaptcha();
-     if (localStorage.getItem("isLoggedIn") !== "true") {
-    window.location.href = "admin-login.html";
-  }
+    
+     
   </script>
 </body>
 
