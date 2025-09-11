@@ -1909,6 +1909,9 @@
         }
       });
     });
+     if (localStorage.getItem("isLoggedIn") !== "true") {
+    window.location.href = "admin-login.html";
+  }
   </script>
 </body>
 

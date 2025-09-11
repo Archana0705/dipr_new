@@ -1913,6 +1913,9 @@ $("#createUploadBtn").on("click", function () {
         }
       });
     });
+     if (localStorage.getItem("isLoggedIn") !== "true") {
+    window.location.href = "admin-login.html";
+  }
   </script>
 </body>
 
