@@ -1443,7 +1443,7 @@
       });
 
       $('.shownav').on('click', function (e) {
-        debugger;
+        //debugger;
         e.stopPropagation(); // Prevent closing when clicking inside
         $('.showlink').not($(this).find('.showlink')).removeClass('force-show'); // Close other dropdowns
         $(this).find('.showlink').toggleClass('force-show');
@@ -1460,7 +1460,7 @@
   <script>
     $(document).ready(function () {
       var role;
-      debugger
+      //debugger
       role = localStorage.getItem("role");
       var userAdminName = localStorage.getItem("userAdminName");
       if (role) {
@@ -1586,7 +1586,7 @@
     }
 
     $(document).ready(function () {
-      debugger;
+      //debugger;
       $('#preloader').hide();
       var langSwitch = 'en';
 
@@ -1710,7 +1710,7 @@
       };
 
       $("body").on("click", "#open-modal-btn", function () {
-        debugger;
+        //debugger;
         $("tr").removeClass("selected");
         $(this).closest("tr").addClass("selected");
 
@@ -1749,7 +1749,7 @@
       });
 
       async function registerNewData() {
-        debugger;
+        //debugger;
         try {
           var pressfile = $('#Press_create_file_name input').val() || "";
           let pressInputFile = null;
@@ -1788,7 +1788,7 @@
       }
 
       $('#updateBtn').on('click', function () {
-        debugger;
+        //debugger;
         const selectedRow = $('tr.selected');
         if (!selectedRow.length) {
           showErrorToast("No row selected for update.");
@@ -1811,7 +1811,7 @@
       });
 
       async function updateData(id, file) {
-        debugger;
+        //debugger;
 
         const files = $('#Press_file_name').val();
         // const filename = $('#orderFileUpload_input').val();
@@ -1856,7 +1856,7 @@
       });
 
       function deleteData(id) {
-        debugger;
+        //debugger;
         $('#preloader').show();
         $.ajax({
           url: `${BASE_API_URL}/general/monthlyMagazineSpecialPublications/publications`,

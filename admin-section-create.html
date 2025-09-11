@@ -871,7 +871,7 @@
             $('#updateBtn').hide();
             var params;
             var paramObject;
-            debugger
+            //debugger
             $('.delBtn').hide();
             $('#preloader').hide();
             $(document).on({
@@ -896,7 +896,7 @@
                 registerNewData();
             });
             async function registerNewData() {
-                debugger
+                //debugger
                 if (editorInstance) {
                     let editorData = editorInstance.getData();
                     $("#output").html(editorData);
@@ -912,7 +912,7 @@
                         return `${day}-${month}-${year}`;
                     }
                 }
-                debugger
+                //debugger
                 try {
                     var sectionName = document.getElementById('sectionName').value || "";
                     var pressLangugage = document.getElementById('pressCreateLangugage').value || "";
@@ -960,7 +960,7 @@
             }
             params = window.location.search.substring(1);
             if (params) {
-                debugger;
+                //debugger;
                 let decryptedData;
                 const secretKey = 'V7gN4dY8pT2xB3kRz';
                 const dataFromParams = CryptoJS.AES.decrypt(params, secretKey);
@@ -988,7 +988,7 @@
             }
 
             $('.updateBtn').on('click', function () {
-                debugger;
+                //debugger;
                 const setId = paramObject.id;
                 const sectionName = $('#sectionName').val();
                 const description = editorInstance.getData();

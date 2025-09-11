@@ -1503,7 +1503,7 @@
       });
 
       $('.shownav').on('click', function (e) {
-        debugger;
+        //debugger;
         e.stopPropagation(); // Prevent closing when clicking inside
         $('.showlink').not($(this).find('.showlink')).removeClass('force-show'); // Close other dropdowns
         $(this).find('.showlink').toggleClass('force-show');
@@ -1520,7 +1520,7 @@
   <script>
     $(document).ready(function () {
       var role;
-      debugger
+      //debugger
       role = localStorage.getItem("role");
       var userAdminName = localStorage.getItem("userAdminName");
       if (role) {
@@ -1592,7 +1592,7 @@
     }
 
     $(document).ready(function () {
-      debugger
+      //debugger
       $('#preloader').hide();
       var langSwitch = 'en';
       $(document).on({
@@ -1802,7 +1802,7 @@
 
 
       // $("body").on("click", "#open-modal-btn", function () {
-      //   debugger
+      //   //debugger
       //   const pressId = $(this).data("id");
       //   selectedId = $(this).data("id");
       //   orderName = $(this).data("file");
@@ -1827,7 +1827,7 @@
       // });
 
       $("body").on("click", "#open-modal-btn", function () {
-        debugger;
+        //debugger;
         $("tr").removeClass("selected"); // Remove previously selected row
         const selectedRow = $(this).closest("tr"); // Get clicked row
         selectedRow.addClass("selected"); // Highlight the selected row
@@ -1870,7 +1870,7 @@
       });
 
       async function registerNewData() {
-        debugger
+        //debugger
         try {
           var role = localStorage.getItem("role");
           var functionDate = $('#Function_create_date input').val() || "";
@@ -1946,7 +1946,7 @@
       });
 
       $('#updateBtn').on('click', function () {
-        debugger;
+        //debugger;
         const selectedRow = $('tr.selected'); // Ensure row is actually selected
         if (!selectedRow.length) {
           showErrorToast("No row selected for update.");
@@ -1971,7 +1971,7 @@
 
 
       async function updateData(id) {
-        debugger;
+        //debugger;
 
         const lang = $('#pressLangugage').val();
         const functionDate = $('#Function_Date').val();
@@ -2012,7 +2012,7 @@
       }
 
       function deleteData(id) {
-        debugger
+        //debugger
         $('#preloader').show();
         $.ajax({
           url: `${BASE_API_URL}/general/commonApi`,

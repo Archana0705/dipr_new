@@ -905,7 +905,7 @@
     </div>
   </div>
 
-  <form role="none" action="wwv_flow.accept?p_context=info-prdept103/press-release/606351205798953" method="post"
+  <form role="none"  method="post"
     name="wwv_flow" id="wwvFlowForm" data-oj-binding-provider="none" novalidate autocomplete="off">
     <input type="hidden" name="p_flow_id" value="103" id="pFlowId" /><input type="hidden" name="p_flow_step_id"
       value="17" id="pFlowStepId" /><input type="hidden" name="p_instance" value="606351205798953"
@@ -1301,12 +1301,18 @@
       "X-App-Key": "dipr",
       "X-App-Name": "dipr"
     },
-    data: JSON.stringify({ data: encryptData(payload) }),
-contentType: "application/json",dataType: "json",
+    data: { 
+      data: encryptData(payload)
+    },
+    dataType: "json",
     success: function (response) {
       const decrypted = decryptData(response?.data || "");
       console.log(decrypted[0]?.result);
-
+        const secretKey = "55464654654646654";                        
+        let encryptedData = CryptoJS.AES.encrypt(
+            JSON.stringify(response.data),
+            secretKey
+        ).toString();
       if (
         Array.isArray(decrypted) &&
         (
@@ -1317,7 +1323,7 @@ contentType: "application/json",dataType: "json",
         showSuccessToast("Login successfully!");
         window.location.href = window.basePath + "/index.html";
         localStorage.setItem("role", decrypted[0]?.role || "");
-        localStorage.setItem("userAdminName", loguserName);
+        localStorage.setItem("userAdminName", encryptedData);
       } else {
         const msg = decrypted[0]?.result || "Invalid login. Please try again.";
         showErrorToast(msg);

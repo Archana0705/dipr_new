@@ -1472,7 +1472,7 @@
       });
 
       $('.shownav').on('click', function (e) {
-        debugger;
+        //debugger;
         e.stopPropagation(); // Prevent closing when clicking inside
         $('.showlink').not($(this).find('.showlink')).removeClass('force-show'); // Close other dropdowns
         $(this).find('.showlink').toggleClass('force-show');
@@ -1489,7 +1489,7 @@
   <script>
     $(document).ready(function () {
       var role;
-      debugger
+      //debugger
       role = localStorage.getItem("role");
       var userAdminName = localStorage.getItem("userAdminName");
       if (role) {
@@ -1560,7 +1560,7 @@
     }
 
     $(document).ready(function () {
-      debugger
+      //debugger
       $('#preloader').hide();
       var langSwitch = 'en';
       $(document).on({
@@ -1665,7 +1665,7 @@
       })
 
       $("body").on("click", "#open-modal-btn", function () {
-        debugger;
+        //debugger;
         $("tr").removeClass("selected"); // Remove the selected class from any previously selected row
         $(this).closest("tr").addClass("selected"); // Mark the clicked row as selected
 
@@ -1754,7 +1754,7 @@
             return `${day}-${month}-${year}`;
           }
         }
-        debugger
+        //debugger
         try {
 
           var pressYear = document.getElementById('Press_create_year').value || "";
@@ -1806,7 +1806,7 @@
       }
 
       $('#updateBtn').on('click', function () {
-        debugger;
+        //debugger;
         const selectedRow = $('tr.selected');
         if (!selectedRow.length) {
           showErrorToast("No row selected for update.");
@@ -1829,7 +1829,7 @@
 
 
       async function updateData(id) {
-        debugger;
+        //debugger;
 
         const year = $('#Press_year').val();
         const noOfBeneficiaries = $('#Press_no_of_beneficiaries').val();
@@ -1871,7 +1871,7 @@
       });
 
       function deleteData(id) {
-        debugger
+        //debugger
         $('#preloader').show();
         $.ajax({
           url: `${BASE_API_URL}/general/cineWorkersBeneficiaryDetails/deleteCineWorkersBeneficiary`,

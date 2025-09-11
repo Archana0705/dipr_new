@@ -2793,7 +2793,7 @@
       });
 
       $('.shownav').on('click', function (e) {
-        debugger;
+        //debugger;
         e.stopPropagation(); // Prevent closing when clicking inside
         $('.showlink').not($(this).find('.showlink')).removeClass('force-show'); // Close other dropdowns
         $(this).find('.showlink').toggleClass('force-show');
@@ -2810,7 +2810,7 @@
   <script>
     $(document).ready(function () {
       var role;
-      debugger
+      //debugger
       role = localStorage.getItem("role");
       var userAdminName = localStorage.getItem("userAdminName");
       if (role) {
@@ -2880,7 +2880,7 @@
     }
 
     $(document).ready(function () {
-      debugger
+      //debugger
       $('#preloader').hide();
       var langSwitch = 'en';
       $(document).on({
@@ -3590,7 +3590,7 @@
       };
 
       $("body").on("click", "#open-modal-btn", function () {
-        debugger
+        //debugger
         const pressId = $(this).data("id");
         selectedId = $(this).data("id");
         fileName = $(this).data("file");
@@ -3618,7 +3618,7 @@
 
 
       $("body").on("click", "#open-divwise-modal-btn", function () {
-        debugger
+        //debugger
         const pressId = $(this).data("id");
         selectedId = $(this).data("id");
 
@@ -3635,7 +3635,7 @@
       });
 
       $("body").on("click", "#open-profcr-modal-btn", function () {
-        debugger
+        //debugger
         const pressId = $(this).data("id");
         selectedId = $(this).data("id");
 
@@ -3651,7 +3651,7 @@
       });
 
       $("body").on("click", "#open-profcr-otherdep-modal-btn", function () {
-        debugger
+        //debugger
         const pressId = $(this).data("id");
         selectedId = $(this).data("id");
 
@@ -3667,7 +3667,7 @@
       });
 
       $("body").on("click", "#open-district-pro-modal-btn", function () {
-        debugger
+        //debugger
         const pressId = $(this).data("id");
         selectedId = $(this).data("id");
 
@@ -3683,7 +3683,7 @@
       });
 
       $("body").on("click", "#open-corporate-modal-btn", function () {
-        debugger
+        //debugger
         const pressId = $(this).data("id");
         selectedId = $(this).data("id");
 
@@ -3699,7 +3699,7 @@
       });
 
       $("body").on("click", "#open-sectionhq-modal-btn", function () {
-        debugger
+        //debugger
         const pressId = $(this).data("id");
         selectedId = $(this).data("id");
 
@@ -3801,7 +3801,7 @@
 
 
       async function registerNewData() {
-        debugger
+        //debugger
         var role = localStorage.getItem("role");
         var name = $('#Press_create_name').val() || 0;
         var designation = $('#Press_create_designation').val() || 0;
@@ -3841,7 +3841,7 @@
 
 
       async function registerDivData() {
-        debugger
+        //debugger
         var role = localStorage.getItem("role");
         var name = $('#Press_create_div_name').val() || 0;
         var designation = $('#Press_create_div_designation').val() || 0;
@@ -3882,7 +3882,7 @@
       }
 
       async function registerPrOfcrData() {
-        debugger
+        //debugger
         var role = localStorage.getItem("role");
         var name = $('#officerName').val() || 0;
         var designation = $('#officerDesignation').val() || 0;
@@ -3921,7 +3921,7 @@
       }
 
       async function registerPrOfcrOtherDepData() {
-        debugger
+        //debugger
         var role = localStorage.getItem("role");
         var name = $('#officerNameOtherDept').val() || 0;
         var designation = $('#officerDesignationOtherDept').val() || 0;
@@ -3960,7 +3960,7 @@
       }
 
       async function registerDistrictProData() {
-        debugger
+        //debugger
         var role = localStorage.getItem("role");
         var district = $('#districtId').val() || 0;
         var name = $('#nameId').val() || 0;
@@ -4001,7 +4001,7 @@
       }
 
       async function registerCorporationData() {
-        debugger
+        //debugger
         var role = localStorage.getItem("role");
         var name = $('#corporationName').val() || 0;
         var designation = $('#corporationDesignation').val() || 0;
@@ -4040,7 +4040,7 @@
       }
 
       async function registerSectionHQData() {
-        debugger
+        //debugger
         var role = localStorage.getItem("role");
         var sections = $('#hqSectionName').val() || 0;
         var phone = $('#hqSectionPhone').val() || 0;
@@ -4078,7 +4078,7 @@
       }
 
       $('#updateBtn').on('click', async function () {
-        debugger;
+        //debugger;
 
         if (!selectedId) {
           showErrorToast("Failed to fetch required data for update.");
@@ -4088,7 +4088,7 @@
       });
 
       $('#divwiseUpdateBtn').on('click', async function () {
-        debugger;
+        //debugger;
 
         if (!selectedId) {
           showErrorToast("Failed to fetch required data for update.");
@@ -4098,7 +4098,7 @@
       });
 
       $('#prOfficerupdateBtn').on('click', async function () {
-        debugger;
+        //debugger;
 
         if (!selectedId) {
           showErrorToast("Failed to fetch required data for update.");
@@ -4108,7 +4108,7 @@
       });
 
       $('#prOfficerOtherDepupdateBtn').on('click', async function () {
-        debugger;
+        //debugger;
 
         if (!selectedId) {
           showErrorToast("Failed to fetch required data for update.");
@@ -4118,7 +4118,7 @@
       });
 
       $('#districtProupdateBtn').on('click', async function () {
-        debugger;
+        //debugger;
 
         if (!selectedId) {
           showErrorToast("Failed to fetch required data for update.");
@@ -4128,7 +4128,7 @@
       });
 
       $('#corporationUpdateBtn').on('click', async function () {
-        debugger;
+        //debugger;
 
         if (!selectedId) {
           showErrorToast("Failed to fetch required data for update.");
@@ -4138,7 +4138,7 @@
       });
 
       $('#headquarterSectionsUpdateBtn').on('click', async function () {
-        debugger;
+        //debugger;
 
         if (!selectedId) {
           showErrorToast("Failed to fetch required data for update.");
@@ -4149,7 +4149,7 @@
 
 
       async function updateData(id) {
-        debugger;
+        //debugger;
         var language = $('#pressLangugage').val() || 0;
         var name = $("#Press_name").val();
         var designation = $("#Press_designation").val();
@@ -4188,7 +4188,7 @@
       }
 
       async function updateDivData(id) {
-        debugger;
+        //debugger;
         var language = $('#pressDivLangugage').val() || 0;
         var name = $("#Press_div_name").val();
         var designation = $("#Press_div_designation").val();
@@ -4231,7 +4231,7 @@
       }
 
       async function updatePrOffcrData(id) {
-        debugger;
+        //debugger;
         var language = $('#pressPrLangugage').val() || 0;
         var name = $("#Press_pr_name").val();
         var designation = $("#Press_pr_designation").val();
@@ -4272,7 +4272,7 @@
       }
 
       async function updatePrOffcrOtherDepData(id) {
-        debugger;
+        //debugger;
         var language = $('#pressPrOtherLangugage').val() || 0;
         var name = $("#Press_pr_other_name").val();
         var designation = $("#Press_pr_other_designation").val();
@@ -4313,7 +4313,7 @@
       }
 
       async function updateDistrictProData(id) {
-        debugger;
+        //debugger;
         var language = $('#districtPrLanguage').val() || 0;
         var name = $("#districtPrName").val();
         var designation = $("#districtPrDesignation").val();
@@ -4354,7 +4354,7 @@
       }
 
       async function updateCorporationData(id) {
-        debugger;
+        //debugger;
         var language = $('#Corporation_language').val() || 0;
         var name = $("#Corporation_name").val();
         var designation = $("#Corporation_designation").val();
@@ -4395,7 +4395,7 @@
       }
 
       async function updateHeadQuarterSectionData(id) {
-        debugger;
+        //debugger;
         var language = $('#pressPrHqLanguage').val() || 0;
         var name = $("#Press_pr_hq_name").val();
         var designation = $("#Press_pr_hq_sections").val();
@@ -4449,7 +4449,7 @@
       });
 
       function deleteData(id) {
-        debugger
+        //debugger
         $('#preloader').show();
         $.ajax({
           url: `${BASE_API_URL}/general/commonApi`,

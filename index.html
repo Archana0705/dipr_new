@@ -2589,7 +2589,7 @@
       });
 
       $('.shownav').on('click', function (e) {
-        debugger;
+        //debugger;
         e.stopPropagation(); // Prevent closing when clicking inside
         $('.showlink').not($(this).find('.showlink')).removeClass('force-show'); // Close other dropdowns
         $(this).find('.showlink').toggleClass('force-show');
@@ -2636,7 +2636,7 @@
     }
 
     $(document).ready(function () {
-      debugger
+      
 
       $(document).on({
         ajaxStart: function () {
