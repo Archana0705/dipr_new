@@ -2653,6 +2653,10 @@
         url: `${BASE_API_URL}/general/home`,
         method: "GET",
         dataType: "json",
+        headers: {
+          "X-App-Key": "dipr",
+          "X-App-Name": "dipr"
+        },
         success: function (response) {
           if (response.success && response.data.length > 0) {
             response.data.forEach(function (item) {
@@ -2685,6 +2689,10 @@
       $.ajax({
         url: `${BASE_API_URL}/general/daily_updates`,
         method: 'GET',
+        headers: {
+          "X-App-Key": "dipr",
+          "X-App-Name": "dipr"
+        },
         success: function (response) {
           if (response.success === 1) {
             $('#table-body').empty();
