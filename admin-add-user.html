@@ -737,7 +737,7 @@
 
   <!-- Toast -->
   <div class="toast-container position-fixed p-3 custom_toast" x-data="transButtonComponent()">
-    <div id="errorToast" class="toast align-items-center text-bg-primary border-0 " role="alert" aria-live="assertive"
+    <div id="errorToast" class="toast align-items-center text-bg-primary border-0 " aria-live="assertive"
       aria-atomic="true">
       <div class="d-flex">
         <div class="toast-body">
@@ -747,7 +747,7 @@
           aria-label="Close"></button>
       </div>
     </div>
-    <div id="successToast" class="toast align-items-center text-bg-primary border-0 " role="alert" aria-live="assertive"
+    <div id="successToast" class="toast align-items-center text-bg-primary border-0 " aria-live="assertive"
       aria-atomic="true">
       <div class="d-flex">
         <div class="toast-body">
@@ -1664,7 +1664,7 @@
     }
 
     $(document).ready(function () {
-      debugger
+
       $('#preloader').hide();
       var langSwitch = 'en';
       $(document).on({
@@ -1791,75 +1791,85 @@
         registerNewData();
       });
 
-      async function registerNewData() {
-        debugger
-        const emailInput = $('#Press_create_email input').val() || "";
-        const passsword = $('#Press_create_password input').val() || "";
-        const username = $('#Press_create_username input').val() || "";
-        const role = document.getElementById('Press_create_role').value || "";
-        const district = document.getElementById('P45_DISTRICT').value || "";
+    async function registerNewData() {
+  const emailInput = $('#Press_create_email input').val() || "";
+  const password = $('#Press_create_password input').val() || "";
+  const username = $('#Press_create_username input').val() || "";
+  const role = document.getElementById('Press_create_role').value || "";
+  const district = document.getElementById('P45_DISTRICT').value || "";
 
-        const errorPlaceholder = document.getElementById("Press_create_email_error_placeholder");
+  const emailError = document.getElementById("Press_create_email_error_placeholder");
+  const passwordError = document.getElementById("Press_create_password_error_placeholder");
 
-        const email = emailInput ? emailInput.trim() : "";
-        const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  const email = emailInput ? emailInput.trim() : "";
 
-        // Validate email field
-        if (!email) {
-          errorPlaceholder.textContent = "Email is required.";
-          return;
-        } else if (!emailPattern.test(email)) {
-          errorPlaceholder.textContent = "Invalid email format.";
-          return;
-        } else {
-          errorPlaceholder.textContent = "";
+  const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  const strongPasswordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
-        }
+  // ✅ Validate email field
+  if (!email) {
+    emailError.textContent = "Email is required.";
+    return;
+  } else if (!emailPattern.test(email)) {
+    emailError.textContent = "Invalid email format.";
+    return;
+  } else {
+    emailError.textContent = "";
+  }
 
-        try {
-          var registrationPayload = {
-            "USERNAME": username,
-            "PASSWORD": passsword,
-            "EMAIL_ID": email,
-            "CREATED_BY": "test",
-            "ROLE": role,
-            "DISTRICT": district
-          };
+  // ✅ Validate password field
+  if (!strongPasswordPattern.test(password)) {
+    passwordError.textContent = "Password must be at least 8 characters, include uppercase, lowercase, number, and symbol.";
+    return; // stop function here
+  } else {
+    passwordError.textContent = "";
+  }
+
+  try {
+    var registrationPayload = {
+      "USERNAME": username,
+      "PASSWORD": password,
+      "EMAIL_ID": email,
+      "CREATED_BY": "test",
+      "ROLE": role,
+      "DISTRICT": district
+    };
 
 
-          await $.ajax({
-            url: `${BASE_API_URL}/admin/signup`,
-            type: 'POST',
-            contentType: 'application/json',
-            data: JSON.stringify(registrationPayload),
-            success: function (response) {
+    await $.ajax({
+      url: `${BASE_API_URL}/admin/signup`,
+      type: 'POST',
+      contentType: 'application/json',
+      data: JSON.stringify(registrationPayload),
+      success: function (response) {
               // user_id.id = response.return_id;
               // Court_id.COURT_ID = response.return_id;
-              showSuccessToast("Created Successfully");
-              setTimeout(() => window.location.href = "../admin-add-user.html", 1000);
-            },
-            error: function (error) {
-              console.error('Error:', error);
-              showErrorToast("An error occurred during submission of data.");
-            }
-          });
-          await showSuccessToast('Data Submitted Successfully');
-        } catch (error) {
-          console.error('Error:', error);
-          showErrorToast("An unexpected error occurred.");
-        }
+        showSuccessToast("Created Successfully");
+        setTimeout(() => window.location.href = "../admin-add-user.html", 1000);
+      },
+      error: function (error) {
+        showErrorToast("An error occurred during submission of data.");
       }
+    });
 
+  } catch (error) {
+    showErrorToast("An unexpected error occurred.");
+  }
+}
+
+$("#createUploadBtn").on("click", function () {
+  registerNewData();
+});
 
 
       $("#deleteBtn").on("click", function () {
         if (!selectedId) {
-          alert("No item selected for deletion.");
+       
           return;
         }
 
         if (confirm("Are you sure you want to delete this item?")) {
-          alert(selectedId)
+        
           deleteData(selectedId);
         }
       });
