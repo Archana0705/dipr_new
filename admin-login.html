@@ -1242,7 +1242,8 @@
   <!-- Keep only if you use APEX widgets/themes -->
   <script src="assets/js/desktop_all.min.js"></script>
   <script src="assets/js/theme42.min.js"></script>
-
+ <script src="assets/js/encrypt_decrypt.js"></script>
+    <script src="assets/js/crypto-js.min.js"></script>
   <script>
     document.addEventListener("DOMContentLoaded", function () {
       const links = document.querySelectorAll(".t-Header-nav a, .t-Header-nav ul li a");
@@ -1344,40 +1345,58 @@
         return;
       }
 
-      // If captcha is correct → proceed with login
-      var loginPayload = {
-        "user_name": loguserName,
-        "password": logPass
+      const payload = {
+        action: "function_call",
+        function_name: "user_login_fn",
+        params: {
+          p_user: loguserName,
+          p_password: logPass
+        }
       };
 
       $.ajax({
-        url: `${BASE_API_URL}/admin/login`,
+        url: `${BASE_API_URL}/commonfunction`,
         type: "POST",
         headers: {
           "X-App-Key": "dipr",
           "X-App-Name": "dipr"
         },
-        contentType: 'application/json',
-        data: JSON.stringify(loginPayload),
+        data: { 
+          data: encryptData(payload)
+        },
+        dataType: "json",
         success: function (response) {
-          if (response.success === 1) {
+          const decrypted = decryptData(response?.data || "");
+          console.log(decrypted[0]?.result);
+            const secretKey = "55464654654646654";                        
+            let encryptedData = CryptoJS.AES.encrypt(
+                JSON.stringify(response.data),
+                secretKey
+            ).toString();
+          if (
+            Array.isArray(decrypted) &&
+            (
+              decrypted[0]?.result === true ||
+              decrypted[0]?.result === "SUCCESS"
+            )
+          ) {
             showSuccessToast("Login successfully!");
             window.location.href = window.basePath + "/index.html";
-            localStorage.setItem("role", response.role);
-            localStorage.setItem("userAdminName", loguserName);
+            localStorage.setItem("role", decrypted[0]?.role || "");
+            localStorage.setItem("userAdminName", encryptedData);
           } else {
-            showErrorToast(response.message);
-            drawCaptcha(); // reset captcha on login failure
+            const msg = decrypted[0]?.result || "Invalid login. Please try again.";
+            showErrorToast(msg);
           }
         },
-        error: function () {
-          showErrorToast("Something went wrong. Please try again.");
+        error: function (xhr, status, error) {
+          showErrorToast("Login request failed. Please try again.");
         },
         complete: function () {
           $('#preloader').hide();
         }
       });
-    });
+     });
   });
     // $(document).ready(function () {
     //   $('.signClick').on('click', function () {

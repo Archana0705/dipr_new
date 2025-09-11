@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    // debugger
+    // //debugger
     $('#navbar-container').load("globalNavbar.html", function () {
         setTimeout(() => {
             const role = localStorage.getItem("role");

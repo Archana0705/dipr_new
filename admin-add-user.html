@@ -1577,7 +1577,7 @@
       });
 
       $('.shownav').on('click', function (e) {
-        debugger;
+        //debugger;
         e.stopPropagation(); // Prevent closing when clicking inside
         $('.showlink').not($(this).find('.showlink')).removeClass('force-show'); // Close other dropdowns
         $(this).find('.showlink').toggleClass('force-show');
@@ -1594,7 +1594,7 @@
   <script>
     $(document).ready(function () {
       var role;
-      debugger
+      //debugger
       role = localStorage.getItem("role");
       var userAdminName = localStorage.getItem("userAdminName");
       if (role) {
@@ -1664,7 +1664,6 @@
     }
 
     $(document).ready(function () {
-
       $('#preloader').hide();
       var langSwitch = 'en';
       $(document).on({
@@ -1766,7 +1765,7 @@
       })
 
       $("body").on("click", "#open-modal-btn", function () {
-        debugger
+        //debugger
         const pressId = $(this).data("id");
         selectedId = $(this).data("id");
         const selectedItem = tableData.find(item => item.id == pressId);
@@ -1875,7 +1874,7 @@ $("#createUploadBtn").on("click", function () {
       });
 
       function deleteData(id) {
-        debugger
+        //debugger
         $('#preloader').show();
         $.ajax({
           url: `${BASE_API_URL}/admin/pressRelease/deletePressReleaseForm`,

@@ -1523,7 +1523,7 @@
       });
 
       $('.shownav').on('click', function (e) {
-        debugger;
+        //debugger;
         e.stopPropagation(); // Prevent closing when clicking inside
         $('.showlink').not($(this).find('.showlink')).removeClass('force-show'); // Close other dropdowns
         $(this).find('.showlink').toggleClass('force-show');
@@ -1540,7 +1540,7 @@
   <script>
     $(document).ready(function () {
       var role;
-      debugger
+      //debugger
       role = localStorage.getItem("role");
       var userAdminName = localStorage.getItem("userAdminName");
       if (role) {
@@ -1611,7 +1611,7 @@
 
 
     $(document).ready(function () {
-      debugger
+      //debugger
       $('#preloader').hide();
       var langSwitch = 'en';
       $(document).on({
@@ -1812,7 +1812,7 @@
       })
 
       const createDownloadLink = (content, mimeType, filename) => {
-        debugger
+        //debugger
         let base64Video = content
         // Step 2: Remove the Base64 header if present
         if (base64Video.includes('base64,')) {
@@ -1838,7 +1838,7 @@
       };
 
       $("body").on("click", "#open-modal-btn", function () {
-        debugger
+        //debugger
         const pressId = $(this).data("id");
         selectedId = $(this).data("id");
         fileName = $(this).data("file");
@@ -1925,7 +1925,7 @@
 
 
       async function registerNewData() {
-        debugger
+        //debugger
         var role = localStorage.getItem("role");
         var district = $('#Press_create_district').val() || 0;
 
@@ -1964,7 +1964,7 @@
       }
 
       $('#updateBtn').on('click', async function () {
-        debugger;
+        //debugger;
 
 
         if (!selectedId) {
@@ -1987,7 +1987,7 @@
 
 
       async function updateData(id, filename, mimetype, fileBase64) {
-        debugger;
+        //debugger;
         const district = $('#Press_district').val();
 
         let updatePayload = {
@@ -2034,7 +2034,7 @@
       });
 
       function deleteData(id) {
-        debugger
+        //debugger
         $('#preloader').show();
         $.ajax({
           url: `${BASE_API_URL}/general/commonApi`,

@@ -1415,7 +1415,7 @@
       });
 
       $('.shownav').on('click', function (e) {
-        debugger;
+        //debugger;
         e.stopPropagation(); // Prevent closing when clicking inside
         $('.showlink').not($(this).find('.showlink')).removeClass('force-show'); // Close other dropdowns
         $(this).find('.showlink').toggleClass('force-show');
@@ -1432,7 +1432,7 @@
   <script>
     $(document).ready(function () {
       var role;
-      debugger
+      //debugger
       role = localStorage.getItem("role");
       var userAdminName = localStorage.getItem("userAdminName");
       if (role) {
@@ -1504,7 +1504,7 @@
     }
 
     $(document).ready(function () {
-      debugger
+      //debugger
       $('#preloader').hide();
       $(document).on({
         ajaxStart: function () {
@@ -1528,7 +1528,7 @@
       tableBody.html('<tr><td colspan="9" class="text-center">Loading...</td></tr>');
 
       function fetchData() {
-        debugger
+        //debugger
         var viewPayload = {
           // "lang": langSwitch
           "action": "fetch"
@@ -1611,7 +1611,7 @@
       })
 
       $("body").on("click", "#open-modal-btn", function () {
-        debugger
+        //debugger
         const pressId = $(this).data("id");
         selectedId = $(this).data("id");
         const selectedItem = tableData.find(item => item.id == pressId);
@@ -1693,7 +1693,7 @@
             return `${day}-${month}-${year}`;
           }
         }
-        debugger
+        //debugger
         try {
           var pressLangugage = document.getElementById('pressCreateLangugage').value || "";
           let pressInputFile = null;
@@ -1759,7 +1759,7 @@
       });
 
       function deleteData(id) {
-        debugger
+        //debugger
         $('#preloader').show();
         $.ajax({
           url: `${BASE_API_URL}/general/tnforms`,

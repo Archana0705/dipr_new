@@ -1303,7 +1303,7 @@
             });
 
             $('.shownav').on('click', function (e) {
-                debugger;
+                //debugger;
                 e.stopPropagation(); // Prevent closing when clicking inside
                 $('.showlink').not($(this).find('.showlink')).removeClass('force-show'); // Close other dropdowns
                 $(this).find('.showlink').toggleClass('force-show');
@@ -1320,7 +1320,7 @@
     <script>
         $(document).ready(function () {
             var role;
-            debugger
+            //debugger
             role = localStorage.getItem("role");
             var userAdminName = localStorage.getItem("userAdminName");
             if (role) {
@@ -1460,7 +1460,7 @@
         apex.pwa.init({ serviceWorkerPath: '\u002Fords\u002Fr\u002Fdipr\u002Finfo-prdept103\u002Fsw.js?v=24.1.7-44329441868468\u0026lang=en' });
 
         $(document).ready(function () {
-            debugger;
+            //debugger;
             $('#preloader').hide();
             $(document).on({
                 ajaxStart: function () {
@@ -1546,7 +1546,7 @@
                 }
             });
             $("body").on("click", "#editIconClickEn", function (e) {
-                debugger;
+                //debugger;
                 e.preventDefault();
                 let selectedItem;
                 const dataLang = $(this).data("lang");

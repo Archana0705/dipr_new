@@ -1661,7 +1661,7 @@
       });
 
       $('.shownav').on('click', function (e) {
-        debugger;
+        //debugger;
         e.stopPropagation(); // Prevent closing when clicking inside
         $('.showlink').not($(this).find('.showlink')).removeClass('force-show'); // Close other dropdowns
         $(this).find('.showlink').toggleClass('force-show');
@@ -1678,7 +1678,7 @@
   <script>
     $(document).ready(function () {
       var role;
-      debugger
+      //debugger
       role = localStorage.getItem("role");
       var userAdminName = localStorage.getItem("userAdminName");
       if (role) {
@@ -1748,7 +1748,7 @@
     }
 
     $(document).ready(function () {
-      debugger
+      //debugger
       $('#preloader').hide();
       var langSwitch = 'en';
       $(document).on({
@@ -1940,7 +1940,7 @@
       })
 
       $("body").on("click", "#open-modal-btn", function () {
-        debugger
+        //debugger
         const pressId = $(this).data("id");
         selectedId = $(this).data("id");
         const selectedItem = tableData.find(item => item.slno == pressId);
@@ -1969,7 +1969,7 @@
 
 
       async function registerNewData() {
-        debugger
+        //debugger
         var role = localStorage.getItem("role");
         let fileInput = $('#press_create_video_FileUpload_input')[0]; // Get file input
         let file = fileInput.files[0]; // Get selected file
@@ -2020,7 +2020,7 @@
         });
       }
       $('#updateBtn').on('click', function () {
-        debugger;
+        //debugger;
         if (!selectedId) {
           showErrorToast("Failed to fetch required data for update.");
           return;
@@ -2030,7 +2030,7 @@
 
 
       async function updateData(id) {
-        debugger;
+        //debugger;
         let fileInput = $('#press_video_FileUpload_input')[0]; // Get file input
         let file = fileInput.files[0]; // Get selected file
 
@@ -2093,7 +2093,7 @@
       });
 
       function deleteData(id) {
-        debugger
+        //debugger
         $('#preloader').show();
         $.ajax({
           url: `${BASE_API_URL}/general/commonApi`,

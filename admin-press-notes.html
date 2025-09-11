@@ -1495,7 +1495,7 @@
       });
 
       $('.shownav').on('click', function (e) {
-        debugger;
+        //debugger;
         e.stopPropagation(); // Prevent closing when clicking inside
         $('.showlink').not($(this).find('.showlink')).removeClass('force-show'); // Close other dropdowns
         $(this).find('.showlink').toggleClass('force-show');
@@ -1512,7 +1512,7 @@
   <script>
     $(document).ready(function () {
       var role;
-      debugger
+      //debugger
       role = localStorage.getItem("role");
       var userAdminName = localStorage.getItem("userAdminName");
       if (role) {
@@ -1582,7 +1582,7 @@
     }
 
     $(document).ready(function () {
-      debugger
+      //debugger
       $('#preloader').hide();
       var langSwitch = 'en';
       $(document).on({
@@ -1797,7 +1797,7 @@
       };
 
       $("body").on("click", "#open-modal-btn", function () {
-        debugger
+        //debugger
         const pressId = $(this).data("id");
         selectedId = $(this).data("id");
         fileName = $(this).data("file");
@@ -1885,7 +1885,7 @@
 
 
       async function registerNewData() {
-        debugger
+        //debugger
         var role = localStorage.getItem("role");
         var pndate = $('#Press_create_date').val() || 0;
         var language = $('#pressCreateLangugage').val() || 0;
@@ -1928,7 +1928,7 @@
       }
 
       $('#updateBtn').on('click', async function () {
-        debugger;
+        //debugger;
 
 
         if (!selectedId) {
@@ -1951,7 +1951,7 @@
 
 
       async function updateData(id, filename, mimetype, fileBase64) {
-        debugger;
+        //debugger;
         const pndate = $('#Press_date').val();
         var language = $('#pressCreateLangugage').val() || 0;
 
@@ -2005,7 +2005,7 @@
       });
 
       function deleteData(id) {
-        debugger
+        //debugger
         $('#preloader').show();
         $.ajax({
           url: `${BASE_API_URL}/general/commonApi`,

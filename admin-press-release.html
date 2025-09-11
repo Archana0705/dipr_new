@@ -1497,7 +1497,7 @@
   <script>
     $(document).ready(function () {
       var role;
-      debugger
+      //debugger
       role = localStorage.getItem("role");
       $('#pressFileUpload_input').on('change', function () {
         const validation = validateFile(this);
@@ -1576,7 +1576,7 @@
     }
 
     $(document).ready(function () {
-      debugger
+      //debugger
       $('#preloader').hide();
       var langSwitch = 'en';
       $(document).on({
@@ -1682,7 +1682,7 @@
       })
 
       $("body").on("click", "#open-modal-btn", function () {
-        debugger
+        //debugger
         const pressId = $(this).data("id");
         selectedId = $(this).data("id");
         const selectedItem = tableData.find(item => item.id == pressId);
@@ -1766,7 +1766,7 @@
             return `${day}-${month}-${year}`;
           }
         }
-        debugger
+        //debugger
         try {
 
           var pressDate = $('#Press_create_date input').val() || "";
@@ -1842,7 +1842,7 @@
       });
 
       function deleteData(id) {
-        debugger
+        //debugger
         $('#preloader').show();
         $.ajax({
           url: `${BASE_API_URL}/admin/pressRelease/deletePressReleaseForm`,
