@@ -1913,7 +1913,7 @@ $("#createUploadBtn").on("click", function () {
         }
       });
     });
-     if (localStorage.getItem("userAdminName") !== "true") {
+     if (!localStorage.getItem("userAdminName")) {
     window.location.href = "admin-login.html";
   }
   </script>
