@@ -30,6 +30,8 @@
   <link rel="stylesheet" href="https://static.oracle.com/cdn/apex/24.1.7/themes/theme_42/23.1/css/Core.min.css?v=24.1.7"
     type="text/css" />
   <link rel="stylesheet" type="text/css" href="../assets/css/menu.css">
+<link href="assets/vendor/datatable/css/dataTables.css" rel="stylesheet">
+
   <style>
     .showlink {
       display: none !important;
@@ -799,7 +801,7 @@
                                       <div class="a-IRR-tableContainer">
                                         <table
                                           aria-label="English&#x20;Section&#x20;Content,&#x20;Report&#x20;&#x3D;&#x20;Primary&#x20;Default,&#x20;View&#x20;&#x3D;&#x20;Report"
-                                          class="a-IRR-table" id="">
+                                          class="a-IRR-table" id="admin-photo-upload-table">
                                           <thead>
                                             <tr>
                                               <!-- <th class="a-IRR-header a-IRR-header--linkCol" id="R34839964403869597_LINK">
@@ -1294,15 +1296,15 @@
       value="&#x2F;J4ieeBRwL3lIIKqd0-cL5kzutqFyrLI3idLlAiE2MmdvDJ3gUXpKHuJRINK-moovG6G6oeKYG8JP--3FNT8zHw" />
   </form>
 
-  <script src="../assets/js/toastUtil.js"></script>
+  <script src="assets/js/toastUtil.js"></script>
 
-  <script src="/assets/js/crypto-js.min.js"></script>
-  <script src="/assets/js/jquery-3.6.0.min.js"></script>
-  <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="../assets/vendor/datatable/jquery.dataTables.min.js"></script>
-  <script src="../assets/vendor/datatable/dataTables.bootstrap5.min.js"></script>
-  <script src="../assets/vendor/datatables-buttons/js/dataTables.buttons.min.js"></script>
-  <script src="../assets/vendor/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+  <script src="assets/js/crypto-js.min.js"></script>
+  <script src="assets/js/jquery-3.6.0.min.js"></script>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/datatable/jquery.dataTables.min.js"></script>
+  <script src="assets/vendor/datatable/dataTables.bootstrap5.min.js"></script>
+  <script src="assets/vendor/datatables-buttons/js/dataTables.buttons.min.js"></script>
+  <script src="assets/vendor/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
 
   <script src="assets/js/jquery-ui.min.js"></script>
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -1416,7 +1418,7 @@
             data: encryptData(payload) // <-- important!
         },
         dataType: "json",
-        success: function (response) {debugger
+        success: function (response) {
             if (response.success) {
                 localStorage.removeItem("role");
                 localStorage.removeItem("userAdminName");
@@ -1509,6 +1511,7 @@
       var tableDataEn;
       var tableDataTa;
       var selectedId;
+       
       $("#createNewBtn").on("click", function () {
         window.location.href = "../admin-section-create.html"
       });
@@ -1536,26 +1539,26 @@
             tableBodyTa.append('<tr><td colspan="9" class="text-center">No Data Found</td></tr>');
             return;
           }
-          tableDataTa.forEach(item => {
-            const newRow = `
-              <tr>
-          <td class="u-tL">
-            <a data-id="${item.id}" id="open-modal-btn" href="javascript:void(0);">
-              <i class="bi bi-pencil-square"></i>
-            </a>
-          </td>
-          <td class="a-GV-cell u-tC is-readonly">${item.v_url || 'N/A'}</td>
-          <td class="a-GV-cell u-tC is-readonly">${item.v_name || 'N/A'}</td>
-          <td class="a-GV-cell u-tC is-readonly">${item.v_desc || 'N/A'}</td>
-          <td class="a-GV-cell u-tC is-readonly">${item.language || 'N/A'}</td>
-          <td class="a-GV-cell u-tC is-readonly">${item.v_date || 'N/A'}</td>
-          <td class="a-GV-cell u-tC is-readonly">${item.created_by || 'N/A'}</td>
-          <td class="a-GV-cell u-tC is-readonly">${item.created_on || 'N/A'}</td>
-
-
-        </tr>`;
-            tableBodyTa.append(newRow);
-          });
+           
+            let allRows = '';
+            tableDataTa.forEach(item => {
+              allRows += `
+                <tr>
+                  <td class="u-tL">
+                    <a data-id="${item.id}" id="open-modal-btn" href="javascript:void(0);">
+                      <i class="bi bi-pencil-square"></i>
+                    </a>
+                  </td>
+                  <td class="a-GV-cell u-tC is-readonly">${item.v_url || 'N/A'}</td>
+                  <td class="a-GV-cell u-tC is-readonly">${item.v_name || 'N/A'}</td>
+                  <td class="a-GV-cell u-tC is-readonly">${item.v_desc || 'N/A'}</td>
+                  <td class="a-GV-cell u-tC is-readonly">${item.language || 'N/A'}</td>
+                  <td class="a-GV-cell u-tC is-readonly">${item.v_date || 'N/A'}</td>
+                  <td class="a-GV-cell u-tC is-readonly">${item.created_by || 'N/A'}</td>
+                  <td class="a-GV-cell u-tC is-readonly">${item.created_on || 'N/A'}</td>
+                </tr>`;
+            });
+            tableBodyTa.append(allRows);
         },
         error: function (xhr, status, error) {
           console.error("Error fetching data: ", error);
@@ -1590,7 +1593,7 @@
         console.log("Selected ID:", selectedId);
         console.log("Order Name:", orderName);
 
-        const selectedItem = tableData.find(item => item.id == pressId);
+        const selectedItem = tableBodyTa.find(item => item.id == pressId);
 
         if (selectedItem) {
           $("#Press_date input").val(selectedItem.go_date || "");
@@ -1691,7 +1694,8 @@
       const apiUrl = `${BASE_API_URL}/general/commonApi`;
       const tableBody = $("#engSecContent");
       tableBody.html('<tr><td colspan="9" class="text-center">Loading...</td></tr>');
-
+ let dataTable;
+//  let tableDataEn = [];
       var viewPayload = {
         "action": "fetch",
         "table": "GOVT_ATTACHMENTS",
@@ -1711,8 +1715,12 @@
             tableBody.append('<tr><td colspan="9" class="text-center">No Data Found</td></tr>');
             return;
           }
+               if ($.fn.DataTable.isDataTable("#admin-photo-upload-table")) {
+                   $("#admin-photo-upload-table").DataTable().clear().destroy();
+               }
+               let newRow = '';
           tableDataEn.forEach(item => {
-            const newRow = `
+            newRow += `
               <tr>
           <td class="u-tL">
             <a data-id="${item.slno}" id="open-modal-btn" href="javascript:void(0);">
@@ -1724,8 +1732,15 @@
           <td class="a-GV-cell u-tC is-readonly">${item.created_by || 'N/A'}</td>
           <td class="a-GV-cell u-tC is-readonly">${item.created_on || 'N/A'}</td>
         </tr>`;
-            tableBody.append(newRow);
-          });
+      });
+      tableBody.append(newRow);
+            dataTable = $("#admin-photo-upload-table").DataTable({
+              paging: true,
+              searching: true,
+              ordering: true,
+              order: [[0, 'asc']],
+              responsive: true,
+            });
         },
         error: function (xhr, status, error) {
           console.error("Error fetching data: ", error);
@@ -1759,7 +1774,7 @@
         console.log("Selected ID:", selectedId);
         console.log("Order Name:", orderName);
 
-        const selectedItem = tableData.find(item => item.id == pressId);
+        const selectedItem = tableDataEn.find(item => item.id == pressId);
 
         if (selectedItem) {
           $("#Press_date input").val(selectedItem.go_date || "");
@@ -1848,6 +1863,7 @@
     window.location.href = "admin-login.html";
   }
   </script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 
 </body>
 
