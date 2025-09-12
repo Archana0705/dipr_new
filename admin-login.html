@@ -1367,38 +1367,21 @@
         dataType: "json",
         success: function (response) {
           const decrypted = decryptData(response?.data || "");
-  console.log("Decrypted:", decrypted);
-
-  let loginResult = null;
-  try {
-    if (typeof decrypted[0]?.result === "string") {
-      loginResult = JSON.parse(decrypted[0].result);
-    } else {
-      loginResult = decrypted[0]?.result;
-    }
-  } catch (e) {
-    console.error("JSON parse error:", e);
-  }
-            const secretKey = "55464654654646654";
-              let encryptedData = CryptoJS.AES.encrypt(
-                                  JSON.stringify(loginResult),
-                                  secretKey
-                                  ).toString();
-                      if (
-                loginResult &&
-                (loginResult.status === true || loginResult === true || loginResult === "SUCCESS")
-              ) {
-                showSuccessToast("Login successfully!");
-                window.location.href = window.basePath + "/index.html";
-                localStorage.setItem("role", loginResult.role || "");
-                localStorage.setItem("district", loginResult.district || "");
-                localStorage.setItem("userAdminName", encryptedData);
-              } else {
-                const msg = loginResult?.status === false
-                  ? "Invalid login. Please try again."
-                  : decrypted[0]?.result || "Invalid login. Please try again.";
-                showErrorToast(msg);
-  }
+          let loginResult = decrypted[0];
+          const secretKey = "55464654654646654";
+                  let encryptedData = CryptoJS.AES.encrypt(
+                      JSON.stringify(loginResult),
+                      secretKey
+                  ).toString();
+                  if (loginResult && (loginResult.status === true || loginResult === "SUCCESS")) {
+    showSuccessToast("Login successfully!");
+    window.location.href = window.basePath + "/index.html";
+    localStorage.setItem("role", loginResult.role || "");
+    localStorage.setItem("district", loginResult.district || "");
+    localStorage.setItem("userAdminName", encryptedData);
+}  else {
+                showErrorToast(response.message);
+        }
         },
         error: function (xhr, status, error) {
           showErrorToast("Login request failed. Please try again.");
