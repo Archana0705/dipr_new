@@ -1492,6 +1492,8 @@
   <script src="assets/js/fileValidator.js"></script>
   <script src="assets/js/basepath.js"></script>
   <script src="assets/js/apiConfig.js"></script>
+  <script src="assets/js/encrypt_decrypt.js"></script>
+  <script src="assets/js/crypto-js.min.js"></script>
 
   <script>
     document.addEventListener("DOMContentLoaded", function () {
@@ -1871,23 +1873,29 @@
   } else {
     passwordError.textContent = "";
   }
-
+debugger
   try {
-    var registrationPayload = {
-      "USERNAME": username,
-      "PASSWORD": password,
-      "EMAIL_ID": email,
-      "CREATED_BY": "test",
-      "ROLE": role,
-      "DISTRICT": district
+    
+
+    const payload = {
+      action: "function_call",
+      function_name: "fn_user_creation",
+      params: {
+        p_username: username,
+        p_password: password,
+        p_email: email,
+        p_role: role,
+        p_district: district
+      }
     };
-
-
+    debugger
     await $.ajax({
-      url: `${BASE_API_URL}/admin/signup`,
+      url: `${BASE_API_URL}/commonfunction`,
       type: 'POST',
-      contentType: 'application/json',
-      data: JSON.stringify(registrationPayload),
+      data: {
+        data: encryptData(payload)
+      },
+    dataType: "json",
       success: function (response) {
               // user_id.id = response.return_id;
               // Court_id.COURT_ID = response.return_id;
