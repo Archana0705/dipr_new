@@ -1589,9 +1589,22 @@
   </script>
   <script>
     $(document).ready(function () {
-      var role;
-      //debugger
-      role = localStorage.getItem("role");
+      const secretKey = "55464654654646654";
+const encryptedData = localStorage.getItem("role");
+let role = null;
+
+if (encryptedData) {
+    try {
+        const decryptedData = JSON.parse(
+            CryptoJS.AES.decrypt(encryptedData, secretKey).toString(CryptoJS.enc.Utf8)
+        );
+        console.log(decryptedData);
+          
+        role = decryptedData || null; // assuming loginResult has user_id
+    } catch (err) {
+        console.error("Error decrypting user data:", err);
+    }
+}
       var userAdminName = localStorage.getItem("userAdminName");
       if (role) {
         $('.admin-name-change').text(role);
@@ -2031,7 +2044,22 @@
 
       async function registerNewData() {
         //debugger
-        var role = localStorage.getItem("role");
+        const secretKey = "55464654654646654";
+const encryptedData = localStorage.getItem("role");
+let role = null;
+
+if (encryptedData) {
+    try {
+        const decryptedData = JSON.parse(
+            CryptoJS.AES.decrypt(encryptedData, secretKey).toString(CryptoJS.enc.Utf8)
+        );
+        console.log(decryptedData);
+          
+        role = decryptedData || null; // assuming loginResult has user_id
+    } catch (err) {
+        console.error("Error decrypting user data:", err);
+    }
+}
         var listname = $('#Press_create_listname').val() || 0;
         var pagename = $('#Press_create_pagename').val() || 0;
         var listType = $('#Press_create_listType').val() || 0;

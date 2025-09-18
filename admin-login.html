@@ -1374,11 +1374,14 @@ function drawCaptcha() {
                       JSON.stringify(loginResult),
                       secretKey
                   ).toString();
+                  let encryptedRole = CryptoJS.AES.encrypt(
+        JSON.stringify(loginResult.role || ""),
+        secretKey
+      ).toString();
                   if (loginResult && (loginResult.status === true || loginResult === "SUCCESS")) {
     showSuccessToast("Login successfully!");
     window.location.href = window.basePath + "/index.html";
-    localStorage.setItem("role", loginResult.role || "");
-    localStorage.setItem("district", loginResult.district || "");
+    localStorage.setItem("role", encryptedRole || "");
     localStorage.setItem("userAdminName", encryptedData);
 }  else {
                 showErrorToast(response.message);

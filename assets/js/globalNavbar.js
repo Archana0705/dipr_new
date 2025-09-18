@@ -2,7 +2,22 @@ $(document).ready(function () {
     // //debugger
     $('#navbar-container').load("globalNavbar.html", function () {
         setTimeout(() => {
-            const role = localStorage.getItem("role");
+            const secretKey = "55464654654646654";
+const encryptedData = localStorage.getItem("role");
+let role = null;
+
+if (encryptedData) {
+    try {
+        const decryptedData = JSON.parse(
+            CryptoJS.AES.decrypt(encryptedData, secretKey).toString(CryptoJS.enc.Utf8)
+        );
+        console.log(decryptedData);
+          
+        role = decryptedData || null; // assuming loginResult has user_id
+    } catch (err) {
+        console.error("Error decrypting user data:", err);
+    }
+}
             const userAdminName = localStorage.getItem("userAdminName");
 
             if (userAdminName) {
