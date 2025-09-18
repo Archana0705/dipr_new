@@ -680,6 +680,62 @@
                                         type="button" id="create-image-open-modal"><span
                                           class="t-Button-label">Create</span></button></div>
                                   </div>
+                                  <!-- Photo Modal -->
+<!-- Photo Modal -->
+<div id="photoModal" title="Photo Upload"> 
+  <div class="modalWrap">
+    <div class="t-Form-inputContainer col col-12">
+      <div class="t-Form-itemWrapper file_wrap">
+        <div class="col col-6 apex-col-auto col-start">
+
+          <!-- File Name -->
+          <div class="t-Form-fieldContainer apex-item-wrapper apex-item-wrapper--text-field">
+            <div class="t-Form-labelContainer col col-2">
+              <label for="Photo_fileName">File Name</label>
+            </div>
+            <div class="t-Form-inputContainer col col-6">
+              <input type="text" id="Photo_fileName" class="form-control" readonly>
+            </div>
+          </div>
+
+          <!-- Date -->
+          <div class="t-Form-fieldContainer apex-item-wrapper apex-item-wrapper--text-field">
+            <div class="t-Form-labelContainer col col-2">
+              <label for="Photo_date">Date</label>
+            </div>
+            <div class="t-Form-inputContainer col col-6">
+              <input type="date" id="Photo_date" class="form-control">
+            </div>
+          </div>
+
+          <!-- Language -->
+          <div class="t-Form-fieldContainer apex-item-wrapper apex-item-wrapper--text-field">
+            <div class="t-Form-labelContainer col col-2">
+              <label for="Photo_language">Language</label>
+            </div>
+            <div class="t-Form-inputContainer col col-6">
+              <select id="Photo_language" class="form-control">
+                <option value="" selected>-Select-</option>
+                <option value="en">English</option>
+                <option value="ta">Tamil</option>
+              </select>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Buttons -->
+    <div class="t-Region-buttons-right float-end pad0">
+      <button class="t-Button bg-success text-white" id="savePhotoBtn">Save</button>
+    </div>
+    <div class="t-Region-buttons-right float-end pad0">
+      <button class="t-Button bg-danger text-white close-button" id="cancelPhotoBtn">Cancel</button>
+    </div>
+  </div>
+</div>
+
 
                                   <div id="uploadImageModal" title="Upload">
                                     <div class="modalWrap">
@@ -1124,7 +1180,7 @@
                                       <div class="a-IRR-tableContainer">
                                         <table
                                           aria-label="Tamil&#x20;Section&#x20;Content,&#x20;Report&#x20;&#x3D;&#x20;Primary&#x20;Default,&#x20;View&#x20;&#x3D;&#x20;Report"
-                                          class="a-IRR-table" id="37495116023508936">
+                                          class="a-IRR-table" id="video-upload-table">
                                           <thead>
                                             <tr>
                                               <!-- <th class="a-IRR-header a-IRR-header--linkCol" id="R34839964403869597_LINK">
@@ -1439,6 +1495,19 @@
   </script>
 
   <script src="/assets/js/global.js"></script>
+  <script>
+    $(document).ready(function () {
+  // Initialize Photo Modal (hidden by default)
+  $("#photoModal").dialog({
+    autoOpen: false,   // stays hidden initially
+    modal: true,       // background overlay
+    width: 600,        // adjust as needed
+    resizable: false,
+    draggable: true
+  });
+});
+
+  </script>
   <script type="text/javascript">
     apex.session.initTimeouts(300, { "idle_time_ms": 3600000, "life_time_ms": 28739000, "max_idle_time_ms": 3600000 }, '\u002Fords\u002Fr\u002Fdipr\u002Finfo-prdept103\u002Fhome', '\u002Fords\u002Fr\u002Fdipr\u002Finfo-prdept103\u002Fhome');
     apex.jQuery(function () {
@@ -1540,6 +1609,9 @@
             return;
           }
            
+                  if ($.fn.DataTable.isDataTable("#video-upload-table")) {
+                   $("#video-upload-table").DataTable().clear().destroy();
+               }
             let allRows = '';
             tableDataTa.forEach(item => {
               allRows += `
@@ -1559,6 +1631,13 @@
                 </tr>`;
             });
             tableBodyTa.append(allRows);
+                    dataTable = $("#video-upload-table").DataTable({
+              paging: true,
+              searching: true,
+              ordering: true,
+              order: [[0, 'asc']],
+              responsive: true,
+            });
         },
         error: function (xhr, status, error) {
           console.error("Error fetching data: ", error);
@@ -1723,7 +1802,7 @@
             newRow += `
               <tr>
           <td class="u-tL">
-            <a data-id="${item.slno}" id="open-modal-btn" href="javascript:void(0);">
+            <a data-id="${item.id}"   data-file="${item.file_name}" id="open-modal-btn_img" href="javascript:void(0);">
               <i class="bi bi-pencil-square"></i>
             </a>
           </td>
@@ -1761,41 +1840,30 @@
         $("#uploadVideoModal").dialog("open");
       })
 
-      $("body").on("click", "#open-modal-btn", function () {
+      $("body").on("click", "#open-modal-btn_img", function () {
+    $("tr").removeClass("selected");
+    const selectedRow = $(this).closest("tr");
+    selectedRow.addClass("selected");
 
-        $("tr").removeClass("selected"); // Remove previously selected row
-        const selectedRow = $(this).closest("tr"); // Get clicked row
-        selectedRow.addClass("selected"); // Highlight the selected row
+    const pressId = $(this).data("id");
+    selectedId = pressId;
+    orderName = $(this).data("file");
 
-        const pressId = $(this).data("id");
-        selectedId = pressId;
-        orderName = $(this).data("file");
+    const selectedItem = tableDataEn.find(item => item.id == pressId);
+        
+    if (selectedItem) {
+      $("#Photo_fileName").val(selectedItem.file_name || "");
+      $("#Photo_date").val(selectedItem.created_on || "");
+      $("#Photo_language").val(selectedItem.language || "").trigger("change");
 
-        console.log("Selected ID:", selectedId);
-        console.log("Order Name:", orderName);
+      // Open modal
+      $("#photoModal").dialog("open");
+    }
+  });
 
-        const selectedItem = tableDataEn.find(item => item.id == pressId);
-
-        if (selectedItem) {
-          $("#Press_date input").val(selectedItem.go_date || "");
-          $("#pressLangugage").val(selectedItem.language || "").trigger("change");
-          $("#modal").dialog("open");
-
-          const interimLinkContainer = document.getElementById("P86_INTERIM_COPY_LINK_CONTAINER");
-          if (interimLinkContainer) {
-            const downloadLinkHTML = createDownloadLink(
-              selectedItem.order_name,
-              "application/pdf",
-              selectedItem.order_name
-            );
-            interimLinkContainer.innerHTML = downloadLinkHTML;
-          }
-        }
-
-        // Clear file input when modal opens
-        $("#imageUpload_input").val("");
+$("#cancelPhotoBtn").on("click", function () {
+        $("#photoModal").dialog("close");
       });
-
       $("#uploadcancelBtn").on("click", function () {
         $("#uploadVideoModal").dialog("close");
       });
