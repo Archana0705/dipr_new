@@ -1,6 +1,6 @@
 const API_BASE_URL = "https://tngis.tnega.org/lcap_api/dipr-lcap-api/v1/";
 $(document).ready(function () {
-/*    $(document).on("contextmenu", function (e) {
+   $(document).on("contextmenu", function (e) {
     e.preventDefault();
      alert("Right click is disabled!");
      return false;
@@ -28,7 +28,7 @@ $(document).on("keydown", function (e) {
           alert("Developer Tools disabled!");
           return false;
         }
-      });*/
+      });
     $.ajaxSetup({
         headers: {
             "X-App-Key": "dipr",
