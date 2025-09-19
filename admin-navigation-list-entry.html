@@ -1589,9 +1589,22 @@
   </script>
   <script>
     $(document).ready(function () {
-      var role;
-      //debugger
-      role = localStorage.getItem("role");
+      const secretKey = "55464654654646654";
+const encryptedData = localStorage.getItem("role");
+let role = null;
+
+if (encryptedData) {
+    try {
+        const decryptedData = JSON.parse(
+            CryptoJS.AES.decrypt(encryptedData, secretKey).toString(CryptoJS.enc.Utf8)
+        );
+        console.log(decryptedData);
+          
+        role = decryptedData || null; // assuming loginResult has user_id
+    } catch (err) {
+        console.error("Error decrypting user data:", err);
+    }
+}
       var userAdminName = localStorage.getItem("userAdminName");
       if (role) {
         $('.admin-name-change').text(role);
@@ -2034,29 +2047,17 @@
   return htmlTagPattern.test(value);
 }
 
-async function registerNewData() {
-  var role = localStorage.getItem("role");
-  var listname = $('#Press_create_listname').val().trim();
-  var pagename = $('#Press_create_pagename').val().trim();
-  var listType = $('#Press_create_listType').val().trim();
-  var language = $('#pressCreateLangugage').val() || "";
+      async function registerNewData() {
+        //debugger
+        var role = localStorage.getItem("role");
+        var listname = $('#Press_create_listname').val() || 0;
+        var pagename = $('#Press_create_pagename').val() || 0;
+        var listType = $('#Press_create_listType').val() || 0;
+        var language = $('#pressCreateLangugage').val() || 0;
 
-  // 🚨 Block HTML Injection
-  if (hasHtmlTags(listname)) {
-    showErrorToast("List Name cannot contain HTML tags.");
-    return;
-  }
-  if (hasHtmlTags(pagename)) {
-    showErrorToast("Page Name cannot contain HTML tags.");
-    return;
-  }
-  if (hasHtmlTags(listType)) {
-    showErrorToast("List Type cannot contain HTML tags.");
-    return;
-  }
-
-  let pressInputFile = await processFile('#press_create_video_FileUpload_input');
-  checkFile('#press_create_video_FileUpload_input');
+        let pressInputFile = null;
+        pressInputFile = await processFile('#press_create_video_FileUpload_input');
+        checkFile('#press_create_video_FileUpload_input');
 
   if (!pressInputFile) {
     showErrorToast("Please Upload Image");

@@ -2810,9 +2810,22 @@
   </script>
   <script>
     $(document).ready(function () {
-      var role;
-      //debugger
-      role = localStorage.getItem("role");
+      const secretKey = "55464654654646654";
+const encryptedData = localStorage.getItem("role");
+let role = null;
+
+if (encryptedData) {
+    try {
+        const decryptedData = JSON.parse(
+            CryptoJS.AES.decrypt(encryptedData, secretKey).toString(CryptoJS.enc.Utf8)
+        );
+        console.log(decryptedData);
+          
+        role = decryptedData || null; // assuming loginResult has user_id
+    } catch (err) {
+        console.error("Error decrypting user data:", err);
+    }
+}
       var userAdminName = localStorage.getItem("userAdminName");
       if (role) {
         $('.admin-name-change').text(role);
@@ -3850,7 +3863,22 @@
 
 
 async function registerNewData() {
-  const role = localStorage.getItem("role");
+  const secretKey = "55464654654646654";
+const encryptedData = localStorage.getItem("role");
+let role = null;
+
+if (encryptedData) {
+    try {
+        const decryptedData = JSON.parse(
+            CryptoJS.AES.decrypt(encryptedData, secretKey).toString(CryptoJS.enc.Utf8)
+        );
+        console.log(decryptedData);
+          
+        role = decryptedData || null; // assuming loginResult has user_id
+    } catch (err) {
+        console.error("Error decrypting user data:", err);
+    }
+}
 
   // Get values
   let name = $('#Press_create_name').val().trim();
@@ -3930,7 +3958,22 @@ async function registerNewData() {
 
       async function registerDivData() {
         //debugger
-        var role = localStorage.getItem("role");
+        const secretKey = "55464654654646654";
+const encryptedData = localStorage.getItem("role");
+let role = null;
+
+if (encryptedData) {
+    try {
+        const decryptedData = JSON.parse(
+            CryptoJS.AES.decrypt(encryptedData, secretKey).toString(CryptoJS.enc.Utf8)
+        );
+        console.log(decryptedData);
+          
+        role = decryptedData || null; // assuming loginResult has user_id
+    } catch (err) {
+        console.error("Error decrypting user data:", err);
+    }
+}
         var name = $('#Press_create_div_name').val() || 0;
         var designation = $('#Press_create_div_designation').val() || 0;
         var phone = $('#Press_create_div_phone').val() || 0;
@@ -3971,7 +4014,22 @@ async function registerNewData() {
 
       async function registerPrOfcrData() {
         //debugger
-        var role = localStorage.getItem("role");
+        const secretKey = "55464654654646654";
+const encryptedData = localStorage.getItem("role");
+let role = null;
+
+if (encryptedData) {
+    try {
+        const decryptedData = JSON.parse(
+            CryptoJS.AES.decrypt(encryptedData, secretKey).toString(CryptoJS.enc.Utf8)
+        );
+        console.log(decryptedData);
+          
+        role = decryptedData || null; // assuming loginResult has user_id
+    } catch (err) {
+        console.error("Error decrypting user data:", err);
+    }
+}
         var name = $('#officerName').val() || 0;
         var designation = $('#officerDesignation').val() || 0;
         var phone = $('#officerPhone').val() || 0;
@@ -4010,7 +4068,22 @@ async function registerNewData() {
 
       async function registerPrOfcrOtherDepData() {
         //debugger
-        var role = localStorage.getItem("role");
+        const secretKey = "55464654654646654";
+const encryptedData = localStorage.getItem("role");
+let role = null;
+
+if (encryptedData) {
+    try {
+        const decryptedData = JSON.parse(
+            CryptoJS.AES.decrypt(encryptedData, secretKey).toString(CryptoJS.enc.Utf8)
+        );
+        console.log(decryptedData);
+          
+        role = decryptedData || null; // assuming loginResult has user_id
+    } catch (err) {
+        console.error("Error decrypting user data:", err);
+    }
+}
         var name = $('#officerNameOtherDept').val() || 0;
         var designation = $('#officerDesignationOtherDept').val() || 0;
         var phone = $('#officerPhoneOtherDept').val() || 0;
@@ -4049,7 +4122,22 @@ async function registerNewData() {
 
       async function registerDistrictProData() {
         //debugger
-        var role = localStorage.getItem("role");
+        const secretKey = "55464654654646654";
+const encryptedData = localStorage.getItem("role");
+let role = null;
+
+if (encryptedData) {
+    try {
+        const decryptedData = JSON.parse(
+            CryptoJS.AES.decrypt(encryptedData, secretKey).toString(CryptoJS.enc.Utf8)
+        );
+        console.log(decryptedData);
+          
+        role = decryptedData || null; // assuming loginResult has user_id
+    } catch (err) {
+        console.error("Error decrypting user data:", err);
+    }
+}
         var district = $('#districtId').val() || 0;
         var name = $('#nameId').val() || 0;
         var designation = $('#designationId').val() || 0;
@@ -4090,7 +4178,22 @@ async function registerNewData() {
 
       async function registerCorporationData() {
         //debugger
-        var role = localStorage.getItem("role");
+        const secretKey = "55464654654646654";
+const encryptedData = localStorage.getItem("role");
+let role = null;
+
+if (encryptedData) {
+    try {
+        const decryptedData = JSON.parse(
+            CryptoJS.AES.decrypt(encryptedData, secretKey).toString(CryptoJS.enc.Utf8)
+        );
+        console.log(decryptedData);
+          
+        role = decryptedData || null; // assuming loginResult has user_id
+    } catch (err) {
+        console.error("Error decrypting user data:", err);
+    }
+}
         var name = $('#corporationName').val() || 0;
         var designation = $('#corporationDesignation').val() || 0;
         var phone = $('#corporationPhone').val() || 0;
@@ -4129,7 +4232,22 @@ async function registerNewData() {
 
       async function registerSectionHQData() {
         //debugger
-        var role = localStorage.getItem("role");
+        const secretKey = "55464654654646654";
+const encryptedData = localStorage.getItem("role");
+let role = null;
+
+if (encryptedData) {
+    try {
+        const decryptedData = JSON.parse(
+            CryptoJS.AES.decrypt(encryptedData, secretKey).toString(CryptoJS.enc.Utf8)
+        );
+        console.log(decryptedData);
+          
+        role = decryptedData || null; // assuming loginResult has user_id
+    } catch (err) {
+        console.error("Error decrypting user data:", err);
+    }
+}
         var sections = $('#hqSectionName').val() || 0;
         var phone = $('#hqSectionPhone').val() || 0;
         var language = $('#hqSectionLanguage').val() || 0;

@@ -1638,9 +1638,22 @@
   </script>
   <script>
     $(document).ready(function () {
-      var role;
-      //debugger
-      role = localStorage.getItem("role");
+      const secretKey = "55464654654646654";
+const encryptedData = localStorage.getItem("role");
+let role = null;
+
+if (encryptedData) {
+    try {
+        const decryptedData = JSON.parse(
+            CryptoJS.AES.decrypt(encryptedData, secretKey).toString(CryptoJS.enc.Utf8)
+        );
+        console.log(decryptedData);
+          
+        role = decryptedData || null; // assuming loginResult has user_id
+    } catch (err) {
+        console.error("Error decrypting user data:", err);
+    }
+}
       var userAdminName = localStorage.getItem("userAdminName");
       if (role) {
         $('.admin-name-change').text(role);
@@ -2083,7 +2096,22 @@
       async function registerNewData() {
      if (!validateNoHtmlField("Press_create_name", "Name")) return;
   if (!validateNoHtmlField("Press_create_designation", "Designation")) return;
-        var role = localStorage.getItem("role");
+        const secretKey = "55464654654646654";
+const encryptedData = localStorage.getItem("role");
+let role = null;
+
+if (encryptedData) {
+    try {
+        const decryptedData = JSON.parse(
+            CryptoJS.AES.decrypt(encryptedData, secretKey).toString(CryptoJS.enc.Utf8)
+        );
+        console.log(decryptedData);
+          
+        role = decryptedData || null; // assuming loginResult has user_id
+    } catch (err) {
+        console.error("Error decrypting user data:", err);
+    }
+}
 
         let pressInputFile = null;
         pressInputFile = await processFile('#press_create_video_FileUpload_input');
