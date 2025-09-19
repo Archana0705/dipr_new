@@ -1972,9 +1972,22 @@
         });
       }
 
+             function validateNoHtml(id, fieldName) {
+  const value = $(`#${id}`).val() || "";
+
+  // Regex checks for <, >, ", ', /, &
+  const pattern = /[<>"'&/]/;
+
+  if (pattern.test(value)) {
+    showErrorToast(`${fieldName} contains invalid characters like <, >, ', " or &.`);
+    return false; // ❌ invalid
+  }
+
+  return true; // ✅ valid
+}
 
       async function registerNewData() {
-        //debugger
+         if (!validateNoHtmlField("Press_create_district", "District")) return;
         var role = localStorage.getItem("role");
         var district = $('#Press_create_district').val() || 0;
 

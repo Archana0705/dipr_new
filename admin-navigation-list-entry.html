@@ -2029,54 +2029,71 @@
       }
 
 
-      async function registerNewData() {
-        //debugger
-        var role = localStorage.getItem("role");
-        var listname = $('#Press_create_listname').val() || 0;
-        var pagename = $('#Press_create_pagename').val() || 0;
-        var listType = $('#Press_create_listType').val() || 0;
-        var language = $('#pressCreateLangugage').val() || 0;
+      function hasHtmlTags(value) {
+  const htmlTagPattern = /<.*?>/g; 
+  return htmlTagPattern.test(value);
+}
 
-        let pressInputFile = null;
-        pressInputFile = await processFile('#press_create_video_FileUpload_input');
-        checkFile('#press_create_video_FileUpload_input');
+async function registerNewData() {
+  var role = localStorage.getItem("role");
+  var listname = $('#Press_create_listname').val().trim();
+  var pagename = $('#Press_create_pagename').val().trim();
+  var listType = $('#Press_create_listType').val().trim();
+  var language = $('#pressCreateLangugage').val() || "";
 
-        if (!pressInputFile) {
-          showErrorToast("Please Upload Image");
-          return
-        }
+  // 🚨 Block HTML Injection
+  if (hasHtmlTags(listname)) {
+    showErrorToast("List Name cannot contain HTML tags.");
+    return;
+  }
+  if (hasHtmlTags(pagename)) {
+    showErrorToast("Page Name cannot contain HTML tags.");
+    return;
+  }
+  if (hasHtmlTags(listType)) {
+    showErrorToast("List Type cannot contain HTML tags.");
+    return;
+  }
 
-        var insertPayload = {
-          "action": "insert",
-          "table": "GOVT_NAVIGATION_LIST",
-          "LIST_NAME": listname,
-          "PAGE_NAME": pagename,
-          "LIST_IMG": pressInputFile && pressInputFile.filename ? pressInputFile.filename : null,
-          "LIST_TYPE": listType,
-          "FILE_NAME": pressInputFile && pressInputFile.filename ? pressInputFile.filename : null,
-          "MIME_TYPE": pressInputFile && pressInputFile.mimetype ? pressInputFile.mimetype : null,
-          "LANGUAGE": language
-        };
+  let pressInputFile = await processFile('#press_create_video_FileUpload_input');
+  checkFile('#press_create_video_FileUpload_input');
 
+  if (!pressInputFile) {
+    showErrorToast("Please Upload Image");
+    return;
+  }
 
-        $.ajax({
-          url: `${BASE_API_URL}/general/commonApi`,
-          type: 'POST',
-          contentType: 'application/json',
-          data: JSON.stringify(insertPayload),
-          success: function (response) {
-            if (response.success === 1) {
-              showSuccessToast("Created successfully!");
-              setTimeout(() => window.location.href = "../admin-navigation-list-entry.html", 1000);
-            } else {
-              showErrorToast(response.message);
-            }
-          },
-          error: function () {
-            showErrorToast("Failed to upload video.");
-          }
-        });
+  var insertPayload = {
+    "action": "insert",
+    "table": "GOVT_NAVIGATION_LIST",
+    "LIST_NAME": listname,
+    "PAGE_NAME": pagename,
+    "LIST_IMG": pressInputFile?.filename || null,
+    "LIST_TYPE": listType,
+    "FILE_NAME": pressInputFile?.filename || null,
+    "MIME_TYPE": pressInputFile?.mimetype || null,
+    "LANGUAGE": language
+  };
+
+  $.ajax({
+    url: `${BASE_API_URL}/general/commonApi`,
+    type: 'POST',
+    contentType: 'application/json',
+    data: JSON.stringify(insertPayload),
+    success: function (response) {
+      if (response.success === 1) {
+        showSuccessToast("Created successfully!");
+        setTimeout(() => window.location.href = "../admin-navigation-list-entry.html", 1000);
+      } else {
+        showErrorToast(response.message);
       }
+    },
+    error: function () {
+      showErrorToast("Failed to upload video.");
+    }
+  });
+}
+
 
       $('#updateBtn').on('click', async function () {
         //debugger;

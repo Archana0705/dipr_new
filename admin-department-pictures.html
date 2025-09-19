@@ -930,11 +930,9 @@
                 </div>
               </div>
             </div>
-
+  
             <div
               class="t-Form-fieldContainer is-required rel-col t-Form-fieldContainer--stretchInputs t-Form-fieldContainer--indicatorAsterisk t-Form-fieldContainer--large apex-item-wrapper apex-item-wrapper--text-field">
-
-
               <div class="t-Form-labelContainer col col-2">
                 <label for="Press_create_name" id="Press_create_name_LABEL">Name</label>
               </div>
@@ -2068,9 +2066,23 @@
           }
         });
       }
+      
+             function validateNoHtml(id, fieldName) {
+  const value = $(`#${id}`).val() || "";
 
+  // Regex checks for <, >, ", ', /, &
+  const pattern = /[<>"'&/]/;
+
+  if (pattern.test(value)) {
+    showErrorToast(`${fieldName} contains invalid characters like <, >, ', " or &.`);
+    return false; // ❌ invalid
+  }
+
+  return true; // ✅ valid
+}
       async function registerNewData() {
-        //debugger
+     if (!validateNoHtmlField("Press_create_name", "Name")) return;
+  if (!validateNoHtmlField("Press_create_designation", "Designation")) return;
         var role = localStorage.getItem("role");
 
         let pressInputFile = null;

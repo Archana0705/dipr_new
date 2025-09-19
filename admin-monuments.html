@@ -1988,8 +1988,27 @@
           reader.readAsDataURL(file); // Convert file to Base64
         });
       }
+       function validateNoHtml(id, fieldName) {
+  const value = $(`#${id}`).val() || "";
 
+  // Regex checks for <, >, ", ', /, &
+  const pattern = /[<>"'&/]/;
+
+  if (pattern.test(value)) {
+    showErrorToast(`${fieldName} contains invalid characters like <, >, ', " or &.`);
+    return false; // ❌ invalid
+  }
+
+  return true; // ✅ valid
+}
       async function registerNewData() {
+
+                 // Validate text fields
+  if (!validateNoHtml("Press_create_memorial", "Memorial")) return;
+  if (!validateNoHtml("Press_create_place", "Place")) return;
+  if (!validateNoHtml("Press_create_district", "District")) return;
+  if (!validateNoHtml("Press_create_video_name", "Video Name")) return;
+       
         //debugger
         let fileInput = $('#press_create_video_FileUpload_input')[0]; // Get file input
         let file = fileInput.files[0]; // Get selected file
@@ -2047,81 +2066,9 @@
       }
 
 
-      // async function registerNewData() {
-      //   try {
-      //     let pressFileData = await processFile('#pressFileUpload_input');  // Document file
-      //     let pressVideoData = await processFile('#pressVideoUpload_input'); // Video file
-
-      //     let formData = new FormData();
-      //     formData.append("action", "insert");
-      //     formData.append("slno", selectedId);
-      //     formData.append("memorial", $('#Press_memorial').val() || "");
-      //     formData.append("place", $('#Press_place').val() || "");
-      //     formData.append("created_by", "admin");
-      //     formData.append("created_on", "2025-03-17");
-      //     formData.append("updated_by", "admin");
-      //     formData.append("updated_on", "2025-03-17");
-      //     formData.append("district", $('#Press_district').val() || "");
-      //     formData.append("video_name", $('#Press_create_file_name input').val() || "");
-      //     formData.append("language", "en");
-
-
-
-      //     // "action": "insert",
-      //     //   "slno": 1,
-      //     //     "memorial": "Gandhi Memorial",
-      //     //       "place": "Marina Beach, Chennai",
-      //     //         "created_by": "admin",
-      //     //           "created_on": "2025-03-17",
-      //     //             "updated_by": "admin",
-      //     //               "updated_on": "2025-03-17",
-      //     //                 "district": "Chennai",
-      //     //                   "video_name": "gandhi_memorial_video.mp4",
-      //     //                     "mime_type": "video/mp4",
-      //     //                       "video_attachment_name": "gandhi_memorial_clip.mp4",
-      //     //                         "language": "Tamil"
-      //     // Attach document file
-      //     if (pressFileData && pressFileData.file) {
-      //       formData.append("file", pressFileData.file);
-      //     }
-
-      //     // Attach video file
-      //     if (pressVideoData && pressVideoData.file) {
-      //       formData.append("video", pressVideoData.file);
-      //     }
-
-      //     await $.ajax({
-      //       url: '${BASE_API_URL}/general/monthlyMagazineSpecialPublications/publications',
-      //       type: 'POST',
-      //       processData: false,
-      //       contentType: false,
-      //       data: formData,
-      //       success: function () {
-      //         showSuccessToast("Inserted Successfully");
-      //         setTimeout(() => window.location.href = "../admin-special-publication-report.html", 1000);
-      //       },
-      //       error: function () {
-      //         showErrorToast("An error occurred during submission of data.");
-      //       }
-      //     });
-      //   } catch (error) {
-      //     console.error('Error:', error);
-      //     showErrorToast("An unexpected error occurred.");
-      //   }
-      // }
 
       $('#updateBtn').on('click', function () {
-        //debugger;
-        // const selectedRow = $('tr.selected');
-        // if (!selectedRow.length) {
-        //   showErrorToast("No row selected for update.");
-        //   return;
-        // }
-
-        // const selectedId = selectedRow.find('a#open-modal-btn').attr('data-id');
-
-
-        // console.log("Selected ID:", selectedId);
+      
 
         if (!selectedId) {
           showErrorToast("Failed to fetch required data for update.");

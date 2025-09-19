@@ -1392,44 +1392,7 @@
       });
      });
   });
-    // $(document).ready(function () {
-    //   $('.signClick').on('click', function () {
-    //     var loguserName = $('#P9999_USERNAME').val();
-    //     var logPass = $('#P9999_PASSWORD').val();
-    //     var loginPayload = {
-    //       "user_name": loguserName,
-    //       "password": logPass,
-
-    //     };
-    //     $.ajax({
-    //       url: `${BASE_API_URL}/admin/login`,
-    //       type: "POST",
-    //       headers: {
-    //       "X-App-Key": "dipr",
-    //       "X-App-Name": "dipr"
-    //       },
-    //       contentType: 'application/json',
-    //       data: JSON.stringify(loginPayload),
-    //       success: function (response) {
-    //         if (response.success === 1) {
-    //           showSuccessToast("Login successfully!");
-    //           window.location.href = window.basePath + "/index.html";
-    //           // window.location.href = "/index.html";
-    //           localStorage.setItem("role", response.role);
-    //           localStorage.setItem("userAdminName", loguserName);
-    //         } else {
-    //           showErrorToast(response.message);
-    //         }
-    //       },
-    //       error: function () {
-
-    //       },
-    //       complete: function () {
-    //         $('#preloader').hide();
-    //       }
-    //     });
-    //   })
-    // })
+   
     function showSuccessToast(message) {
       const toastElement = document.getElementById('successToast');
       const toastBody = document.getElementById('successMessage');

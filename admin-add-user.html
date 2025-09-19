@@ -1485,7 +1485,7 @@
   </form>
 
   <script src="assets/js/jquery-3.6.0.min.js"></script>
-  <script type="text/javascript" src="assets/js/desktop_all.min.js"></script>
+  <script src="assets/js/desktop_all.min.js"></script>
   <script src="assets/vendor/datatable/jquery.dataTables.min.js"></script>
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="assets/js/global.js"></script>
@@ -1900,7 +1900,7 @@ debugger
               // user_id.id = response.return_id;
               // Court_id.COURT_ID = response.return_id;
         showSuccessToast("Created Successfully");
-        setTimeout(() => window.location.href = "../admin-add-user.html", 1000);
+        setTimeout(() => window.location.refresh, 1000);
       },
       error: function (error) {
         showErrorToast("An error occurred during submission of data.");

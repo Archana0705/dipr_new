@@ -2003,8 +2003,27 @@
         });
       }
 
+             function validateNoHtml(id, fieldName) {
+  const value = $(`#${id}`).val() || "";
+
+  // Regex checks for <, >, ", ', /, &
+  const pattern = /[<>"'&/]/;
+
+  if (pattern.test(value)) {
+    showErrorToast(`${fieldName} contains invalid characters like <, >, ', " or &.`);
+    return false; // ❌ invalid
+  }
+
+  return true; // ✅ valid
+}
+
       async function registerNewData() {
         //debugger
+                         // Validate text fields
+  if (!validateNoHtml("Press_create_memorial", "Memorial")) return;
+  if (!validateNoHtml("Press_create_place", "Place")) return;
+  if (!validateNoHtml("Press_create_district", "District")) return;
+  if (!validateNoHtml("Press_create_video_name", "Video Name")) return;
         let fileInput = $('#press_create_video_FileUpload_input')[0]; // Get file input
         let file = fileInput.files[0]; // Get selected file
 
