@@ -1165,16 +1165,26 @@
                               data-template-id="32751039808172722_ET"></span>
                           </div>
                         </div>
-                      <!-- Captcha -->
-                    <canvas id="captcha" width="150" height="50"></canvas>
-<br>
-<input type="text" id="captchaInput" placeholder="Enter Captcha">
-<button id="reloadCaptcha" type="button">🔄 Reload</button> 
-                      </div>
-                      <div class="t-Login-buttons"><button class="t-Button t-Button--hot signClick" type="button"
-                          id="signClick"><span class="t-Button-label">Sign In</span></button><button
-                          class="t-Button t-Button--hot " type="button" id="B22697085682097685"><span
-                            class="t-Button-label">Forgot Password</span></button></div>
+   <!-- Captcha -->
+<div id="captchaWrap">
+  <canvas id="captchaCanvas" width="220" height="70" title="Click to reload"></canvas>
+  <input id="captchaInput" placeholder="Enter CAPTCHA" autocomplete="off" />
+  <button id="reloadBtn" type="button">Reload</button>
+  <div id="captchaMsg" class="small"></div>
+</div>
+
+<!-- Your existing login buttons -->
+<div class="t-Login-buttons">
+  <button class="t-Button t-Button--hot" type="button" id="signClick">
+    <span class="t-Button-label">Sign In</span>
+  </button>
+  <button class="t-Button t-Button--hot" type="button" id="B22697085682097685">
+    <span class="t-Button-label">Forgot Password</span>
+  </button>
+</div>
+
+
+
                       <div class="t-Login-links"></div>
                       <div class="t-Login-subRegions"></div>
                     </div>
@@ -1285,66 +1295,10 @@
   </script>
 
   <script>
-     let currentCaptcha = "";
-
-  // Generate numeric captcha
- function generateCaptcha(length = 5) {
-  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"; // Capital letters + numbers
-  let result = "";
-  for (let i = 0; i < length; i++) {
-    result += chars.charAt(Math.floor(Math.random() * chars.length));
-  }
-  return result;
-}
-
-// Draw captcha on canvas
-function drawCaptcha() {
-  currentCaptcha = generateCaptcha();
-  const canvas = document.getElementById("captcha");
-  const ctx = canvas.getContext("2d");
-
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-  // Background
-  ctx.fillStyle = "#f2f2f2";
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-  // Text
-  ctx.font = "30px Arial";
-  ctx.fillStyle = "#000";
-  ctx.fillText(currentCaptcha, 25, 35);
-
-  // Noise
-  for (let i = 0; i < 4; i++) {
-    ctx.strokeStyle = "#888";
-    ctx.beginPath();
-    ctx.moveTo(Math.random() * canvas.width, Math.random() * canvas.height);
-    ctx.lineTo(Math.random() * canvas.width, Math.random() * canvas.height);
-    ctx.stroke();
-  }
-}
-
-
-  // Reload button
-  $("#reloadCaptcha").on("click", function () {
-    drawCaptcha();
-  });
-
-  // Init captcha
   $(document).ready(function () {
-    drawCaptcha();
-
     $('#signClick').on('click', function () {
       var loguserName = $('#P9999_USERNAME').val();
       var logPass = $('#P9999_PASSWORD').val();
-      var captchaInput = $('#captchaInput').val().trim();
-
-      // ✅ First check captcha
-      if (captchaInput !== currentCaptcha) {
-        showErrorToast("Invalid captcha. Please try again.");
-        drawCaptcha(); // reload captcha on error
-        return;
-      }
 
       const payload = {
         action: "function_call",
@@ -1355,7 +1309,7 @@ function drawCaptcha() {
         }
       };
 
-      $.ajax({
+    $.ajax({
         url: `${BASE_API_URL}/commonfunction`,
         type: "POST",
         headers: {
@@ -1366,26 +1320,28 @@ function drawCaptcha() {
           data: encryptData(payload)
         },
         dataType: "json",
-        success: function (response) {
+      success: function (response) {
           const decrypted = decryptData(response?.data || "");
           let loginResult = decrypted[0];
           const secretKey = "55464654654646654";
-                  let encryptedData = CryptoJS.AES.encrypt(
-                      JSON.stringify(loginResult),
-                      secretKey
-                  ).toString();
-                  let encryptedRole = CryptoJS.AES.encrypt(
-        JSON.stringify(loginResult.role || ""),
-        secretKey
-      ).toString();
-                  if (loginResult && (loginResult.status === true || loginResult === "SUCCESS")) {
-    showSuccessToast("Login successfully!");
-    window.location.href = window.basePath + "/index.html";
-    localStorage.setItem("role", encryptedRole || "");
-    localStorage.setItem("userAdminName", encryptedData);
-}  else {
-                showErrorToast(response.message);
-        }
+
+          let encryptedData = CryptoJS.AES.encrypt(
+            JSON.stringify(loginResult),
+            secretKey
+          ).toString();
+
+          let encryptedRole = CryptoJS.AES.encrypt(
+            JSON.stringify(loginResult.role || ""),
+            secretKey
+          ).toString();
+                   if (loginResult && (loginResult.status === true || loginResult === "SUCCESS")) {
+            showSuccessToast("Login successfully!");
+            window.location.href = window.basePath + "/index.html";
+            localStorage.setItem("role", encryptedRole || "");
+            localStorage.setItem("userAdminName", encryptedData);
+          } else {
+            showErrorToast(response.message);
+          }
         },
         error: function (xhr, status, error) {
           showErrorToast("Login request failed. Please try again.");
@@ -1663,16 +1619,7 @@ function drawCaptcha() {
           let pressInputFile = null;
           pressInputFile = await processFile('#pressFileUpload_input');
           checkFile('#pressFileUpload');
-          // if (!polStn || !districtName || !ComplaintData || !complaintMadeBy || !firNo || !dateOfFIR || !childGender || !childDOB || !childAge || !nameOfGuardian) {
-          //   if (willingness === "Yes") {
-          //     if (!willingness || !willName || !willRelation || !willDate || !accName || !accNo || !bankName || !branchName || !ifsc) {
-          //       showErrorToast("Please fill in all required fields.");
-          //       return;
-          //     }
-          //   }
-          //   showErrorToast("Please fill in all required fields.");
-          //   return;
-          // }
+      
 
           if (pressDate) {
             var dateObj = new Date(pressDate);
@@ -1730,28 +1677,7 @@ function drawCaptcha() {
         }
       });
 
-      // $('#updateBtn').on('click', function () {
-      //    
-      //   const selectedRow = $('tr.selected'); // Ensure row is actually selected
-      //   if (!selectedRow.length) {
-      //     showErrorToast("No row selected for update.");
-      //     return;
-      //   }
-
-      //   // Correct way to get data-id and data-file
-      //   const selectedId = selectedRow.find('a#open-modal-btn').attr('data-id');
-      //   const orderName = selectedRow.find('a#open-modal-btn').attr('data-file');
-
-      //   console.log("Selected ID:", selectedId);
-      //   console.log("Order Name:", orderName);
-
-      //   if (!selectedId || !orderName) {
-      //     showErrorToast("Failed to fetch required data for update.");
-      //     return;
-      //   }
-
-      //   updateData(selectedId, orderName);
-      // });
+   
 
       $('#updateBtn').on('click', function () {
 
@@ -1842,6 +1768,114 @@ function drawCaptcha() {
     
      
   </script>
+  <script>
+(function(){
+  const canvas = document.getElementById('captchaCanvas');
+  const ctx = canvas.getContext('2d');
+  const loginBtn = document.getElementById('signClick');
+  const reloadBtn = document.getElementById('reloadBtn');
+  const input = document.getElementById('captchaInput');
+  const msg = document.getElementById('captchaMsg');
+
+  const cfg = {
+    length: 6,
+    chars: 'ABCDEFGHJKMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz23456789',
+    fonts: ['24px Arial','26px Georgia','28px "Courier New"'],
+    bgColors: ['#ffffff','#f0f0f0','#f7f7ff'],
+    lineCount: 5,
+    dotCount: 50
+  };
+
+  function randInt(min,max){ return Math.floor(Math.random()*(max-min+1))+min; }
+  function randChoice(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+
+  function genCode(len){
+    let s = '';
+    for(let i=0;i<len;i++) s += cfg.chars.charAt(Math.floor(Math.random()*cfg.chars.length));
+    return s;
+  }
+
+  function drawCaptcha(code){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    ctx.fillStyle = randChoice(cfg.bgColors);
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+
+    const padding = 12;
+    const per = (canvas.width - padding*2) / code.length;
+    for(let i=0;i<code.length;i++){
+      const ch = code[i];
+      const xBase = padding + i*per + per/2;
+      const yBase = canvas.height/2 + randInt(-5,5);
+      ctx.save();
+      ctx.translate(xBase, yBase);
+      ctx.rotate((Math.random()-0.5)*0.5);
+      ctx.font = randChoice(cfg.fonts);
+      ctx.fillStyle = `rgb(${randInt(20,120)},${randInt(20,120)},${randInt(20,120)})`;
+      ctx.fillText(ch, -ctx.measureText(ch).width/2, 6);
+      ctx.restore();
+    }
+    for(let i=0;i<cfg.lineCount;i++){
+      ctx.beginPath();
+      ctx.moveTo(randInt(0,canvas.width), randInt(0,canvas.height));
+      ctx.lineTo(randInt(0,canvas.width), randInt(0,canvas.height));
+      ctx.strokeStyle = `rgba(${randInt(40,160)},${randInt(40,160)},${randInt(40,160)},0.6)`;
+      ctx.stroke();
+    }
+    for(let i=0;i<cfg.dotCount;i++){
+      ctx.beginPath();
+      ctx.arc(randInt(0,canvas.width), randInt(0,canvas.height), Math.random()*2, 0, Math.PI*2);
+      ctx.fillStyle = `rgba(${randInt(0,255)},${randInt(0,255)},${randInt(0,255)},0.5)`;
+      ctx.fill();
+    }
+  }
+
+  function setCurrentCode(code){ sessionStorage.setItem('captcha_code', code); }
+  function getCurrentCode(){ return sessionStorage.getItem('captcha_code') || ''; }
+
+  function refresh(){
+    const code = genCode(cfg.length);
+    setCurrentCode(code);
+    drawCaptcha(code);
+    msg.textContent = "Enter the CAPTCHA";
+    msg.style.color = "#333";
+    input.value = "";
+  }
+
+  // First load
+  refresh();
+  canvas.addEventListener('click', refresh);
+  reloadBtn.addEventListener('click', refresh);
+
+  // When Sign In is clicked
+  loginBtn.addEventListener('click', function(){
+    const entered = (input.value||'').trim();
+    const actual = getCurrentCode();
+    if(!entered){
+      msg.textContent = "⚠ Please enter the CAPTCHA";
+      msg.style.color = "red";
+      return;
+    }
+    if(entered === actual){
+      msg.textContent = "✅ Verified";
+      msg.style.color = "green";
+      // 👉 Call your login function after captcha check
+      doLogin();
+    } else {
+      msg.textContent = "❌ Incorrect — try again";
+      msg.style.color = "red";
+      refresh();
+    }
+  });
+
+  // Your actual login function
+  function doLogin(){
+    alert("Captcha passed! Now run your login API here.");
+    // example: call your backend API with username + password
+  }
+})();
+</script>
+
+
 </body>
 
 </html>
