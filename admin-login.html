@@ -1285,44 +1285,62 @@
   </script>
 
   <script>
-     let currentCaptcha = "";
+   let currentCaptcha = "";
 
-  // Generate numeric captcha
- function generateCaptcha(length = 5) {
-  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"; // Capital letters + numbers
-  let result = "";
-  for (let i = 0; i < length; i++) {
-    result += chars.charAt(Math.floor(Math.random() * chars.length));
-  }
-  return result;
-}
+    function generateCaptcha(length = 5) {
+      const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+      let result = "";
+      for (let i = 0; i < length; i++) {
+        result += chars.charAt(Math.floor(Math.random() * chars.length));
+      }
+      return result;
+    }
 
-// Draw captcha on canvas
-function drawCaptcha() {
-  currentCaptcha = generateCaptcha();
-  const canvas = document.getElementById("captcha");
-  const ctx = canvas.getContext("2d");
+    function drawCaptcha() {
+      const canvas = document.getElementById("captcha");
+      const ctx = canvas.getContext("2d");
+      const w = canvas.width, h = canvas.height;
 
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
+      // Clear & background
+      ctx.clearRect(0, 0, w, h);
+      ctx.fillStyle = "#f2f2f2";
+      ctx.fillRect(0, 0, w, h);
 
-  // Background
-  ctx.fillStyle = "#f2f2f2";
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
+      // Generate captcha text
+      currentCaptcha = generateCaptcha();
 
-  // Text
-  ctx.font = "30px Arial";
-  ctx.fillStyle = "#000";
-  ctx.fillText(currentCaptcha, 25, 35);
+      // Draw characters with rotation
+      for (let i = 0; i < currentCaptcha.length; i++) {
+        ctx.save(); // save current state
 
-  // Noise
-  for (let i = 0; i < 4; i++) {
-    ctx.strokeStyle = "#888";
-    ctx.beginPath();
-    ctx.moveTo(Math.random() * canvas.width, Math.random() * canvas.height);
-    ctx.lineTo(Math.random() * canvas.width, Math.random() * canvas.height);
-    ctx.stroke();
-  }
-}
+        // Random rotation angle (-25° to +25°)
+        const angle = (Math.random() * 50 - 25) * Math.PI / 180;
+
+        // Character position
+        const x = 20 + i * 25;
+        const y = 35;
+
+        ctx.translate(x, y);
+        ctx.rotate(angle);
+
+        ctx.font = "28px Arial";
+        ctx.fillStyle = `rgb(${50+Math.random()*150}, ${50+Math.random()*150}, ${50+Math.random()*150})`;
+        ctx.fillText(currentCaptcha[i], 0, 0);
+
+        ctx.restore(); // restore after rotation
+      }
+
+      // Add noise lines
+      for (let i = 0; i < 30; i++) {
+        ctx.beginPath();
+        ctx.moveTo(Math.random() * w, Math.random() * h);
+        ctx.lineTo(Math.random() * w, Math.random() * h);
+        ctx.strokeStyle = `rgba(0,0,0,${Math.random()*0.4})`;
+        ctx.lineWidth = Math.random() * 2;
+        ctx.stroke();
+      }
+    }
+
 
 
   // Reload button
