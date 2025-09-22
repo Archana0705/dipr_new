@@ -16,13 +16,13 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
-    <link href="../assets/vendor/datatable/css/dataTables.css" rel="stylesheet">
+    <link href="assets/vendor/datatable/css/dataTables.css" rel="stylesheet">
     <!-- CSS File -->
-    <link rel="stylesheet" href="../assets/vendor/datatable/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="assets/vendor/datatable/dataTables.bootstrap5.min.css">
     <!-- Vendor CSS Files -->
-    <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-    <link href="../assets/vendor/toastr/toastr.min.css" rel="stylesheet">
+    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="assets/vendor/toastr/toastr.min.css" rel="stylesheet">
     <link rel="stylesheet"
         href="https://static.oracle.com/cdn/apex/24.1.7/libraries/oraclejet/16.0.10/css/libs/oj/16.0.10/redwood/oj-redwood-notag-min.css?v=24.1.7"
         type="text/css" />
@@ -719,14 +719,15 @@
             value="UDkwX0lEXzE6UDkwX0NSRUFURURfQlk6UDkwX0NSRUFURURfT046UDkwX1VQREFU.,RURfQlk6UDkwX1VQREFURURfT04&#x2F;Odp1t3oOYnyRGW0Obdg7mD1ocThm7PUfUBr4aRqekloCR0QmfG-jCkZaGgr-nN-GbDXjPapUzWWqE-qePLexiA" />
     </form>
 
-    <script src="../assets/js/crypto-js.min.js"></script>
-   
+    <script src="assets/js/crypto-js.min.js"></script>
+    <script src="assets/js/jquery-3.6.0.min.js"></script>
+    <script src="assets/vendor/datatable/jquery.dataTables.min.js"></script>
     <script type="text/javascript">
-        apex.da.initDaEventList = function () {
-            apex.da.gEventList = [
-                { "triggeringElementType": "ITEM", "triggeringElement": "P0_LANGUAGE_SELECTION", "bindType": "bind", "executionType": "IMMEDIATE", "bindEventType": "change", "anyActionsFireOnInit": false, actionList: [{ "eventResult": true, "executeOnPageInit": false, "stopExecutionOnError": true, "waitForResult": true, javascriptFunction: apex.da.executePlSqlCode, "ajaxIdentifier": "REEgVFlQRX5-Mzc0OTQ3NjY4MDA1MDg5MzI\u002Fer92Bf0LRnhTLZZJe5nrt6XasWPhEmvixbKjug0E0dGU2kKFwG4O_1Dl5g_UZEnX39HFEEbo_ARFjCIs1BCmUQ", "attribute01": "#P0_LANGUAGE_SELECTION", "attribute04": "N", "action": "NATIVE_EXECUTE_PLSQL_CODE" }] },
-                { "triggeringElementType": "ITEM", "triggeringElement": "P0_LANGUAGE", "bindType": "bind", "executionType": "IMMEDIATE", "bindEventType": "change", "anyActionsFireOnInit": false, actionList: [{ "eventResult": true, "executeOnPageInit": false, "stopExecutionOnError": true, "waitForResult": true, javascriptFunction: apex.da.executePlSqlCode, "ajaxIdentifier": "REEgVFlQRX5-NDM0MzQzOTA5NTkyMjI3NTI\u002FG78sVMB7SNtKKY08qJG3WdWHdWMvL3bfEh1CSKpL18rSyCFSmkS6GFa-qxl86R_I1kKNK5NVnC43oJil8L3g1Q", "attribute01": "#P0_LANGUAGE", "attribute04": "N", "action": "NATIVE_EXECUTE_PLSQL_CODE" }, { "eventResult": true, "executeOnPageInit": false, "stopExecutionOnError": true, javascriptFunction: apex.da.submitPage, "attribute02": "Y", "action": "NATIVE_SUBMIT_PAGE" }] }];
-        }
+        // apex.da.initDaEventList = function () {
+        //     apex.da.gEventList = [
+        //         { "triggeringElementType": "ITEM", "triggeringElement": "P0_LANGUAGE_SELECTION", "bindType": "bind", "executionType": "IMMEDIATE", "bindEventType": "change", "anyActionsFireOnInit": false, actionList: [{ "eventResult": true, "executeOnPageInit": false, "stopExecutionOnError": true, "waitForResult": true, javascriptFunction: apex.da.executePlSqlCode, "ajaxIdentifier": "REEgVFlQRX5-Mzc0OTQ3NjY4MDA1MDg5MzI\u002Fer92Bf0LRnhTLZZJe5nrt6XasWPhEmvixbKjug0E0dGU2kKFwG4O_1Dl5g_UZEnX39HFEEbo_ARFjCIs1BCmUQ", "attribute01": "#P0_LANGUAGE_SELECTION", "attribute04": "N", "action": "NATIVE_EXECUTE_PLSQL_CODE" }] },
+        //         { "triggeringElementType": "ITEM", "triggeringElement": "P0_LANGUAGE", "bindType": "bind", "executionType": "IMMEDIATE", "bindEventType": "change", "anyActionsFireOnInit": false, actionList: [{ "eventResult": true, "executeOnPageInit": false, "stopExecutionOnError": true, "waitForResult": true, javascriptFunction: apex.da.executePlSqlCode, "ajaxIdentifier": "REEgVFlQRX5-NDM0MzQzOTA5NTkyMjI3NTI\u002FG78sVMB7SNtKKY08qJG3WdWHdWMvL3bfEh1CSKpL18rSyCFSmkS6GFa-qxl86R_I1kKNK5NVnC43oJil8L3g1Q", "attribute01": "#P0_LANGUAGE", "attribute04": "N", "action": "NATIVE_EXECUTE_PLSQL_CODE" }, { "eventResult": true, "executeOnPageInit": false, "stopExecutionOnError": true, javascriptFunction: apex.da.submitPage, "attribute02": "Y", "action": "NATIVE_SUBMIT_PAGE" }] }];
+        // }
     </script>
 
     <script
@@ -773,12 +774,11 @@
     <script
         src="https://static.oracle.com/cdn/apex/24.1.7/libraries/apex/minified/item.RichTextEditor.min.js?v=24.1.7"></script>
 
-    <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- Include DataTables and Buttons JS -->
-    <script src="../assets/vendor/datatable/jquery.dataTables.min.js"></script>
-    <script src="../assets/vendor/datatable/dataTables.bootstrap5.min.js"></script>
-    <script src="../assets/vendor/datatables-buttons/js/dataTables.buttons.min.js"></script>
-    <script src="../assets/vendor/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+    <script src="assets/vendor/datatable/dataTables.bootstrap5.min.js"></script>
+    <script src="assets/vendor/datatables-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="assets/vendor/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
 
 
     <script type="text/javascript">
@@ -824,7 +824,7 @@
     </script>
 
     <script src="https://cdn.ckeditor.com/ckeditor5/40.0.0/classic/ckeditor.js"></script>
-    <script src="../assets/js/global.js"></script>
+    <script src="assets/js/global.js"></script>
 
     <script>
         let editorInstance;

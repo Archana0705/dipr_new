@@ -1286,7 +1286,12 @@
         <input type="hidden" id="pPageItemsProtected"
             value="&#x2F;J4ieeBRwL3lIIKqd0-cL5kzutqFyrLI3idLlAiE2MmdvDJ3gUXpKHuJRINK-moovG6G6oeKYG8JP--3FNT8zHw" />
     </form>
- 
+  <script src="assets/js/jquery-3.6.0.min.js"></script>
+  <script src="assets/js/global.js"></script>
+    <script src="assets/js/basepath.js"></script>
+    <script src="assets/js/apiConfig.js"></script>
+    <script src="assets/js/encrypt_decrypt.js"></script>
+    <script src="assets/js/crypto-js.min.js"></script>
     <script type="text/javascript">
         apex.da.initDaEventList = function () {
             apex.da.gEventList = [
@@ -1297,6 +1302,9 @@
 
     <script>
         $(document).ready(function () {
+            if (!localStorage.getItem("userAdminName")) {
+    window.location.href = "admin-login.html";
+  }
             $("#adminLoginBtn").on("click", function () {
                 window.location.href = "../admin-login.html";
             });
@@ -1440,11 +1448,7 @@ if (encryptedData) {
         src="https://static.oracle.com/cdn/apex/24.1.7/libraries/apex/minified/jetCommonBundle.min.js?v=24.1.7"></script>
     <script
         src="https://static.oracle.com/cdn/apex/24.1.7/libraries/apex/minified/chartBundle.min.js?v=24.1.7"></script>
-    <script src="assets/js/global.js"></script>
-    <script src="assets/js/basepath.js"></script>
-    <script src="assets/js/apiConfig.js"></script>
-    <script src="assets/js/encrypt_decrypt.js"></script>
-    <script src="assets/js/crypto-js.min.js"></script>
+    
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             const links = document.querySelectorAll(".t-Header-nav a, .t-Header-nav ul li a");
@@ -1516,7 +1520,8 @@ if (encryptedData) {
                     };
                 });
             });
-        }); apex.pwa.publicKey = ''
+        }); 
+        apex.pwa.publicKey = ''
         apex.pwa.pushSubscriptions = [
         ]
         apex.pwa.init({ serviceWorkerPath: '\u002Fords\u002Fr\u002Fdipr\u002Finfo-prdept103\u002Fsw.js?v=24.1.7-44329441868468\u0026lang=en' });
@@ -1635,9 +1640,7 @@ if (encryptedData) {
                 }
             });
         })
-             if (!localStorage.getItem("userAdminName")) {
-    window.location.href = "admin-login.html";
-  }
+             
     </script>
 
 </body>
