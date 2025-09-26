@@ -888,11 +888,13 @@
               <div class="t-Form-inputContainer col col-6">
                 <div class="t-Form-itemWrapper">
                   <a-file-upload id="pressFileUpload" name="pressFileUpload" upload-type="FILE" display-style="NATIVE"
-                    accept=".pdf,.jpg,.jpeg" size="30" max-file-size="2048">
+                    accept=".pdf,.jpg,.jpeg,.png" size="30" max-file-size="2048">
+
+                    <!-- ✅ add accept attribute here -->
                     <input type="file" id="pressFileUpload_input" name="pressFileUpload"
-                      class="text_field&#x20;apex-item-text" value="" maxlength="1000" />
-                    <div class="a-FileDrop a-FileDrop--native">
-                    </div>
+                      class="text_field apex-item-text" value="" maxlength="1000" accept=".pdf,.jpg,.jpeg,.png" />
+
+                    <div class="a-FileDrop a-FileDrop--native"></div>
                   </a-file-upload>
                 </div>
                 <div class="t-Form-itemAssistance">
@@ -901,6 +903,7 @@
                   <div class="t-Form-itemRequired" aria-hidden="true">Required</div>
                 </div>
               </div>
+
             </div>
           </div>
         </div>
@@ -1381,7 +1384,7 @@
   <script src="assets/js/basepath.js"></script>
   <script src="assets/js/apiConfig.js"></script>
   <script src="assets/js/encrypt_decrypt.js"></script>
-    <script src="assets/js/crypto-js.min.js"></script>
+  <script src="assets/js/crypto-js.min.js"></script>
   <script>
     document.addEventListener("DOMContentLoaded", function () {
       const links = document.querySelectorAll(".t-Header-nav a, .t-Header-nav ul li a");
@@ -1499,21 +1502,21 @@
   <script>
     $(document).ready(function () {
       const secretKey = "55464654654646654";
-const encryptedData = localStorage.getItem("role");
-let role = null;
+      const encryptedData = localStorage.getItem("role");
+      let role = null;
 
-if (encryptedData) {
-    try {
-        const decryptedData = JSON.parse(
+      if (encryptedData) {
+        try {
+          const decryptedData = JSON.parse(
             CryptoJS.AES.decrypt(encryptedData, secretKey).toString(CryptoJS.enc.Utf8)
-        );
-        console.log(decryptedData);
-          
-        role = decryptedData || null; // assuming loginResult has user_id
-    } catch (err) {
-        console.error("Error decrypting user data:", err);
-    }
-}
+          );
+          console.log(decryptedData);
+
+          role = decryptedData || null; // assuming loginResult has user_id
+        } catch (err) {
+          console.error("Error decrypting user data:", err);
+        }
+      }
       $('#pressFileUpload_input').on('change', function () {
         const validation = validateFile(this);
         if (!validation.valid) {
@@ -1549,64 +1552,104 @@ if (encryptedData) {
       $('.t-NavigationBar-item.has-username.shownav').append(appendSignout);
 
       $(".signOutBtn").on("click", function (event) {
-    event.preventDefault();
+        event.preventDefault();
 
-    const secretKey = "55464654654646654";
-    const encryptedData = localStorage.getItem("userAdminName");
-    let userId = null;
+        const secretKey = "55464654654646654";
+        const encryptedData = localStorage.getItem("userAdminName");
+        let userId = null;
 
-    if (encryptedData) {
-        try {
+        if (encryptedData) {
+          try {
             const decryptedData = JSON.parse(
-                CryptoJS.AES.decrypt(encryptedData, secretKey).toString(CryptoJS.enc.Utf8)
+              CryptoJS.AES.decrypt(encryptedData, secretKey).toString(CryptoJS.enc.Utf8)
             );
             userId = decryptedData?.user_id || null; // assuming loginResult has user_id
-        } catch (err) {
+          } catch (err) {
             console.error("Error decrypting user data:", err);
+          }
         }
-    }
- 
 
-    // Prepare encrypted logout payload
-    const payload = {
-        action: "function_call",
-        function_name: "user_logout",
-        params: { user_id: userId }
-    };
 
-    
-    $.ajax({
-        url: `${BASE_API_URL}/commonfunction`,
-        type: "POST",
-        headers: {
+        // Prepare encrypted logout payload
+        const payload = {
+          action: "function_call",
+          function_name: "user_logout",
+          params: { user_id: userId }
+        };
+
+
+        $.ajax({
+          url: `${BASE_API_URL}/commonfunction`,
+          type: "POST",
+          headers: {
             "X-App-Key": "dipr",
             "X-App-Name": "dipr"
-        },
-        data: { 
+          },
+          data: {
             data: encryptData(payload) // <-- important!
-        },
-        dataType: "json",
-        success: function (response) {debugger
+          },
+          dataType: "json",
+          success: function (response) {
+            debugger
             if (response.success) {
-                localStorage.removeItem("role");
-                localStorage.removeItem("userAdminName");
-                showSuccessToast(response.message || "Logged out successfully!");
-                window.location.href = "index.html";
+              localStorage.removeItem("role");
+              localStorage.removeItem("userAdminName");
+              showSuccessToast(response.message || "Logged out successfully!");
+              window.location.href = "index.html";
             } else {
-                showErrorToast(response.message || "Logout failed");
+              showErrorToast(response.message || "Logout failed");
             }
-        },
-        error: function (xhr, status, error) {
+          },
+          error: function (xhr, status, error) {
             console.error("Logout request failed:", error);
             showErrorToast("Logout request failed. Please try again.");
-        }
-    });
-  });
+          }
+        });
+      });
     });
 
   </script>
 
+
+
   <script>
+
+    const secretKey = "55464654654646654";
+    const encryptedData = localStorage.getItem("role");
+    let role = null;
+
+    if (encryptedData) {
+      try {
+        const decryptedData = JSON.parse(
+          CryptoJS.AES.decrypt(encryptedData, secretKey).toString(CryptoJS.enc.Utf8)
+        );
+        console.log(decryptedData);
+
+        role = decryptedData || null; // assuming loginResult has user_id
+      } catch (err) {
+        console.error("Error decrypting user data:", err);
+      }
+    }
+    var userAdminName = localStorage.getItem("userAdminName");
+    if (role) {
+      $('.admin-name-change').text(role);
+      $('.js-tabLike .admin-menu-show').css('display', 'block');
+      var interval = setInterval(function () {
+        if ($('#t_MenuNav_7').length) {
+          $('#t_MenuNav_7').css('display', 'flex');
+        }
+        if ($('#t_MenuNav_8').length) {
+          $('#t_MenuNav_8').css('display', 'flex');
+        }
+        if ($('#t_MenuNav_7').length && $('#t_MenuNav_8').length) {
+          clearInterval(interval);
+        }
+      }, 100);
+    }
+
+    if (!localStorage.getItem("userAdminName")) {
+      window.location.href = "admin-login.html";
+    }
     function showSuccessToast(message) {
       const toastElement = document.getElementById('successToast');
       const toastBody = document.getElementById('successMessage');
@@ -1651,6 +1694,8 @@ if (encryptedData) {
           $("body").removeClass("user_loading");
         }
       });
+
+
 
       // });
       $('#preloader').hide();
@@ -1771,27 +1816,42 @@ if (encryptedData) {
 
       function checkFile(selector) {
         var fileInput = $(selector).find('input[type="file"]');
-        const validTypes = ['application/pdf', 'image/jpeg', 'image/jpg'];
+        // Acceptable MIME types
+        const validTypes = [
+          'application/pdf',
+          'image/jpeg', // covers both .jpg and .jpeg
+          'image/png'
+        ];
         const maxSize = 2 * 1024 * 1024; // 2MB in bytes
         var file = fileInput[0].files[0];
 
         // Check if a file has been selected
         if (file) {
-          // Check file type
+          // ✅ Check file type
           if (!validTypes.includes(file.type)) {
             errors = true;
-            $('#' + selector.replace('#', '') + '_error_placeholder').text('Invalid file type. Supported types are .pdf, .jpg, .jpeg.').css('color', 'red');
-            return;
+            $('#' + selector.replace('#', '') + '_error_placeholder')
+              .text('Invalid file type. Supported types are .pdf, .jpg, .jpeg, .png.')
+              .css('color', 'red');
+            return false; // stop further execution
           }
 
-          // Check file size
+          // ✅ Check file size
           if (file.size > maxSize) {
             errors = true;
-            $('#' + selector.replace('#', '') + '_error_placeholder').text("File size exceeds the 2MB limit.").css('color', 'red');
-            return;
+            $('#' + selector.replace('#', '') + '_error_placeholder')
+              .text("File size exceeds the 2MB limit.")
+              .css('color', 'red');
+            return false;
           }
+
+          // Clear error if file is valid
+          $('#' + selector.replace('#', '') + '_error_placeholder').text('');
+          return true;
         }
+        return false; // no file selected
       }
+
       function processFile(selector) {
         return new Promise((resolve, reject) => {
           var fileInput = $(selector)[0];
@@ -1818,8 +1878,9 @@ if (encryptedData) {
           }
         });
       }
+
       async function registerNewData() {
-        var role = localStorage.getItem("operatorId");
+
         function convertDateFormat(dateString) {
           if (dateString === "") {
             return "";
@@ -1834,19 +1895,21 @@ if (encryptedData) {
           var pressDate = $('#Press_create_date input').val() || "";
           var formattedPressDate = convertDateFormat(pressDate);
           var pressLangugage = document.getElementById('pressCreateLangugage').value || "";
-          let pressInputFile = null;
-          pressInputFile = await processFile('#pressFileUpload_input');
-          checkFile('#pressFileUpload');
-          // if (!polStn || !districtName || !ComplaintData || !complaintMadeBy || !firNo || !dateOfFIR || !childGender || !childDOB || !childAge || !nameOfGuardian) {
-          //   if (willingness === "Yes") {
-          //     if (!willingness || !willName || !willRelation || !willDate || !accName || !accNo || !bankName || !branchName || !ifsc) {
-          //       showErrorToast("Please fill in all required fields.");
-          //       return;
-          //     }
-          //   }
-          //   showErrorToast("Please fill in all required fields.");
-          //   return;
-          // }
+          if (!pressDate) {
+            showErrorToast("Press release date is required.");
+            return;
+          }
+
+          if (!pressLangugage) {
+            showErrorToast("Press release language is required.");
+            return;
+          }
+
+          if (!checkFile('#pressFileUpload')) {
+            showErrorToast("Please upload a valid file (PDF, JPG, JPEG, PNG under 2MB).");
+            return;
+          }
+          let pressInputFile = await processFile('#pressFileUpload_input');
 
           if (pressDate) {
             var dateObj = new Date(pressDate);
@@ -1871,9 +1934,9 @@ if (encryptedData) {
             url: `${BASE_API_URL}/general/pressReleases/InsertPressReleaseForm`,
             type: 'POST',
             contentType: 'application/json',
-            data: JSON.stringify(registrationPayload),
+            data: encryptData(registrationPayload),
             success: async function (response) {
-              await showSuccessToast('Data Submitted Successfully');
+              showSuccessToast('Data Submitted Successfully');
               $('#uploadModal').dialog('close');
               location.reload();
             },
@@ -1882,6 +1945,7 @@ if (encryptedData) {
               showErrorToast("An error occurred during submission of data.");
             }
           });
+
           await showSuccessToast('Data Submitted Successfully');
         } catch (error) {
           console.error('Error:', error);
@@ -1898,7 +1962,7 @@ if (encryptedData) {
         }
 
         if (confirm("Are you sure you want to delete this item?")) {
-          alert(selectedId)
+          // alert(selectedId)
           deleteData(selectedId);
         }
       });
@@ -1944,45 +2008,7 @@ if (encryptedData) {
       });
     });
   </script>
-  <script>
-    $(document).ready(function () {
-      const secretKey = "55464654654646654";
-const encryptedData = localStorage.getItem("role");
-let role = null;
 
-if (encryptedData) {
-    try {
-        const decryptedData = JSON.parse(
-            CryptoJS.AES.decrypt(encryptedData, secretKey).toString(CryptoJS.enc.Utf8)
-        );
-        console.log(decryptedData);
-          
-        role = decryptedData || null; // assuming loginResult has user_id
-    } catch (err) {
-        console.error("Error decrypting user data:", err);
-    }
-}
-      var userAdminName = localStorage.getItem("userAdminName");
-      if (role) {
-        $('.admin-name-change').text(role);
-        $('.js-tabLike .admin-menu-show').css('display', 'block');
-        var interval = setInterval(function () {
-          if ($('#t_MenuNav_7').length) {
-            $('#t_MenuNav_7').css('display', 'flex');
-          }
-          if ($('#t_MenuNav_8').length) {
-            $('#t_MenuNav_8').css('display', 'flex');
-          }
-          if ($('#t_MenuNav_7').length && $('#t_MenuNav_8').length) {
-            clearInterval(interval);
-          }
-        }, 100);
-      }
-    });
-         if (!localStorage.getItem("userAdminName")) {
-    window.location.href = "admin-login.html";
-  }
-  </script>
 </body>
 
 </html>
