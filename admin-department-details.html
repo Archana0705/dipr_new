@@ -2896,7 +2896,7 @@ if (encryptedData) {
             data: encryptData(payload) // <-- important!
         },
         dataType: "json",
-        success: function (response) {debugger
+        success: function (response) {
             if (response.success) {
                 localStorage.removeItem("role");
                 localStorage.removeItem("userAdminName");

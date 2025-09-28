@@ -1682,7 +1682,7 @@
             data: encryptData(payload) // <-- important!
         },
         dataType: "json",
-        success: function (response) {debugger
+        success: function (response) {
             if (response.success) {
                 localStorage.removeItem("role");
                 localStorage.removeItem("userAdminName");
@@ -1764,7 +1764,9 @@
           url: apiUrl,
           method: "POST",
           contentType: "application/json",
-          data: JSON.stringify(viewPayload),
+          data: JSON.stringify({
+            data: encryptData(viewPayload)
+          }),
           success: function (response) {
             tableData = response.data;
             tableBody.empty();
@@ -1892,7 +1894,7 @@
   } else {
     passwordError.textContent = "";
   }
-debugger
+
   try {
     
 
@@ -1907,7 +1909,7 @@ debugger
         p_district: district
       }
     };
-    debugger
+    
     await $.ajax({
       url: `${BASE_API_URL}/commonfunction`,
       type: 'POST',
