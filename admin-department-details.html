@@ -2408,7 +2408,7 @@
               <input id="Press_create_div_phone" class="form-control" name="Press_create_div_phone" value="" size="70">
             </div>
             <div class="mb-2">
-              <label for="exampleInputPassword1" class="form-label">Phone</label>
+              <label for="exampleInputPassword1" class="form-label">Division</label>
               <input id="Press_create_div_division" class="form-control" name="Press_create_div_division" value=""
                 size="70">
             </div>
@@ -3882,22 +3882,22 @@ if (encryptedData) {
 
 
 async function registerNewData() {
-  const secretKey = "55464654654646654";
-const encryptedData = localStorage.getItem("role");
-let role = null;
+      const secretKey = "55464654654646654";
+      const encryptedData = localStorage.getItem("role");
+      let role = null;
 
-if (encryptedData) {
-    try {
-        const decryptedData = JSON.parse(
-            CryptoJS.AES.decrypt(encryptedData, secretKey).toString(CryptoJS.enc.Utf8)
-        );
-        console.log(decryptedData);
-          
-        role = decryptedData || null; // assuming loginResult has user_id
-    } catch (err) {
-        console.error("Error decrypting user data:", err);
-    }
-}
+      if (encryptedData) {
+          try {
+              const decryptedData = JSON.parse(
+                  CryptoJS.AES.decrypt(encryptedData, secretKey).toString(CryptoJS.enc.Utf8)
+              );
+              console.log(decryptedData);
+                
+              role = decryptedData || null; // assuming loginResult has user_id
+          } catch (err) {
+              console.error("Error decrypting user data:", err);
+          }
+      }
 
   // Get values
   let name = $('#Press_create_name').val().trim();
@@ -3916,33 +3916,34 @@ if (encryptedData) {
   phone = sanitizeInput(phone);
 
   // Validation
-  const namePattern = /^[a-zA-Z\s]+$/;
-  const phonePattern = /^[0-9]{10}$/;
+  // Validation
+const namePattern = /^[a-zA-Z\s]+$/;
+const phonePattern = /^[0-9]{10}$/;
 
-  if (!name) {
+if (!name) {
     showErrorToast("Name is required.");
     return;
-  }
-  if (!namePattern.test(name)) {
+}
+if (!namePattern.test(name)) {
     showErrorToast("Name can only contain letters and spaces.");
     return;
-  }
-  if (!designation) {
+}
+if (!designation) {
     showErrorToast("Designation is required.");
     return;
-  }
-  if (!phonePattern.test(phone)) {
+}
+if (!phonePattern.test(phone)) {
     showErrorToast("Phone must be exactly 10 digits.");
     return;
-  }
-  if (!language) {
+}
+if (!language || language.trim() === "") {
     showErrorToast("Please select a language.");
     return;
-  }
-  if (!sequence) {
+}
+if (!sequence || sequence.trim() === "") {
     showErrorToast("Please select a sequence.");
     return;
-  }
+} 
 
   // Build safe payload
   const insertPayload = {
@@ -3966,7 +3967,7 @@ if (encryptedData) {
     success: function (response) {
       if (response.success === 1) {
         showSuccessToast("Created successfully!");
-        setTimeout(() => window.location.href = "../admin-department-details.html", 1000);
+        // setTimeout(() => window.location.href = "/admin-department-details.html", 1000);
       } else {
         showErrorToast(response.message);
       }
