@@ -2,6 +2,11 @@
 <html class="no-js  page-17 app-INFO-PRDEPT103" lang="en">
 
 <head>
+  <script>
+    if (!localStorage.getItem("userAdminName")) {
+      window.location.replace("index.html");
+    }
+  </script>
   <meta http-equiv="x-ua-compatible" content="IE=edge" />
   <meta charset="utf-8">
   <title>Sections Content</title>
@@ -1960,9 +1965,7 @@ if (encryptedData) {
         }
       });
     });
-     if (!localStorage.getItem("userAdminName")) {
-    window.location.href = "admin-login.html";
-  }
+
   </script>
 </body>
 

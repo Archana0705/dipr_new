@@ -2,6 +2,11 @@
 <html class="no-js  page-18 app-INFO-PRDEPT103" lang="en">
 
 <head>
+   <script>
+    if (!localStorage.getItem("userAdminName")) {
+      window.location.replace("index.html");
+    }
+  </script>
   <meta http-equiv="x-ua-compatible" content="IE=edge" />
   <meta charset="utf-8">
   <title>Photo Upload</title>
@@ -1940,9 +1945,7 @@ $("#cancelPhotoBtn").on("click", function () {
         }
       });
     })
-     if (!localStorage.getItem("userAdminName")) {
-    window.location.href = "admin-login.html";
-  }
+     
   </script>
 <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 
