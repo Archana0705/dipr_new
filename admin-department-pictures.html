@@ -1878,7 +1878,9 @@ if (encryptedData) {
           url: apiUrl,
           method: "POST",
           contentType: "application/json",
-          data: JSON.stringify(viewPayload),
+          data: JSON.stringify({
+        data: encryptData(viewPayload)  // encrypt the payload
+    }),
           success: function (response) {
             tableData = response.data;
 
@@ -2160,7 +2162,9 @@ if (encryptedData) {
           url: `${BASE_API_URL}/general/commonApi`,
           type: 'POST',
           contentType: 'application/json',
-          data: JSON.stringify(registrationPayload),
+          data: JSON.stringify({
+        data: encryptData(registrationPayload)  // encrypt the payload
+    }),
           success: function (response) {
             if (response.success === 1) {
               showSuccessToast("Created successfully!");
@@ -2251,17 +2255,20 @@ if (encryptedData) {
       function deleteData(id) {
         //debugger
         $('#preloader').show();
+        var deletePayload = {
+    action: "delete",
+    table: "departments_pics",
+    id: id,
+    primary_key: "id"
+};
         $.ajax({
           url: `${BASE_API_URL}/general/commonApi`,
           type: "POST",
           dataType: "json",
           contentType: "application/json",
-          data: JSON.stringify({
-            "action": "delete",
-            "table": "departments_pics",
-            "id": id,
-            "primary_key": "id"
-          }),
+           data: JSON.stringify({
+        data: encryptData(deletePayload)  // encrypt payload before sending
+    }),
           success: function (response) {
             $('#preloader').hide();
             if (response.success === 1) {

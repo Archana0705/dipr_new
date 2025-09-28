@@ -1831,7 +1831,9 @@ if (encryptedData) {
           url: apiUrl,
           method: "POST",
           contentType: "application/json",
-          data: JSON.stringify(viewPayload),
+           data: JSON.stringify({
+            data: encryptData(viewPayload)  // encrypt the entire payload
+        }),
           success: function (response) {
             tableData = response.data;
 
@@ -2080,12 +2082,14 @@ if (encryptedData) {
     "MIME_TYPE": pressInputFile?.mimetype || null,
     "LANGUAGE": language
   };
-
+var encryptedPayload = {
+    data: encryptData(insertPayload)
+};
   $.ajax({
     url: `${BASE_API_URL}/general/commonApi`,
     type: 'POST',
     contentType: 'application/json',
-    data: JSON.stringify(insertPayload),
+    data: JSON.stringify(encryptedPayload),
     success: function (response) {
       if (response.success === 1) {
         showSuccessToast("Created successfully!");
@@ -2145,11 +2149,13 @@ if (encryptedData) {
           "primary_key": "id",
           "id": id
         };
-
+let encryptedPayload = {
+    data: encryptData(updatePayload)
+};
         $.ajax({
           url: `${BASE_API_URL}/general/commonApi`,
           type: 'POST',
-          data: JSON.stringify(updatePayload),
+          data: JSON.stringify(encryptedPayload),
           contentType: 'application/json', // Use JSON since we're sending structured data
           success: function (response) {
             if (response.success === 1) {
@@ -2180,17 +2186,19 @@ if (encryptedData) {
       function deleteData(id) {
         //debugger
         $('#preloader').show();
+        var deletePayload = {
+            action: "delete",
+            table: "GOVT_NAVIGATION_LIST",
+            primary_key: "id",
+            id: id
+        };
         $.ajax({
           url: `${BASE_API_URL}/general/commonApi`,
           type: "POST",
           dataType: "json",
           contentType: "application/json",
           data: JSON.stringify({
-            "action": "delete",
-            "table": "GOVT_NAVIGATION_LIST",
-            "primary_key": "id",
-            "id": id
-
+              data: encryptData(deletePayload)
           }),
           success: function (response) {
             $('#preloader').hide();
