@@ -1917,7 +1917,9 @@ if (encryptedData) {
           url: apiUrl,
           method: "POST",
           contentType: "application/json",
-          data: JSON.stringify(viewPayload),
+          data: JSON.stringify({
+            data: encryptData(viewPayload)
+          }),
           success: function (response) {
             tableData = response.data;
 
@@ -2205,11 +2207,12 @@ if (encryptedData) {
           dataType: "json",
           contentType: "application/json",
           data: JSON.stringify({
-            "action": "delete",
-            "slno": id,
-            "table": "TN_COMMEMORATION_ARCH",
-
-          }),
+              data: encryptData({
+                action: "delete",
+                slno: id,
+                table: "TN_COMMEMORATION_ARCH"
+              })
+            }),
           success: function (response) {
             $('#preloader').hide();
             if (response.success === 1) {

@@ -1732,7 +1732,10 @@ if (encryptedData) {
           url: apiUrl,
           method: "POST",
           contentType: "application/json",
-          data: JSON.stringify(viewPayload),
+          // data: JSON.stringify(viewPayload),
+          data: JSON.stringify({
+            data: encryptData(viewPayload) 
+          }),
           success: function (response) {
             tableData = response.data;
 
