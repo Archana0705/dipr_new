@@ -900,11 +900,27 @@
                               data-template-id="32751039808172722_ET"></span>
                           </div>
                         </div>
-                      <!-- Captcha -->
-                    <canvas id="captcha" width="150" height="50"></canvas>
-<br>
-<input type="text" id="captchaInput" placeholder="Enter Captcha">
-<button id="reloadCaptcha" type="button">🔄 Reload</button> 
+                        <!-- Captcha -->
+                        <div class="t-Form-fieldContainer t-Form-fieldContainer--hiddenLabel rel-col">
+                          <div class="t-Form-inputContainer col col-null">
+                            <div class="t-Form-itemWrapper">
+                              <!-- Captcha image from server -->
+                              <img id="captchaImage" alt="CAPTCHA">
+
+                              <!-- Reload button -->
+                              <button type="button" id="reloadCaptcha" class="t-Button t-Button--hot">🔄 Reload</button>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="t-Form-fieldContainer t-Form-fieldContainer--hiddenLabel rel-col">
+                          <div class="t-Form-inputContainer col col-null">
+                            <div class="t-Form-itemWrapper">
+                              <!-- Captcha input -->
+                              <input type="text" name="captcha" id="captchaInput" placeholder="Enter CAPTCHA"
+                                    class="text_field apex-item-text" required>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                       <div class="t-Login-buttons"><button class="t-Button t-Button--hot signClick" type="button"
                           id="signClick"><span class="t-Button-label">Sign In</span></button><button
@@ -1076,79 +1092,170 @@
       }
     }
 
-
-
+// Initial load
+  loadCaptcha();
+// Call on page load
   // Reload button
   $("#reloadCaptcha").on("click", function () {
-    drawCaptcha();
+    // drawCaptcha();
+    loadCaptcha();
   });
+function loadCaptcha() {
+    // Fetch captcha image from API
+    $('#captchaImage').attr('src', `${BASE_API_URL}/captcha?`  + new Date().getTime());
+}
 
   // Init captcha
   $(document).ready(function () {
-    drawCaptcha();
+    // drawCaptcha();
 
-    $('#signClick').on('click', function () {
-      var loguserName = $('#P9999_USERNAME').val();
-      var logPass = $('#P9999_PASSWORD').val();
-      var captchaInput = $('#captchaInput').val().trim();
+    // $('#signClick').on('click', function () {
+    //   var loguserName = $('#P9999_USERNAME').val();
+    //   var logPass = $('#P9999_PASSWORD').val();
+    //   var captchaInput = $('#captchaInput').val().trim();
 
-      // ✅ First check captcha
-      if (captchaInput !== currentCaptcha) {
-        showErrorToast("Invalid captcha. Please try again.");
-        drawCaptcha(); // reload captcha on error
-        return;
-      }
+    //   // ✅ First check captcha
+    //   if (captchaInput !== currentCaptcha) {
+    //     showErrorToast("Invalid captcha. Please try again.");
+    //     drawCaptcha(); // reload captcha on error
+    //     return;
+    //   }
 
-      const payload = {
-        action: "function_call",
-        function_name: "user_login_fn",
-        params: {
-          p_user: loguserName,
-          p_password: logPass
-        }
-      };
+    //   const payload = {
+    //     action: "function_call",
+    //     function_name: "user_login_fn",
+    //     params: {
+    //       p_user: loguserName,
+    //       p_password: logPass
+    //     }
+    //   };
 
-      $.ajax({
-        url: `${BASE_API_URL}/commonfunction`,
-        type: "POST",
-        headers: {
-          "X-App-Key": "dipr",
-          "X-App-Name": "dipr"
-        },
-        data: { 
-          data: encryptData(payload)
-        },
-        dataType: "json",
-        success: function (response) {
-          const decrypted = decryptData(response?.data || "");
-          let loginResult = decrypted[0];
-          const secretKey = decryptKey();
+    //   $.ajax({
+    //     url: `${BASE_API_URL}/commonfunction`,
+    //     type: "POST",
+    //     headers: {
+    //       "X-App-Key": "dipr",
+    //       "X-App-Name": "dipr"
+    //     },
+    //     data: { 
+    //       data: encryptData(payload)
+    //     },
+    //     dataType: "json",
+    //     success: function (response) {
+    //       debugger
+    //       const decrypted = decryptData(response?.data || "");
+    //       let loginResult = decrypted[0];
+    //       const secretKey = decryptKey();
           
-                  let encryptedData = CryptoJS.AES.encrypt(
-                      JSON.stringify(loginResult),
-                      secretKey
-                  ).toString();
-                  let encryptedRole = CryptoJS.AES.encrypt(
-        JSON.stringify(loginResult.role || ""),
-        secretKey
-      ).toString();
-                  if (loginResult && (loginResult.status === true || loginResult === "SUCCESS")) {
-    showSuccessToast("Login successfully!");
-    window.location.href = window.basePath + "/index.html";
-    localStorage.setItem("role", encryptedRole || "");
-    localStorage.setItem("userAdminName", encryptedData);
-}  else {
-                showErrorToast(response.message);
-        }
+    //               let encryptedData = CryptoJS.AES.encrypt(
+    //                   JSON.stringify(loginResult),
+    //                   secretKey
+    //               ).toString();
+    //               let encryptedRole = CryptoJS.AES.encrypt(
+    //     JSON.stringify(loginResult.role || ""),
+    //     secretKey
+    //       ).toString();
+    //                   if (loginResult && (loginResult.status === true || loginResult === "SUCCESS")) {
+    //     showSuccessToast("Login successfully!");
+    //     window.location.href = window.basePath + "/index.html";
+    //     localStorage.setItem("role", encryptedRole || "");
+    //     localStorage.setItem("userAdminName", encryptedData);
+    //     }  else {
+    //                 showErrorToast(response.message);
+    //         }
+    //         },
+    //         error: function (xhr, status, error) {
+    //           showErrorToast("Login request failed. Please try again.");
+    //         },
+    //         complete: function () {
+    //           $('#preloader').hide();
+    //         }
+    //       });
+    //     });
+    $('#signClick').on('click', function () {
+    var loguserName = $('#P9999_USERNAME').val();
+    var logPass = $('#P9999_PASSWORD').val();
+    var captchaInput = $('#captchaInput').val().trim();
+
+    if (!captchaInput) {
+        showErrorToast("Please enter CAPTCHA.");
+        return;
+    }
+
+    
+
+    $.ajax({
+        url: `${BASE_API_URL}/validate_captcha`,
+        type: 'POST',
+        data: { captcha: captchaInput },
+    dataType: 'json',
+        success: function(response) {
+            if (!response.success) {
+                showErrorToast("Invalid CAPTCHA. Please try again.");
+                // loadCaptcha(); // reload captcha
+                return;
+            }
+
+            // Step 2: Proceed with login if captcha is valid
+            const payload = {
+                action: "function_call",
+                function_name: "user_login_fn",
+                params: {
+                    p_user: loguserName,
+                    p_password: logPass
+                }
+            };
+
+            $.ajax({
+                url: `${BASE_API_URL}/commonfunction`,
+                type: "POST",
+                headers: {
+                    "X-App-Key": "dipr",
+                    "X-App-Name": "dipr"
+                },
+                data: { data: encryptData(payload) },
+                dataType: "json",
+                success: function (resp) {
+                    const decrypted = decryptData(resp?.data || "");
+                    let loginResult = decrypted[0];
+                    const secretKey = decryptKey();
+
+                    let encryptedData = CryptoJS.AES.encrypt(
+                        JSON.stringify(loginResult),
+                        secretKey
+                    ).toString();
+                    let encryptedRole = CryptoJS.AES.encrypt(
+                        JSON.stringify(loginResult.role || ""),
+                        secretKey
+                    ).toString();
+
+                    if (loginResult && (loginResult.status === true || loginResult === "SUCCESS")) {
+                        showSuccessToast("Login successfully!");
+                        window.location.href = window.basePath + "/index.html";
+                        localStorage.setItem("role", encryptedRole || "");
+                        localStorage.setItem("userAdminName", encryptedData);
+                    } else {
+                        showErrorToast(resp.message || "Login failed.");
+                        // loadCaptcha();
+                    }
+                },
+                error: function () {
+                    showErrorToast("Login request failed. Please try again.");
+                    // loadCaptcha();
+                },
+                complete: function () {
+                    $('#preloader').hide();
+                }
+            });
         },
-        error: function (xhr, status, error) {
-          showErrorToast("Login request failed. Please try again.");
+        error: function() {
+            showErrorToast("CAPTCHA validation failed. Try again.");
+            // loadCaptcha();
         },
-        complete: function () {
-          $('#preloader').hide();
-        }
-      });
-     });
+        dataType: "json"
+    });
+});
+
   });
    
     function showSuccessToast(message) {
