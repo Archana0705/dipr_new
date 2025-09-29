@@ -1643,7 +1643,7 @@
   </script>
   <script>
     $(document).ready(function () {
-      const secretKey = "55464654654646654";
+      const secretKey = decryptKey();
 const encryptedData = localStorage.getItem("role");
 let role = null;
 
@@ -1689,7 +1689,7 @@ if (encryptedData) {
       $(".signOutBtn").on("click", function (event) {
     event.preventDefault();
 
-    const secretKey = "55464654654646654";
+    const secretKey = decryptKey();
     const encryptedData = localStorage.getItem("userAdminName");
     let userId = null;
 
@@ -2103,7 +2103,7 @@ if (encryptedData) {
       async function registerNewData() {
      if (!validateNoHtmlField("Press_create_name", "Name")) return;
   if (!validateNoHtmlField("Press_create_designation", "Designation")) return;
-        const secretKey = "55464654654646654";
+        const secretKey = decryptKey();
 const encryptedData = localStorage.getItem("role");
 let role = null;
 

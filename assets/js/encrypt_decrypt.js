@@ -41,3 +41,5 @@ function decryptData(encryptedData) {
 // Make globally available
 window.encryptData = encryptData;
 window.decryptData = decryptData;
+
+

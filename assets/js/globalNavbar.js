@@ -2,7 +2,7 @@ $(document).ready(function () {
     // //debugger
     $('#navbar-container').load("globalNavbar.html", function () {
         setTimeout(() => {
-            const secretKey = "55464654654646654";
+            const secretKey = decryptKey();
 const encryptedData = localStorage.getItem("role");
 let role = null;
 
@@ -65,7 +65,7 @@ if (encryptedData) {
             $(".signOutBtn").on("click", function (event) {
     event.preventDefault();
 
-    const secretKey = "55464654654646654";
+    const secretKey = decryptKey();
     const encryptedData = localStorage.getItem("userAdminName");
     let userId = null;
 

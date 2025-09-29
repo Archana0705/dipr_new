@@ -731,6 +731,7 @@
   <script src="assets/js/widget.templateReport.min.js"></script>
   <script src="assets/js/widget.report.min.js"></script>
   <script src="assets/js/aos.js"></script>
+  <script src="assets/js/global.js"></script>
 
   <script type="text/javascript">
     apex.jQuery(function () {
@@ -784,7 +785,7 @@
   </script>
   <script>
     $(document).ready(function () {
-      const secretKey = "55464654654646654";
+      const secretKey = decryptKey();
 const encryptedData = localStorage.getItem("role");
 let role = null;
 

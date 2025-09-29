@@ -1122,7 +1122,8 @@
         success: function (response) {
           const decrypted = decryptData(response?.data || "");
           let loginResult = decrypted[0];
-          const secretKey = "55464654654646654";
+          const secretKey = decryptKey();
+          
                   let encryptedData = CryptoJS.AES.encrypt(
                       JSON.stringify(loginResult),
                       secretKey

@@ -1,37 +1,6 @@
 const API_BASE_URL = "https://tngis.tnega.org/lcap_api/dipr-lcap-api/v1/";
-$(document).ready(function () {
-  //  $(document).on("contextmenu", function (e) {
-  //   e.preventDefault();
-  //    alert("Right click is disabled!");
-  //    return false;
-  //  });
-  // $(document).on("keydown", function (e) {
-  //   console.log("Key pressed:", e.key, "Code:", e.keyCode);
-
-  //   // Ctrl+U
-  //   if (e.ctrlKey && (e.key === "u" || e.key === "U" || e.keyCode === 85)) {
-  //     e.preventDefault();
-  //     alert("View Source is disabled!");
-  //     return false;
-  //   }
-
-  //   // Ctrl+Shift+I
-  //   if (e.ctrlKey && e.shiftKey && (e.key === "I" || e.key === "i" || e.keyCode === 73)) {
-  //     e.preventDefault();
-  //     alert("Inspect is disabled!");
-  //     return false;
-  //   }
-
-  //   // F12
-  //   if (e.keyCode === 123) {
-  //     e.preventDefault();
-  //     alert("Developer Tools disabled!");
-  //     return false;
-  //   }
-
-
-
-  // });
+$(document).ready(function () {  
+  
   $.ajaxSetup({
     headers: {
       "X-App-Key": "dipr",
@@ -55,5 +24,25 @@ $(document).ready(function () {
     localStorage.removeItem("userAdminName");
     navigateTo("index.html");
   }
+// function encryptKey(text, key) {
+//   let result = '';
+//   for (let i = 0; i < text.length; i++) {
+//     // XOR each character code with key character code
+//     result += String.fromCharCode(text.charCodeAt(i) ^ key.charCodeAt(i % key.length));
+//   }
+//   return btoa(result); // encode in base64 to keep it printable
+// }
+
 
 });
+function decryptKey() {
+  let encoded = "QVtRUVV2BAYFQVpTU1d2BAY=";
+    let key = "tnega@123";
+  let text = atob(encoded); // decode from base64
+  let result = '';
+  for (let i = 0; i < text.length; i++) {
+    // XOR back with the key to get original
+    result += String.fromCharCode(text.charCodeAt(i) ^ key.charCodeAt(i % key.length));
+  }
+  return result;
+}

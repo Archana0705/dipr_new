@@ -1,5 +1,5 @@
 $(document).ready(function () {
-  const secretKey = "55464654654646654";
+  const secretKey = decryptKey();
 const encryptedData = localStorage.getItem("role");
 let role = null;
 
