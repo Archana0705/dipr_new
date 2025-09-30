@@ -972,6 +972,7 @@
       value="&#x2F;vD7fBxRAam3mHjcj50UL8pQyNu3ka625aJArB-y_q5WSI-zwy056GI6nKpPXmzG6l6r6IhNbuewSh_hGyK6UhQ" />
   </form>
 
+  <script src="assets/js/global.js"></script>
   <script src="assets/js/jquery-3.6.0.min.js"></script>
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
@@ -981,11 +982,8 @@
   <script src="assets/vendor/datatables-buttons/js/dataTables.buttons.min.js"></script>
   <script src="assets/vendor/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
 
-  <!--  jQuery UI (for modal/dialog) -->
-  <script src="assets/js/jquery-ui.min.js"></script>
 
   <!--  Your project scripts -->
-  <script src="assets/js/global.js"></script>
   <script src="assets/js/fileValidator.js"></script>
   <script src="assets/js/basepath.js"></script>
   <script src="assets/js/apiConfig.js"></script>
@@ -1105,8 +1103,14 @@ let SESSION_ID = null;
 
 function loadCaptcha() {
     $.getJSON(`${BASE_API_URL}/captcha`, function(data) {
+        // Store the session id
         SESSION_ID = data.session_id;
-        $("#captchaImage").attr("src", `${BASE_API_URL}/captcha_image?sid=` + SESSION_ID + "&t=" + new Date().getTime());
+
+        // Point the <img> to the captcha image generator
+        // Use cache-busting query (?t=timestamp) so browser doesn't reuse old image
+        $("#captchaImage").attr("src",
+            `${BASE_API_URL}/captcha_image?sid=${SESSION_ID}&t=${Date.now()}`
+        );
     });
 }
   // Init captcha
@@ -1188,78 +1192,81 @@ function loadCaptcha() {
 
     
 
-    $.ajax({
-        url: `${BASE_API_URL}/validate_captcha`,
-        type: 'POST',
-        data: { captcha: captchaInput },
-    dataType: 'json',
-        success: function(response) {
-            if (!response.success) {
-                showErrorToast("Invalid CAPTCHA. Please try again.");
-                // loadCaptcha(); // reload captcha
-                return;
+ $.ajax({
+    url: `${BASE_API_URL}/validate_captcha`,
+    type: "POST",
+    dataType: "json",
+    data: {
+        captcha: $("#captchaInput").val().trim(),
+        session_id: SESSION_ID
+    },
+    success: function(res) {
+        if (!res.success) {
+            showErrorToast(res.message);
+            loadCaptcha(); // reload captcha if validation fails
+            return; // exit here, do not proceed with login
+        }
+
+        // CAPTCHA is valid → proceed with login
+        const payload = {
+            action: "function_call",
+            function_name: "user_login_fn",
+            params: {
+                p_user: loguserName,
+                p_password: logPass
             }
+        };
 
-            // Step 2: Proceed with login if captcha is valid
-            const payload = {
-                action: "function_call",
-                function_name: "user_login_fn",
-                params: {
-                    p_user: loguserName,
-                    p_password: logPass
+        $.ajax({
+            url: `${BASE_API_URL}/commonfunction`,
+            type: "POST",
+            headers: {
+                "X-App-Key": "dipr",
+                "X-App-Name": "dipr"
+            },
+            data: { data: encryptData(payload) },
+            dataType: "json",
+            success: function(resp) {
+              
+                const decrypted = decryptData(resp?.data || "");
+                let loginResult = decrypted[0];
+                const secretKey = decryptKey();
+
+                let encryptedData = CryptoJS.AES.encrypt(
+                    JSON.stringify(loginResult),
+                    secretKey
+                ).toString();
+                let encryptedRole = CryptoJS.AES.encrypt(
+                    JSON.stringify(loginResult.role || ""),
+                    secretKey
+                ).toString();
+
+                if (loginResult && (loginResult.status === true || loginResult === "SUCCESS")) {
+                    showSuccessToast("Login successfully!");
+                    window.location.href = window.basePath + "/index.html";
+                    localStorage.setItem("role", encryptedRole || "");
+                    localStorage.setItem("userAdminName", encryptedData);
+                } else {
+                    showErrorToast(resp.message || "Login failed.");
+                    loadCaptcha(); // reload captcha on login failure
                 }
-            };
-
-            $.ajax({
-                url: `${BASE_API_URL}/commonfunction`,
-                type: "POST",
-                headers: {
-                    "X-App-Key": "dipr",
-                    "X-App-Name": "dipr"
-                },
-                data: { data: encryptData(payload) },
-                dataType: "json",
-                success: function (resp) {
-                    const decrypted = decryptData(resp?.data || "");
-                    let loginResult = decrypted[0];
-                    const secretKey = decryptKey();
-
-                    let encryptedData = CryptoJS.AES.encrypt(
-                        JSON.stringify(loginResult),
-                        secretKey
-                    ).toString();
-                    let encryptedRole = CryptoJS.AES.encrypt(
-                        JSON.stringify(loginResult.role || ""),
-                        secretKey
-                    ).toString();
-
-                    if (loginResult && (loginResult.status === true || loginResult === "SUCCESS")) {
-                        showSuccessToast("Login successfully!");
-                        window.location.href = window.basePath + "/index.html";
-                        localStorage.setItem("role", encryptedRole || "");
-                        localStorage.setItem("userAdminName", encryptedData);
-                    } else {
-                        showErrorToast(resp.message || "Login failed.");
-                        // loadCaptcha();
-                    }
-                },
-                error: function () {
-                    showErrorToast("Login request failed. Please try again.");
-                    // loadCaptcha();
-                },
-                complete: function () {
-                    $('#preloader').hide();
-                }
-            });
-        },
-        error: function() {
-            showErrorToast("CAPTCHA validation failed. Try again.");
-            // loadCaptcha();
-        },
-        dataType: "json"
-    });
+            },
+            error: function() {
+                showErrorToast("Login request failed. Please try again.");
+                loadCaptcha(); // reload captcha if login request fails
+            },
+            complete: function() {
+                $('#preloader').hide();
+            }
+        });
+    },
+    error: function() {
+        showErrorToast("CAPTCHA validation failed. Try again.");
+        loadCaptcha();
+    }
 });
 
+ });
   });
    
     function showSuccessToast(message) {
@@ -1381,41 +1388,41 @@ function loadCaptcha() {
       const apiUrl = `${BASE_API_URL}/general/governmentOrders/viewReport`;
       const tableBody = $("#governmentOrdersTableBody");
       tableBody.html('<tr><td colspan="9" class="text-center">Loading...</td></tr>');
-      $.ajax({
-        url: apiUrl,
-        method: "POST",
-        success: function (response) {
-          tableData = response.data;
-          console.log("Table data" + tableData)
-          tableBody.empty();
+      // $.ajax({
+      //   url: apiUrl,
+      //   method: "POST",
+      //   success: function (response) {
+      //     tableData = response.data;
+      //     console.log("Table data" + tableData)
+      //     tableBody.empty();
 
-          if (!tableData || tableData.length === 0) {
-            tableBody.append('<tr><td colspan="9" class="text-center">No Data Found</td></tr>');
-            return;
-          }
+      //     if (!tableData || tableData.length === 0) {
+      //       tableBody.append('<tr><td colspan="9" class="text-center">No Data Found</td></tr>');
+      //       return;
+      //     }
 
-          tableData.forEach(item => {
-            const newRow = `
-              <tr>
-              <td class="u-tL">   <a data-id="${item.id}" data-file="${item.order_name}" id="open-modal-btn" href="javascript:void(0);">
-        <i class="bi bi-pencil-square"></i>
-      </a></td>
-              <td tabindex="-1" role="gridcell" class="a-GV-cell u-tC is-readonly">${formatDate(item.go_date) || 'N/A'}</td>
-              <td tabindex="-1" role="gridcell" class="a-GV-cell u-tC is-readonly">${(item.language) || 'N/A'}</td>
-              <td tabindex="-1" role="gridcell" class="a-GV-cell u-tC is-readonly">${(item.order_name) || 'N/A'}</td>
-              <td tabindex="-1" role="gridcell" class="a-GV-cell u-tC is-readonly">${formatDate(item.go_date) || 'N/A'}</td>
-              <td tabindex="-1" role="gridcell" class="a-GV-cell u-tC is-readonly">${formatDate(item.uploaded_on) || 'N/A'}</td>
-              </tr>`;
+      //     tableData.forEach(item => {
+      //       const newRow = `
+      //         <tr>
+      //         <td class="u-tL">   <a data-id="${item.id}" data-file="${item.order_name}" id="open-modal-btn" href="javascript:void(0);">
+      //   <i class="bi bi-pencil-square"></i>
+      // </a></td>
+      //         <td tabindex="-1" role="gridcell" class="a-GV-cell u-tC is-readonly">${formatDate(item.go_date) || 'N/A'}</td>
+      //         <td tabindex="-1" role="gridcell" class="a-GV-cell u-tC is-readonly">${(item.language) || 'N/A'}</td>
+      //         <td tabindex="-1" role="gridcell" class="a-GV-cell u-tC is-readonly">${(item.order_name) || 'N/A'}</td>
+      //         <td tabindex="-1" role="gridcell" class="a-GV-cell u-tC is-readonly">${formatDate(item.go_date) || 'N/A'}</td>
+      //         <td tabindex="-1" role="gridcell" class="a-GV-cell u-tC is-readonly">${formatDate(item.uploaded_on) || 'N/A'}</td>
+      //         </tr>`;
 
 
-            tableBody.append(newRow);
-          });
-        },
-        error: function (xhr, status, error) {
-          console.error("Error fetching data: ", error);
-          tableBody.html('<tr><td colspan="9" class="text-center">Failed to load data</td></tr>');
-        }
-      });
+      //       tableBody.append(newRow);
+      //     });
+      //   },
+      //   error: function (xhr, status, error) {
+      //     console.error("Error fetching data: ", error);
+      //     tableBody.html('<tr><td colspan="9" class="text-center">Failed to load data</td></tr>');
+      //   }
+      // });
 
       $("#modal").dialog({
         autoOpen: false,
