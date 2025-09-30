@@ -1391,7 +1391,7 @@
   <script>
     $(document).ready(function () {
       $("#adminLoginBtn").on("click", function () {
-        window.location.href = "../admin-login.html";
+        window.location.href = "admin-login.html";
       });
 
       $('.shownav').on('click', function (e) {
@@ -1600,7 +1600,7 @@ if (encryptedData) {
       var selectedId;
        
       $("#createNewBtn").on("click", function () {
-        window.location.href = "../admin-section-create.html"
+        window.location.href = "admin-section-create.html"
       });
       const apiUrlTa = `${BASE_API_URL}/admin/GovtAttachmentVideo`;
       const tableBodyTa = $("#TASecCon");
@@ -1764,7 +1764,7 @@ var encryptedPayload = {
           success: function (response) {
             if (response.success === 1) {
               showSuccessToast("Image uploaded successfully!");
-              setTimeout(() => window.location.href = "../admin-govtvideo.html", 1000);
+              setTimeout(() => window.location.href = "admin-govtvideo.html", 1000);
             } else {
               showErrorToast(response.message || "Upload failed.");
             }
@@ -1922,7 +1922,7 @@ $("#cancelPhotoBtn").on("click", function () {
           success: function (response) {
             if (response.success === 1) {
               showSuccessToast("Video uploaded successfully!");
-              setTimeout(() => window.location.href = "../admin-govtvideo.html", 1000);
+              setTimeout(() => window.location.href = "admin-govtvideo.html", 1000);
             } else {
               showErrorToast(response.message || "Upload failed.");
             }

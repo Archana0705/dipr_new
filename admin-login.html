@@ -1576,7 +1576,7 @@ function loadCaptcha() {
               // user_id.id = response.return_id;
               // Court_id.COURT_ID = response.return_id;
               showSuccessToast("Submitted Successfully");
-              setTimeout(() => window.location.href = "../admin-special-publication-report.html", 1000);
+              setTimeout(() => window.location.href = "admin-special-publication-report.html", 1000);
             },
             error: function (error) {
               console.error('Error:', error);
@@ -1674,7 +1674,7 @@ function loadCaptcha() {
           data: JSON.stringify(updatePayload),
           success: function (response) {
             showSuccessToast("Updated Successfully");
-            setTimeout(() => window.location.href = "../admin-goverment-orders.html", 1000);
+            setTimeout(() => window.location.href = "admin-goverment-orders.html", 1000);
           },
           error: function (error) {
             showErrorToast("An error occurred during submission of data.");

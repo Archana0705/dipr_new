@@ -949,8 +949,8 @@
                             // user_id.id = response.return_id;
                             // Court_id.COURT_ID = response.return_id;
                             showSuccessToast("Submitted Successfully");
-                            window.location.href = "../admin-section-content.html"
-                            // setTimeout(() => window.location.href = "../police/index.html", 1000);
+                            window.location.href = "admin-section-content.html"
+                            // setTimeout(() => window.location.href = "police/index.html", 1000);
                         },
                         error: function (error) {
                             // console.error('Error:', error);
@@ -1012,7 +1012,7 @@
                     data: JSON.stringify(updatePayload),
                     success: function (response) {
                         showSuccessToast("Updated Successfully");
-                        setTimeout(() => window.location.href = "../admin-section-content.html", 1000);
+                        setTimeout(() => window.location.href = "admin-section-content.html", 1000);
                     },
                     error: function (error) {
                         showErrorToast("An error occurred during submission of data.");
@@ -1032,7 +1032,7 @@
                     data: JSON.stringify(DeletePayload),
                     success: function (response) {
                         showSuccessToast("Deleted Successfully");
-                        setTimeout(() => window.location.href = "../admin-section-content.html", 1000);
+                        setTimeout(() => window.location.href = "admin-section-content.html", 1000);
                     },
                     error: function (error) {
                         showErrorToast("An error occurred during submission of data.");

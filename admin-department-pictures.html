@@ -1623,7 +1623,7 @@
   <script>
     $(document).ready(function () {
       $("#adminLoginBtn").on("click", function () {
-        window.location.href = "../admin-login.html";
+        window.location.href = "admin-login.html";
       });
 
       $('.shownav').on('click', function (e) {
@@ -2168,7 +2168,7 @@ if (encryptedData) {
           success: function (response) {
             if (response.success === 1) {
               showSuccessToast("Created successfully!");
-              setTimeout(() => window.location.href = "../admin-department-pictures.html", 1000);
+              setTimeout(() => window.location.href = "admin-department-pictures.html", 1000);
             } else {
               showErrorToast(response.message);
             }
@@ -2228,7 +2228,7 @@ if (encryptedData) {
           success: function (response) {
             if (response.success === 1) {
               showSuccessToast("Video uploaded successfully!");
-              setTimeout(() => window.location.href = "../admin-department-pictures.html", 1000);
+              setTimeout(() => window.location.href = "admin-department-pictures.html", 1000);
             } else {
               showErrorToast(response.message);
             }

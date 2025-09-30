@@ -1517,7 +1517,7 @@
   <script>
     $(document).ready(function () {
       $("#adminLoginBtn").on("click", function () {
-        window.location.href = "../admin-login.html";
+        window.location.href = "admin-login.html";
       });
 
       $('.shownav').on('click', function (e) {
@@ -1919,7 +1919,7 @@ if (encryptedData) {
           data: JSON.stringify(updatePayload),
           success: function (response) {
             showSuccessToast("Updated Successfully");
-            setTimeout(() => window.location.href = "../admin-goverment-orders.html", 1000);
+            setTimeout(() => window.location.href = "admin-goverment-orders.html", 1000);
           },
           error: function (error) {
             console.error("Error:", error);
@@ -2062,7 +2062,7 @@ if (encryptedData) {
               // user_id.id = response.return_id;
               // Court_id.COURT_ID = response.return_id;
               showSuccessToast("Submitted Successfully");
-              setTimeout(() => window.location.href = "../admin-goverment-orders.html", 1000);
+              setTimeout(() => window.location.href = "admin-goverment-orders.html", 1000);
             },
             error: function (error) {
               console.error('Error:', error);

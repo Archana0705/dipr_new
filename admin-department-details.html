@@ -2795,7 +2795,7 @@
   <script>
     $(document).ready(function () {
       $("#adminLoginBtn").on("click", function () {
-        window.location.href = "../admin-login.html";
+        window.location.href = "admin-login.html";
       });
 
       $('.shownav').on('click', function (e) {
@@ -3971,7 +3971,7 @@ if (!sequence || sequence.trim() === "") {
     success: function (response) {
       if (response.success === 1) {
         showSuccessToast("Created successfully!");
-        // setTimeout(() => window.location.href = "/admin-department-details.html", 1000);
+        setTimeout(() => window.location.href = "admin-department-details.html", 1000);
       } else {
         showErrorToast(response.message);
       }
@@ -4032,7 +4032,7 @@ if (encryptedData) {
           success: function (response) {
             if (response.success === 1) {
               showSuccessToast("Created successfully!");
-              setTimeout(() => window.location.href = "../admin-department-details.html", 1000);
+              setTimeout(() => window.location.href = "admin-department-details.html", 1000);
             } else {
               showErrorToast(response.message);
             }
@@ -4091,7 +4091,7 @@ phone = phone ? parseInt(phone, 10) : null;
           success: function (response) {
             if (response.success === 1) {
               showSuccessToast("Created successfully!");
-              setTimeout(() => window.location.href = "../admin-department-details.html", 1000);
+              setTimeout(() => window.location.href = "admin-department-details.html", 1000);
             } else {
               showErrorToast(response.message);
             }
@@ -4150,7 +4150,7 @@ phone = phone ? parseInt(phone, 10) : null;
           success: function (response) {
             if (response.success === 1) {
               showSuccessToast("Created successfully!");
-              setTimeout(() => window.location.href = "../admin-department-details.html", 1000);
+              setTimeout(() => window.location.href = "admin-department-details.html", 1000);
             } else {
               showErrorToast(response.message);
             }
@@ -4211,7 +4211,7 @@ phone = phone ? parseInt(phone, 10) : null;
           success: function (response) {
             if (response.success === 1) {
               showSuccessToast("Created successfully!");
-              setTimeout(() => window.location.href = "../admin-department-details.html", 1000);
+              setTimeout(() => window.location.href = "admin-department-details.html", 1000);
             } else {
               showErrorToast(response.message);
             }
@@ -4270,7 +4270,7 @@ phone = phone ? parseInt(phone, 10) : null;
           success: function (response) {
             if (response.success === 1) {
               showSuccessToast("Created successfully!");
-              setTimeout(() => window.location.href = "../admin-department-details.html", 1000);
+              setTimeout(() => window.location.href = "admin-department-details.html", 1000);
             } else {
               showErrorToast(response.message);
             }
@@ -4328,7 +4328,7 @@ phone = phone ? parseInt(phone, 10) : null;
           success: function (response) {
             if (response.success === 1) {
               showSuccessToast("Created successfully!");
-              setTimeout(() => window.location.href = "../admin-department-details.html", 1000);
+              setTimeout(() => window.location.href = "admin-department-details.html", 1000);
             } else {
               showErrorToast(response.message);
             }
@@ -4443,7 +4443,7 @@ phone = phone ? parseInt(phone, 10) : null;
           success: function (response) {
             if (response.success === 1) {
               showSuccessToast(response.message);
-              setTimeout(() => window.location.href = "../admin-navigation-list-entry.html", 1000);
+              setTimeout(() => window.location.href = "admin-navigation-list-entry.html", 1000);
             } else {
               showErrorToast(response.message);
             }
@@ -4489,15 +4489,15 @@ phone = phone ? parseInt(phone, 10) : null;
           success: function (response) {
             if (response.success === 1) {
               showSuccessToast(response.message);
-              setTimeout(() => window.location.href = "../admin-navigation-list-entry.html", 1000);
+              setTimeout(() => window.location.href = "admin-navigation-list-entry.html", 1000);
             } else {
               showErrorToast(response.message);
-              setTimeout(() => window.location.href = "../admin-navigation-list-entry.html", 1000);
+              setTimeout(() => window.location.href = "admin-navigation-list-entry.html", 1000);
             }
           },
           error: function () {
             showErrorToast(response.message);
-            setTimeout(() => window.location.href = "../admin-navigation-list-entry.html", 1000);
+            setTimeout(() => window.location.href = "admin-navigation-list-entry.html", 1000);
           }
         });
       }
@@ -4535,15 +4535,15 @@ phone = phone ? parseInt(phone, 10) : null;
           success: function (response) {
             if (response.success === 1) {
               showSuccessToast(response.message);
-              setTimeout(() => window.location.href = "../admin-navigation-list-entry.html", 1000);
+              setTimeout(() => window.location.href = "admin-navigation-list-entry.html", 1000);
             } else {
               showErrorToast(response.message);
-              setTimeout(() => window.location.href = "../admin-navigation-list-entry.html", 1000);
+              setTimeout(() => window.location.href = "admin-navigation-list-entry.html", 1000);
             }
           },
           error: function () {
             showErrorToast(response.message);
-            setTimeout(() => window.location.href = "../admin-navigation-list-entry.html", 1000);
+            setTimeout(() => window.location.href = "admin-navigation-list-entry.html", 1000);
           }
         });
       }
@@ -4581,15 +4581,15 @@ phone = phone ? parseInt(phone, 10) : null;
           success: function (response) {
             if (response.success === 1) {
               showSuccessToast(response.message);
-              setTimeout(() => window.location.href = "../admin-navigation-list-entry.html", 1000);
+              setTimeout(() => window.location.href = "admin-navigation-list-entry.html", 1000);
             } else {
               showErrorToast(response.message);
-              setTimeout(() => window.location.href = "../admin-navigation-list-entry.html", 1000);
+              setTimeout(() => window.location.href = "admin-navigation-list-entry.html", 1000);
             }
           },
           error: function () {
             showErrorToast(response.message);
-            setTimeout(() => window.location.href = "../admin-navigation-list-entry.html", 1000);
+            setTimeout(() => window.location.href = "admin-navigation-list-entry.html", 1000);
           }
         });
       }
@@ -4627,15 +4627,15 @@ phone = phone ? parseInt(phone, 10) : null;
           success: function (response) {
             if (response.success === 1) {
               showSuccessToast(response.message);
-              setTimeout(() => window.location.href = "../admin-navigation-list-entry.html", 1000);
+              setTimeout(() => window.location.href = "admin-navigation-list-entry.html", 1000);
             } else {
               showErrorToast(response.message);
-              setTimeout(() => window.location.href = "../admin-navigation-list-entry.html", 1000);
+              setTimeout(() => window.location.href = "admin-navigation-list-entry.html", 1000);
             }
           },
           error: function () {
             showErrorToast(response.message);
-            setTimeout(() => window.location.href = "../admin-navigation-list-entry.html", 1000);
+            setTimeout(() => window.location.href = "admin-navigation-list-entry.html", 1000);
           }
         });
       }
@@ -4673,15 +4673,15 @@ phone = phone ? parseInt(phone, 10) : null;
           success: function (response) {
             if (response.success === 1) {
               showSuccessToast(response.message);
-              setTimeout(() => window.location.href = "../admin-navigation-list-entry.html", 1000);
+              setTimeout(() => window.location.href = "admin-navigation-list-entry.html", 1000);
             } else {
               showErrorToast(response.message);
-              setTimeout(() => window.location.href = "../admin-navigation-list-entry.html", 1000);
+              setTimeout(() => window.location.href = "admin-navigation-list-entry.html", 1000);
             }
           },
           error: function () {
             showErrorToast(response.message);
-            setTimeout(() => window.location.href = "../admin-navigation-list-entry.html", 1000);
+            setTimeout(() => window.location.href = "admin-navigation-list-entry.html", 1000);
           }
         });
       }
@@ -4719,15 +4719,15 @@ phone = phone ? parseInt(phone, 10) : null;
           success: function (response) {
             if (response.success === 1) {
               showSuccessToast(response.message);
-              setTimeout(() => window.location.href = "../admin-navigation-list-entry.html", 1000);
+              setTimeout(() => window.location.href = "admin-navigation-list-entry.html", 1000);
             } else {
               showErrorToast(response.message);
-              setTimeout(() => window.location.href = "../admin-navigation-list-entry.html", 1000);
+              setTimeout(() => window.location.href = "admin-navigation-list-entry.html", 1000);
             }
           },
           error: function () {
             showErrorToast(response.message);
-            setTimeout(() => window.location.href = "../admin-navigation-list-entry.html", 1000);
+            setTimeout(() => window.location.href = "admin-navigation-list-entry.html", 1000);
           }
         });
       }
