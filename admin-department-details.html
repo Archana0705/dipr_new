@@ -3914,7 +3914,11 @@ async function registerNewData() {
   name = sanitizeInput(name);
   designation = sanitizeInput(designation);
   phone = sanitizeInput(phone);
+// Remove all non-numeric characters
+phone = phone.replace(/\D/g, '');
 
+// Convert to integer (or NaN if empty)
+phone = phone ? parseInt(phone, 10) : null;
   // Validation
   // Validation
 const namePattern = /^[a-zA-Z\s]+$/;
@@ -4002,7 +4006,10 @@ if (encryptedData) {
         var division = $('#Press_create_div_division').val() || 0;
         var language = $('#pressCreateDivLangugage').val() || 0;
         var sequence = $('#pressCreatDivSequence').val() || 0;
+          phone = phone.replace(/\D/g, '');
 
+          // Convert to integer (or NaN if empty)
+          phone = phone ? parseInt(phone, 10) : null;
         var insertPayload = {
           "action": "insert",
           "table": "TN_DIVISION_WISE_UNIT_OFFICERS",
@@ -4059,7 +4066,10 @@ if (encryptedData) {
         var phone = $('#officerPhone').val() || 0;
         var language = $('#languageSelect').val() || 0;
         var sequence = $('#sequenceSelect').val() || 0;
+phone = phone.replace(/\D/g, '');
 
+// Convert to integer (or NaN if empty)
+phone = phone ? parseInt(phone, 10) : null;
         var insertPayload = {
           "action": "insert",
           "table": "I_PR_OFFICERS_TRANS_CORP",
@@ -4115,7 +4125,10 @@ if (encryptedData) {
         var phone = $('#officerPhoneOtherDept').val() || 0;
         var language = $('#languageSelectOtherDept').val() || 0;
         var sequence = $('#sequenceSelectOtherDept').val() || 0;
+phone = phone.replace(/\D/g, '');
 
+// Convert to integer (or NaN if empty)
+phone = phone ? parseInt(phone, 10) : null;
         var insertPayload = {
           "action": "insert",
           "table": "I_PR_OFFICERS_OTHER_DEPT",
@@ -4172,7 +4185,10 @@ if (encryptedData) {
         var phone = $('#phoneId').val() || 0;
         var language = $('#languageId').val() || 0;
         var sequence = $('#sequenceId').val() || 0;
+phone = phone.replace(/\D/g, '');
 
+// Convert to integer (or NaN if empty)
+phone = phone ? parseInt(phone, 10) : null;
         var insertPayload = {
           "action": "insert",
           "table": "DISTRICT_I_PRO",
@@ -4229,7 +4245,10 @@ if (encryptedData) {
         var phone = $('#corporationPhone').val() || 0;
         var language = $('#corporationLanguage').val() || 0;
         var sequence = $('#corporationSequence').val() || 0;
+phone = phone.replace(/\D/g, '');
 
+// Convert to integer (or NaN if empty)
+phone = phone ? parseInt(phone, 10) : null;
         var insertPayload = {
           "action": "insert",
           "table": "TN_CORPORATIONS",
@@ -4284,7 +4303,10 @@ if (encryptedData) {
         var phone = $('#hqSectionPhone').val() || 0;
         var language = $('#hqSectionLanguage').val() || 0;
         var sequence = $('#hqSectionSequence').val() || 0;
+phone = phone.replace(/\D/g, '');
 
+// Convert to integer (or NaN if empty)
+phone = phone ? parseInt(phone, 10) : null;
         var insertPayload = {
           "action": "insert",
           "table": "TN_SECTIONS_HQ",
@@ -4395,7 +4417,10 @@ if (encryptedData) {
         var designation = $("#Press_designation").val();
         var phone = $("#Press_phone").val();
         var sequence = $("#Press_sequence").val();
+phone = phone.replace(/\D/g, '');
 
+// Convert to integer (or NaN if empty)
+phone = phone ? parseInt(phone, 10) : null;
         let updatePayload = {
           "action": "update",
           "table": "UNIT_OFFICERS",
@@ -4437,7 +4462,10 @@ if (encryptedData) {
         var phone = $("#Press_div_phone").val();
         var sequence = $("#Press_div_sequence").val();
         var division = $("#Press_div_division").val();
+phone = phone.replace(/\D/g, '');
 
+// Convert to integer (or NaN if empty)
+phone = phone ? parseInt(phone, 10) : null;
         let updatePayload = {
           "action": "update",
           "table": "TN_DIVISION_WISE_UNIT_OFFICERS",
@@ -4481,7 +4509,10 @@ if (encryptedData) {
         var designation = $("#Press_pr_designation").val();
         var phone = $("#Press_pr_phone").val();
         var sequence = $("#Press_pr_sequence").val();
+phone = phone.replace(/\D/g, '');
 
+// Convert to integer (or NaN if empty)
+phone = phone ? parseInt(phone, 10) : null;
         let updatePayload = {
           "action": "update",
           "table": "I_PR_OFFICERS_TRANS_CORP",
@@ -4524,7 +4555,10 @@ if (encryptedData) {
         var designation = $("#Press_pr_other_designation").val();
         var phone = $("#Press_pr_other_phone").val();
         var sequence = $("#Press_pr_other_sequence").val();
+phone = phone.replace(/\D/g, '');
 
+// Convert to integer (or NaN if empty)
+phone = phone ? parseInt(phone, 10) : null;
         let updatePayload = {
           "action": "update",
           "table": "I_PR_OFFICERS_OTHER_DEPT",
@@ -4567,7 +4601,10 @@ if (encryptedData) {
         var designation = $("#districtPrDesignation").val();
         var phone = $("#districtPrPhone").val();
         var sequence = $("#districtPrSequence").val();
+phone = phone.replace(/\D/g, '');
 
+// Convert to integer (or NaN if empty)
+phone = phone ? parseInt(phone, 10) : null;
         let updatePayload = {
           "action": "update",
           "table": "I_PR_OFFICERS_OTHER_DEPT",
@@ -4610,7 +4647,10 @@ if (encryptedData) {
         var designation = $("#Corporation_designation").val();
         var phone = $("#Corporation_phone").val();
         var sequence = $("#Corporation_sequence").val();
+phone = phone.replace(/\D/g, '');
 
+// Convert to integer (or NaN if empty)
+phone = phone ? parseInt(phone, 10) : null;
         let updatePayload = {
           "action": "update",
           "table": "TN_CORPORATIONS",
@@ -4653,7 +4693,10 @@ if (encryptedData) {
         var designation = $("#Press_pr_hq_sections").val();
         var phone = $("#Press_pr_hq_phone").val();
         var sequence = $("#Press_pr_hq_sequence").val();
+phone = phone.replace(/\D/g, '');
 
+// Convert to integer (or NaN if empty)
+phone = phone ? parseInt(phone, 10) : null;
         let updatePayload = {
           "action": "update",
           "table": "TN_SECTIONS_HQ",
