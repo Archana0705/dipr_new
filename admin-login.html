@@ -1100,11 +1100,15 @@
     // drawCaptcha();
     loadCaptcha();
   });
-function loadCaptcha() {
-    // Fetch captcha image from API
-    $('#captchaImage').attr('src', `${BASE_API_URL}/captcha?`  + new Date().getTime());
-}
 
+let SESSION_ID = null;
+
+function loadCaptcha() {
+    $.getJSON(`${BASE_API_URL}/captcha`, function(data) {
+        SESSION_ID = data.session_id;
+        $("#captchaImage").attr("src", `${BASE_API_URL}/captcha_image?sid=` + SESSION_ID + "&t=" + new Date().getTime());
+    });
+}
   // Init captcha
   $(document).ready(function () {
     // drawCaptcha();
