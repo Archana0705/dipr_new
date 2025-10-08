@@ -1446,6 +1446,7 @@
   <script src="assets/js/apiConfig.js"></script>
 <script src="assets/js/encrypt_decrypt.js"></script>
     <script src="assets/js/crypto-js.min.js"></script>
+    
   <script>
     document.addEventListener("DOMContentLoaded", function () {
       const links = document.querySelectorAll(".t-Header-nav a, .t-Header-nav ul li a");
@@ -1763,19 +1764,32 @@ if (encryptedData) {
       let tableData;
       let selectedId;
       let fileName;
+const secretKey = decryptKey();
+    const encryptedData = localStorage.getItem("userAdminName");
+    let userId = null;
 
-      const userId = localStorage.getItem("role_id");
+    if (encryptedData) {
+        try {
+            const decryptedData = JSON.parse(
+                CryptoJS.AES.decrypt(encryptedData, secretKey).toString(CryptoJS.enc.Utf8)
+            );
+            userId = decryptedData?.user_id || null; // assuming loginResult has user_id
+        } catch (err) {
+            console.error("Error decrypting user data:", err);
+        }
+    }
       const apiUrl = `${BASE_API_URL}/general/commonApi`;
       const tableBody = $("#pressReleaseTableBody");
       let dataTable;
       tableBody.html('<tr><td colspan="9" class="text-center">Loading...</td></tr>');
 
       function fetchData() {
-        // var viewPayload = {
-        //   "action": "fetch",
-        //   "table": "GOOGLE_SHEETS",
-        //   "columns": "ID,FILENAME,ATTACHMENT_NAME,MIMETYPE,UPLOADED_BY,UPLOADED_ON,DISTRICT"
-        // };
+        var viewPayload = {
+          "action": "fetch",
+          "table": "GOOGLE_SHEETS",
+          "user_id": userId || "",
+          "columns": "ID,FILENAME,ATTACHMENT_NAME,MIMETYPE,UPLOADED_BY,UPLOADED_ON,DISTRICT"
+        };
 
         let formData = new FormData();
         formData.append("action", "insert");
@@ -1788,13 +1802,16 @@ if (encryptedData) {
         // formData.append("mime_type", file.type);
         // formData.append("video_attachment_name", file);
         formData.append("language", "en");
-
+        formData.append("user_id", userId || "");
 
         $.ajax({
           url: apiUrl,
           method: "POST",
           contentType: "application/json",
           // data: JSON.stringify(viewPayload),
+          data: JSON.stringify({
+            data: encryptData(viewPayload)
+          }),
           success: function (response) {
             tableData = response.data;
 
