@@ -1794,9 +1794,24 @@ var encryptedPayload = {
       const tableBody = $("#engSecContent");
       tableBody.html('<tr><td colspan="9" class="text-center">Loading...</td></tr>');
  let dataTable;
+ const secretKey = decryptKey();
+    const encryptedData = localStorage.getItem("userAdminName");
+    let userId = null;
+
+    if (encryptedData) {
+        try {
+            const decryptedData = JSON.parse(
+                CryptoJS.AES.decrypt(encryptedData, secretKey).toString(CryptoJS.enc.Utf8)
+            );
+            userId = decryptedData?.user_id || null; // assuming loginResult has user_id
+        } catch (err) {
+            console.error("Error decrypting user data:", err);
+        }
+    }
       var viewPayload = {
         "action": "fetch",
         "table": "GOVT_ATTACHMENTS",
+        "user_id": userId,
         "filters": {
           "LANGUAGE": langSwitch
         },

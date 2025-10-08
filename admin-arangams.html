@@ -1832,10 +1832,11 @@ if (encryptedData) {
       const apiUrl = `${BASE_API_URL}/general/tn_arangams`;
       const tableBody = $("#pressReleaseTableBody");
       tableBody.html('<tr><td colspan="9" class="text-center">Loading...</td></tr>');
+       let langSwitch = localStorage.getItem('siteLang') || 'en';
 
       function fetchData() {
         var viewPayload = {
-          // "lang": langSwitch
+          "lang": langSwitch,
           "action": "fetch"
         };
 
