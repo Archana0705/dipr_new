@@ -1607,57 +1607,57 @@
   </script>
 
   <script type="text/javascript">
-    apex.session.initTimeouts(300, { "idle_time_ms": 3595000, "life_time_ms": 28755000, "max_idle_time_ms": 3600000 }, '\u002Fords\u002Fr\u002Fdipr\u002Finfo-prdept103\u002Fhome', '\u002Fords\u002Fr\u002Fdipr\u002Finfo-prdept103\u002Fhome');
-    apex.jQuery(function () {
-      apex.page.init(this, function () {
-        try {
-          (function () { apex.widget.selectList("#P0_LANGUAGE", { "ajaxIdentifier": "SVRFTSBUWVBFfjUxMjB-MzgxODM5MDAxMjAxMjk3NDc\u002FqNARaPF5gDXj9vUg6HNb_-Nu7WF-ASygDaMOVVhb1z-Xe7rng6WDpJFQfSGfA0_eq-mm9wm0mx3CjUGl7mhFpA" }); })();
-          (function () {
-            var e = apex.jQuery("#t_MenuNav", apex.gPageContext$);
-            if (e.hasClass("js-addActions")) {
-              apex.actions.addFromMarkup(e);
-            }
-            e.menu({
-              behaveLikeTabs: e.hasClass("js-tabLike"),
-              menubarShowSubMenuIcon: e.hasClass("js-showSubMenuIcons") || null,
-              menubar: true,
-              menubarOverflow: true,
-              callout: e.hasClass("js-menu-callout")
-            });
-          })();
-          (function () { apex.jQuery('#R34839964403869597_ir').interactiveReport({ "regionId": "R34839964403869597", "helpLink": "wwv_flow_utilities.show_ir_help?p_app_id=103\u0026p_worksheet_id=34839996188869597\u0026p_lang=en", "lazyLoading": false, "ajaxIdentifier": "UkVHSU9OIFRZUEV-fjM0ODM5OTY0NDAzODY5NTk3\u002F1h3h-l5ziaqoxBpLrM_KI3v-d4OwVtIuxt1TSsxJyOGdiCAdZBq79n5zvLnQCHpEsHHZ-J2ehCjC2LIAqbL57A" }); })();
-          (function () {
-            var e = apex.jQuery("#t_MenuNav", apex.gPageContext$);
-            if (e.hasClass("js-addActions")) {
-              apex.actions.addFromMarkup(e);
-            }
-            e.menu({
-              behaveLikeTabs: e.hasClass("js-tabLike"),
-              menubarShowSubMenuIcon: e.hasClass("js-showSubMenuIcons") || null,
-              menubar: true,
-              menubarOverflow: true,
-              callout: e.hasClass("js-menu-callout")
-            });
-          })();
-        } catch (e) { apex.debug.error(e) };
-        apex.item.waitForDelayLoadItems().done(function () {
-          try {
-            (function () {
-              apex.da.initDaEventList();
-              apex.da.init();
-            })();
-            apex.theme42.initializePage.noSideCol();
+    // apex.session.initTimeouts(300, { "idle_time_ms": 3595000, "life_time_ms": 28755000, "max_idle_time_ms": 3600000 }, '\u002Fords\u002Fr\u002Fdipr\u002Finfo-prdept103\u002Fhome', '\u002Fords\u002Fr\u002Fdipr\u002Finfo-prdept103\u002Fhome');
+    // apex.jQuery(function () {
+    //   apex.page.init(this, function () {
+    //     try {
+    //       (function () { apex.widget.selectList("#P0_LANGUAGE", { "ajaxIdentifier": "SVRFTSBUWVBFfjUxMjB-MzgxODM5MDAxMjAxMjk3NDc\u002FqNARaPF5gDXj9vUg6HNb_-Nu7WF-ASygDaMOVVhb1z-Xe7rng6WDpJFQfSGfA0_eq-mm9wm0mx3CjUGl7mhFpA" }); })();
+    //       (function () {
+    //         var e = apex.jQuery("#t_MenuNav", apex.gPageContext$);
+    //         if (e.hasClass("js-addActions")) {
+    //           apex.actions.addFromMarkup(e);
+    //         }
+    //         e.menu({
+    //           behaveLikeTabs: e.hasClass("js-tabLike"),
+    //           menubarShowSubMenuIcon: e.hasClass("js-showSubMenuIcons") || null,
+    //           menubar: true,
+    //           menubarOverflow: true,
+    //           callout: e.hasClass("js-menu-callout")
+    //         });
+    //       })();
+    //       (function () { apex.jQuery('#R34839964403869597_ir').interactiveReport({ "regionId": "R34839964403869597", "helpLink": "wwv_flow_utilities.show_ir_help?p_app_id=103\u0026p_worksheet_id=34839996188869597\u0026p_lang=en", "lazyLoading": false, "ajaxIdentifier": "UkVHSU9OIFRZUEV-fjM0ODM5OTY0NDAzODY5NTk3\u002F1h3h-l5ziaqoxBpLrM_KI3v-d4OwVtIuxt1TSsxJyOGdiCAdZBq79n5zvLnQCHpEsHHZ-J2ehCjC2LIAqbL57A" }); })();
+    //       (function () {
+    //         var e = apex.jQuery("#t_MenuNav", apex.gPageContext$);
+    //         if (e.hasClass("js-addActions")) {
+    //           apex.actions.addFromMarkup(e);
+    //         }
+    //         e.menu({
+    //           behaveLikeTabs: e.hasClass("js-tabLike"),
+    //           menubarShowSubMenuIcon: e.hasClass("js-showSubMenuIcons") || null,
+    //           menubar: true,
+    //           menubarOverflow: true,
+    //           callout: e.hasClass("js-menu-callout")
+    //         });
+    //       })();
+    //     } catch (e) { apex.debug.error(e) };
+    //     apex.item.waitForDelayLoadItems().done(function () {
+    //       try {
+    //         (function () {
+    //           apex.da.initDaEventList();
+    //           apex.da.init();
+    //         })();
+    //         apex.theme42.initializePage.noSideCol();
 
-            apex.page.warnOnUnsavedChanges();
-          } finally {
-            apex.event.trigger(apex.gPageContext$, 'apexreadyend');
-          };
-        });
-      });
-    }); apex.pwa.publicKey = ''
-    apex.pwa.pushSubscriptions = [
-    ]
-    apex.pwa.init({ serviceWorkerPath: '\u002Fords\u002Fr\u002Fdipr\u002Finfo-prdept103\u002Fsw.js?v=24.1.7-44329441868468\u0026lang=en' });
+    //         apex.page.warnOnUnsavedChanges();
+    //       } finally {
+    //         apex.event.trigger(apex.gPageContext$, 'apexreadyend');
+    //       };
+    //     });
+    //   });
+    // }); apex.pwa.publicKey = ''
+    // apex.pwa.pushSubscriptions = [
+    // ]
+    // apex.pwa.init({ serviceWorkerPath: '\u002Fords\u002Fr\u002Fdipr\u002Finfo-prdept103\u002Fsw.js?v=24.1.7-44329441868468\u0026lang=en' });
   </script>
   <script>
     $(document).ready(function () {
@@ -1898,16 +1898,30 @@ if (encryptedData) {
       $('#preloader').hide();
       let tableData;
       let selectedId;
-      const userId = localStorage.getItem("role_id");
+      // const userId = localStorage.getItem("role_id");
       const apiUrl = `${BASE_API_URL}/general/commonApi`;
       const tableBody = $("#pressReleaseTableBody");
       let dataTable;
       tableBody.html('<tr><td colspan="9" class="text-center">Loading...</td></tr>');
+const secretKey = decryptKey();
+    const encryptedData = localStorage.getItem("userAdminName");
+    let userId = null;
 
+    if (encryptedData) {
+        try {
+            const decryptedData = JSON.parse(
+                CryptoJS.AES.decrypt(encryptedData, secretKey).toString(CryptoJS.enc.Utf8)
+            );
+            userId = decryptedData?.user_id || null; // assuming loginResult has user_id
+        } catch (err) {
+            console.error("Error decrypting user data:", err);
+        }
+    }
       function fetchData() {
         var viewPayload = {
           "action": "fetch",
           "table": "TN_COMMEMORATION_ARCH",
+          "user_id": userId,
           "filters": {
             "LANGUAGE": langSwitch
           },

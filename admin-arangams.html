@@ -1844,7 +1844,7 @@ if (encryptedData) {
           url: apiUrl,
           method: "POST",
           contentType: "application/json",
-          data: JSON.stringify(viewPayload),
+          data: JSON.stringify(viewPayload), 
           success: function (response) {
             tableData = response.data;
             tableBody.empty();
