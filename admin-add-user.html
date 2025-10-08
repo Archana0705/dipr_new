@@ -994,7 +994,7 @@
 
 
                 <div class="t-Form-itemAssistance">
-                  <span id="Press_create_role_error_placeholder" class="a-Form-error"
+                  <span id="P45_DISTRICT_error_placeholder" class="a-Form-error"
                     data-template-id="70091003340642546032_ET"></span>
                   <div class="t-Form-itemRequired" aria-hidden="true">Required</div>
                 </div>
@@ -1750,14 +1750,28 @@
       $('#preloader').hide();
       let tableData;
       let selectedId;
-      const userId = localStorage.getItem("role_id");
+      // const userId = localStorage.getItem("role_id");
       const apiUrl = `${BASE_API_URL}/general/commonApi`;
       const tableBody = $("#pressReleaseTableBody");
       tableBody.html('<tr><td colspan="9" class="text-center">Loading...</td></tr>');
+    const secretKey = decryptKey();
+    const encryptedData = localStorage.getItem("userAdminName");
+    let userId = null;
 
+    if (encryptedData) {
+        try {
+            const decryptedData = JSON.parse(
+                CryptoJS.AES.decrypt(encryptedData, secretKey).toString(CryptoJS.enc.Utf8)
+            );
+            userId = decryptedData?.user_id || null; // assuming loginResult has user_id
+        } catch (err) {
+            console.error("Error decrypting user data:", err);
+        }
+    }
       function fetchData() {
         var viewPayload = {
           "action": "fetch",
+          "user_id": userId,
           "table": "USER_LIST",
         };
         $.ajax({
@@ -1861,21 +1875,56 @@
         registerNewData();
       });
 
-    async function registerNewData() {
+async function registerNewData() {
   const emailInput = $('#Press_create_email input').val() || "";
   const password = $('#Press_create_password input').val() || "";
   const username = $('#Press_create_username input').val() || "";
   const role = document.getElementById('Press_create_role').value || "";
   const district = document.getElementById('P45_DISTRICT').value || "";
 
+  const usernameError = document.getElementById("Press_create_username_error_placeholder");
   const emailError = document.getElementById("Press_create_email_error_placeholder");
   const passwordError = document.getElementById("Press_create_password_error_placeholder");
+  const roleError = document.getElementById("Press_create_role_error_placeholder");
+  const districtError = document.getElementById("P45_DISTRICT_error_placeholder");
+  // Sanitizer to prevent HTML Injection
+  function sanitizeInput(input) {
+    return $('<div>').text(input).html().trim();
+  }
+if (!role) {
+  roleError.textContent = "Role is required.";
+  return;
+} else {
+  roleError.textContent = "";
+}
 
-  const email = emailInput ? emailInput.trim() : "";
+// ✅ Validate district field
+if (!district) {
+  districtError.textContent = "District is required.";
+  return;
+} else {
+  districtError.textContent = "";
+}
+  const email = sanitizeInput(emailInput);
+  const sanitizedUsername = sanitizeInput(username);
 
-  const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-  const strongPasswordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+ // ✅ Allow Gmail, Hotmail, Yahoo, and Outlook (.com only)
+const emailPattern = /^[a-zA-Z0-9._%+-]+@(gmail|hotmail|yahoo|outlook)\.com$/;
 
+// ✅ Strong password pattern (unchanged)
+const strongPasswordPattern =
+  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+const namePattern = /^[a-zA-Z\s]+$/;
+if (!namePattern.test(sanitizedUsername)) {
+    showErrorToast("username can only contain letters and spaces.");
+    return;
+}
+ if (!sanitizedUsername) {
+    usernameError.textContent = "Username is required.";
+    return;
+  }else {
+    usernameError.textContent = "";
+  }
   // ✅ Validate email field
   if (!email) {
     emailError.textContent = "Email is required.";
@@ -1889,49 +1938,48 @@
 
   // ✅ Validate password field
   if (!strongPasswordPattern.test(password)) {
-    passwordError.textContent = "Password must be at least 8 characters, include uppercase, lowercase, number, and symbol.";
-    return; // stop function here
+    passwordError.textContent =
+      "Password must be at least 8 characters, include uppercase, lowercase, number, and symbol.";
+    return;
   } else {
     passwordError.textContent = "";
   }
 
-  try {
-    
+  // Prepare payload
+  const payload = {
+    action: "function_call",
+    function_name: "fn_user_creation",
+    params: {
+      p_username: sanitizedUsername,
+      p_password: password,
+      p_email: email,
+      p_role: role,
+      p_district: district
+    }
+  };
 
-    const payload = {
-      action: "function_call",
-      function_name: "fn_user_creation",
-      params: {
-        p_username: username,
-        p_password: password,
-        p_email: email,
-        p_role: role,
-        p_district: district
-      }
-    };
-    
+  try {
     await $.ajax({
       url: `${BASE_API_URL}/commonfunction`,
       type: 'POST',
       data: {
         data: encryptData(payload)
       },
-    dataType: "json",
+      dataType: "json",
       success: function (response) {
-              // user_id.id = response.return_id;
-              // Court_id.COURT_ID = response.return_id;
         showSuccessToast("Created Successfully");
-        setTimeout(() => window.location.refresh, 1000);
+        // setTimeout(() => window.location.reload(), 1000);
       },
-      error: function (error) {
+      error: function () {
         showErrorToast("An error occurred during submission of data.");
       }
     });
-
   } catch (error) {
     showErrorToast("An unexpected error occurred.");
+    console.error(error);
   }
 }
+
 
 $("#createUploadBtn").on("click", function () {
   registerNewData();
