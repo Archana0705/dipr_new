@@ -36,7 +36,7 @@
 
     const basePath = isFolder ? ("/" + firstSegment) : "";
 
-    console.log("DEBUG basepath.js → pathname:", path, "| firstSegment:", firstSegment, "| isFolder:", isFolder, "| basePath:", basePath);
+    // console.log("DEBUG basepath.js → pathname:", path, "| firstSegment:", firstSegment, "| isFolder:", isFolder, "| basePath:", basePath);
 
     window.basePath = basePath; // "" on localhost root, "/dipr" (or similar) on staging
 })();
