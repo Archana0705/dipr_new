@@ -1456,21 +1456,8 @@ if (encryptedData) {
 
       $(".signOutBtn").on("click", function (event) {
     event.preventDefault();
-
-    const secretKey = decryptKey();
-    const encryptedData = localStorage.getItem("userAdminName");
-    let userId = null;
-
-    if (encryptedData) {
-        try {
-            const decryptedData = JSON.parse(
-                CryptoJS.AES.decrypt(encryptedData, secretKey).toString(CryptoJS.enc.Utf8)
-            );
-            userId = decryptedData?.user_id || null; // assuming loginResult has user_id
-        } catch (err) {
-            console.error("Error decrypting user data:", err);
-        }
-    }
+ 
+    
  
 
     // Prepare encrypted logout payload
@@ -1605,8 +1592,21 @@ if (encryptedData) {
       const apiUrlTa = `${BASE_API_URL}/admin/GovtAttachmentVideo`;
       const tableBodyTa = $("#TASecCon");
       tableBodyTa.html('<tr><td colspan="9" class="text-center">Loading...</td></tr>');
+var secretKey = decryptKey();
+    var encryptedData = localStorage.getItem("userAdminName");
+    var userId = null;
 
-
+    if (encryptedData) {
+        try {
+            const decryptedData = JSON.parse(
+                CryptoJS.AES.decrypt(encryptedData, secretKey).toString(CryptoJS.enc.Utf8)
+            );
+            userId = decryptedData?.user_id || null; // assuming loginResult has user_id
+        } catch (err) {
+            console.error("Error decrypting user data:", err);
+        }
+    }
+      
       var videoPayload = {
         "action": "fetch",
         "table": "GOVT_ATTACHMENTS",
@@ -1769,7 +1769,7 @@ var encryptedPayload = {
           success: function (response) {
             if (response.success === 1) {
               showSuccessToast("Image uploaded successfully!");
-              setTimeout(() => window.location.href = "admin-govtvideo.html", 1000);
+              setTimeout(() => window.location.href = "admin-photo-upload.html", 1000);
             } else {
               showErrorToast(response.message || "Upload failed.");
             }
@@ -1799,28 +1799,14 @@ var encryptedPayload = {
       const tableBody = $("#engSecContent");
       tableBody.html('<tr><td colspan="9" class="text-center">Loading...</td></tr>');
  let dataTable;
- const secretKey = decryptKey();
-    const encryptedData = localStorage.getItem("userAdminName");
-    let userId = null;
-
-    if (encryptedData) {
-        try {
-            const decryptedData = JSON.parse(
-                CryptoJS.AES.decrypt(encryptedData, secretKey).toString(CryptoJS.enc.Utf8)
-            );
-            userId = decryptedData?.user_id || null; // assuming loginResult has user_id
-        } catch (err) {
-            console.error("Error decrypting user data:", err);
-        }
-    }
+ 
       var viewPayload = {
         "action": "fetch",
         "table": "GOVT_ATTACHMENTS",
         "user_id": userId,
         "filters": {
           "LANGUAGE": langSwitch
-        },
-        "user_id": userId,
+        }
       };
 
       $.ajax({
@@ -1943,7 +1929,7 @@ $("#cancelPhotoBtn").on("click", function () {
           success: function (response) {
             if (response.success === 1) {
               showSuccessToast("Video uploaded successfully!");
-              setTimeout(() => window.location.href = "admin-govtvideo.html", 1000);
+              setTimeout(() => window.location.href = "admin-photo-upload.html", 1000);
             } else {
               showErrorToast(response.message || "Upload failed.");
             }

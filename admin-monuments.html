@@ -1819,7 +1819,7 @@ if (encryptedData) {
       const tableBody = $("#pressReleaseTableBody");
       tableBody.html('<tr><td colspan="9" class="text-center">Loading...</td></tr>');
       const encryptedData = localStorage.getItem("userAdminName");
-
+      const secretKey = decryptKey();
 let userId = null;
 
 if (encryptedData) {
