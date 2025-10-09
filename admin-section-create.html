@@ -894,7 +894,21 @@
             $('#preloader').hide();
             let tableData;
             let selectedId;
-            const userId = localStorage.getItem("role_id");
+            // const userId = localStorage.getItem("role_id");
+            const encryptedData = localStorage.getItem("userAdminName");
+
+let userId = null;
+
+if (encryptedData) {
+    try {
+        const decryptedData = JSON.parse(
+            CryptoJS.AES.decrypt(encryptedData, secretKey).toString(CryptoJS.enc.Utf8)
+        );
+        userId = decryptedData?.user_id || null; // assuming loginResult has user_id
+    } catch (err) {
+        console.error("Error decrypting user data:", err);
+    }
+}
 
             $("#createBtn").on("click", function () {
 
@@ -937,6 +951,7 @@
                         "V_DESC": editorData,
                         "Current_User": "admin_user",
                         "LANGUAGE": pressLangugage,
+                        "user_id": userId,
 
                     };
 
@@ -944,7 +959,10 @@
                         url: `${BASE_API_URL}/general/section/insertStaticContentForm`,
                         type: 'POST',
                         contentType: 'application/json',
-                        data: JSON.stringify(sectionPayload),
+                        // data: JSON.stringify(sectionPayload),
+                        data: JSON.stringify({
+                            data: encryptData(sectionPayload)
+                        }),
                         success: function (response) {
                             // user_id.id = response.return_id;
                             // Court_id.COURT_ID = response.return_id;
@@ -1003,13 +1021,17 @@
                     "SECTIONS_NAME": sectionName,
                     "DESCRIPTION": description,
                     "UPDATED_BY": "paramObject.updated_by",
-                    "LANGUAGE": lang
+                    "LANGUAGE": lang,
+                    "user_id": userId,
                 };
                 $.ajax({
                     url: `${BASE_API_URL}/general/section/updateStaticContentForm`,
                     type: 'POST',
                     contentType: 'application/json',
-                    data: JSON.stringify(updatePayload),
+                    // data: JSON.stringify(updatePayload),
+                    data: JSON.stringify({
+                        data: encryptData(updatePayload)
+                    }),
                     success: function (response) {
                         showSuccessToast("Updated Successfully");
                         setTimeout(() => window.location.href = "admin-section-content.html", 1000);
@@ -1023,13 +1045,17 @@
             $('.delBtn').on('click', function () {
                 const setId = paramObject.id;
                 const DeletePayload = {
-                    "p_ID": setId
+                    "p_ID": setId,
+                    "user_id": userId,
                 };
                 $.ajax({
                     url: `${BASE_API_URL}/general/section/deleteStaticContentForm`,
                     type: 'POST',
                     contentType: 'application/json',
-                    data: JSON.stringify(DeletePayload),
+                    // data: JSON.stringify(DeletePayload),
+                    data: JSON.stringify({
+                        data: encryptData(DeletePayload)
+                    }),
                     success: function (response) {
                         showSuccessToast("Deleted Successfully");
                         setTimeout(() => window.location.href = "admin-section-content.html", 1000);

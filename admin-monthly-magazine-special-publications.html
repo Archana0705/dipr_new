@@ -1555,11 +1555,24 @@ if (encryptedData) {
       let tableData;
       let selectedId;
       let dataTable;
-      const userId = localStorage.getItem("role_id");
+      // const userId = localStorage.getItem("role_id");
       const apiUrl = `${BASE_API_URL}/general/monthlyMagazineSpecialPublications/viewMonthlyPublicationPriceDetails`;
       const tableBody = $("#pressReleaseTableBody");
       tableBody.html('<tr><td colspan="9" class="text-center">Loading...</td></tr>');
+      const encryptedData = localStorage.getItem("userAdminName");
 
+let userId = null;
+
+if (encryptedData) {
+    try {
+        const decryptedData = JSON.parse(
+            CryptoJS.AES.decrypt(encryptedData, secretKey).toString(CryptoJS.enc.Utf8)
+        );
+        userId = decryptedData?.user_id || null; // assuming loginResult has user_id
+    } catch (err) {
+        console.error("Error decrypting user data:", err);
+    }
+}
       function fetchData() {
         var viewPayload = {
           "lang": langSwitch
@@ -1676,14 +1689,18 @@ if (encryptedData) {
             "monthly_issue": pressName,
             "price": pressPrice,
             "created_by": "admin",
-            "updated_by": "editor"
+            "updated_by": "editor",
+            "user_id": userId,
           };
 
           await $.ajax({
             url: `${BASE_API_URL}/general/monthlyMagazineSpecialPublications/insertMonthlyPublicationPriceDetails`,
             type: 'POST',
             contentType: 'application/json',
-            data: JSON.stringify(registrationPayload),
+            // data: JSON.stringify(registrationPayload),
+            data: JSON.stringify({
+            data: encryptData(registrationPayload)
+          }),
             success: function () {
               showSuccessToast("Inserted Successfully");
               setTimeout(() => window.location.href = "admin-monthly-magazine-special-publications.html", 1000);
@@ -1729,14 +1746,18 @@ if (encryptedData) {
           "price": price,
           "language": langSwitch,
           "created_by": "admin",
-          "updated_by": "editor"
+          "updated_by": "editor",
+          "user_id": userId,
         };
 
         $.ajax({
           url: `${BASE_API_URL}/general/monthlyMagazineSpecialPublications/updateMonthlyPublicationPriceDetails`,
           type: 'POST',
           contentType: 'application/json',
-          data: JSON.stringify(updatePayload),
+          // data: JSON.stringify(updatePayload),
+          data: JSON.stringify({
+            data: encryptData(updatePayload)
+          }),
           success: function () {
             showSuccessToast("Updated Successfully");
             setTimeout(() => window.location.href = "admin-monthly-magazine-special-publications.html", 1000);
@@ -1765,9 +1786,15 @@ if (encryptedData) {
           url: `${BASE_API_URL}/general/monthlyMagazineSpecialPublications/deleteMonthlyPublicationPriceDetails`,
           type: "POST",
           contentType: "application/json",
+          // data: JSON.stringify({
+          //   "sno": id,
+          //   "lang": langSwitch
+          // }),
           data: JSON.stringify({
-            "sno": id,
-            "lang": langSwitch
+            data: encryptData({ 
+              "sno": id,
+            "lang": langSwitch,
+          "user_id": userId, })
           }),
           success: function (response) {
             $('#preloader').hide();

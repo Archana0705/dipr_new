@@ -1760,7 +1760,8 @@ if (encryptedData) {
           "user_id": userId,
           "filters": {
             "language": langSwitch
-          }
+          },
+          "user_id": userId,
         };
 
         $.ajax({
@@ -2002,7 +2003,8 @@ if (encryptedData) {
           "MIMETYPE": pressInputFile && pressInputFile.mimetype ? pressInputFile.mimetype : null,
           "PN_DATE": pndate,
           "press_note_no": 3,
-          "language": language
+          "language": language,
+          "user_id": userId,
         };
 
         var encryptedPayload = {
@@ -2066,7 +2068,8 @@ if (encryptedData) {
           "language": language,
           "primary_key": "id",
           "id": selectedId,
-          "press_note_no": 3
+          "press_note_no": 3,
+          "user_id": userId,
         };
 
         if (fileBase64) {
@@ -2114,7 +2117,8 @@ let encryptedPayload = {
     "action": "delete",
     "table": "TN_PRESS_NOTES",
     "primary_key": "id",
-    "id": id
+    "id": id,
+    "user_id": userId,
 };
 let encryptedPayload = {
     data: encryptData(deletePayload)

@@ -1992,6 +1992,7 @@ if (encryptedData) {
           "MIME_TYPE": pressInputFile && pressInputFile.mimetype ? pressInputFile.mimetype : null,
           "attachmentname": pressInputFile && pressInputFile.fileBase64 ? pressInputFile.fileBase64 : null,
           "created_by": role,
+          "user_id": userId,
         };
 
         // let formData = new FormData();
@@ -2111,7 +2112,8 @@ if (encryptedData) {
           "action": "delete",
           "table": "CONCLUSION_PHOTOS",
           "id": id,
-          "primary_key": "id"
+          "primary_key": "id",
+          "user_id": userId,
         };
         $.ajax({
           url: `${BASE_API_URL}/general/commonApi`,

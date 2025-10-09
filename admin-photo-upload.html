@@ -1613,6 +1613,7 @@ if (encryptedData) {
         "filters": {
           "LANGUAGE": langSwitch
         },
+        "user_id": userId,
       };
 var encryptedPayload = {
     data: encryptData(videoPayload)
@@ -1753,13 +1754,17 @@ var encryptedPayload = {
           p_Filename: file.name,
           p_mimetype: file.type,
           p_p_date: $('#image_date').val() || new Date().toISOString().split("T")[0],
-          p_language: localStorage.getItem('siteLang') || "en"
+          p_language: localStorage.getItem('siteLang') || "en",
+          "user_id": userId,
         };
 
         $.ajax({
           url: apiUrl,
           type: 'POST',
-          data: JSON.stringify(payload),
+          // data: JSON.stringify(payload),
+          data: JSON.stringify({
+            data: encryptData(payload)
+          }),
           contentType: "application/json",
           success: function (response) {
             if (response.success === 1) {
@@ -1815,6 +1820,7 @@ var encryptedPayload = {
         "filters": {
           "LANGUAGE": langSwitch
         },
+        "user_id": userId,
       };
 
       $.ajax({

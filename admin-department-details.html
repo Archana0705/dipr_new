@@ -4082,6 +4082,7 @@ if (encryptedData) {
           "LANGUAGE": language,
           "SEQUENCE": sequence,
           "DIVISION": division,
+          "user_id": userId,
         };
 
 
@@ -4141,6 +4142,7 @@ phone = phone ? parseInt(phone, 10) : null;
           "PHONE": phone,
           "LANGUAGE": language,
           "SEQUENCE": sequence,
+          "user_id": userId,
         };
 
 
@@ -4200,6 +4202,7 @@ phone = phone ? parseInt(phone, 10) : null;
           "PHONE": phone,
           "LANGUAGE": language,
           "SEQUENCE": sequence,
+          "user_id": userId,
         };
 
 
@@ -4261,6 +4264,7 @@ phone = phone ? parseInt(phone, 10) : null;
           "PHONE": phone,
           "LANGUAGE": language,
           "SEQUENCE": sequence,
+          "user_id": userId,
         };
 
 
@@ -4320,6 +4324,7 @@ phone = phone ? parseInt(phone, 10) : null;
           "PHONE": phone,
           "LANGUAGE": language,
           "SEQUENCE": sequence,
+          "user_id": userId,
         };
 
 
@@ -4377,7 +4382,8 @@ phone = phone ? parseInt(phone, 10) : null;
           "PHONE": phone,
           "LANGUAGE": language,
           "SEQUENCE": sequence,
-          "CREATED_BY": "admin"
+          "CREATED_BY": "admin",
+          "user_id": userId,
         };
 
 
@@ -4493,7 +4499,8 @@ phone = phone ? parseInt(phone, 10) : null;
           "PHONE": phone,
           "LANGUAGE": language,
           "SEQUENCE": sequence,
-          "primary_key": "id"
+          "primary_key": "id",
+          "user_id": userId,
         };
 
         $.ajax({
@@ -4540,6 +4547,7 @@ phone = phone ? parseInt(phone, 10) : null;
           "SEQUENCE": sequence,
           "primary_key": "id",
           "DIVISION": division,
+          "user_id": userId,
         };
 
         $.ajax({
@@ -4586,6 +4594,7 @@ phone = phone ? parseInt(phone, 10) : null;
           "LANGUAGE": language,
           "SEQUENCE": sequence,
           "primary_key": "id",
+          "user_id": userId,
         };
 
         $.ajax({
@@ -4632,6 +4641,7 @@ phone = phone ? parseInt(phone, 10) : null;
           "LANGUAGE": language,
           "SEQUENCE": sequence,
           "primary_key": "id",
+          "user_id": userId,
         };
 
         $.ajax({
@@ -4678,6 +4688,7 @@ phone = phone ? parseInt(phone, 10) : null;
           "LANGUAGE": language,
           "SEQUENCE": sequence,
           "primary_key": "id",
+          "user_id": userId,
         };
 
         $.ajax({
@@ -4724,6 +4735,7 @@ phone = phone ? parseInt(phone, 10) : null;
           "LANGUAGE": language,
           "SEQUENCE": sequence,
           "primary_key": "id",
+          "user_id": userId,
         };
 
         $.ajax({
@@ -4770,6 +4782,7 @@ phone = phone ? parseInt(phone, 10) : null;
           "LANGUAGE": language,
           "SEQUENCE": sequence,
           "primary_key": "id",
+          "user_id": userId,
         };
 
         $.ajax({
@@ -4812,11 +4825,12 @@ phone = phone ? parseInt(phone, 10) : null;
         //debugger
         $('#preloader').show();
         var deletePayload = {
-    action: "delete",
-    table: "UNIT_OFFICERS",
-    primary_key: "id",
-    id: id
-};
+            action: "delete",
+            table: "UNIT_OFFICERS",
+            primary_key: "id",
+            id: id,
+            "user_id": userId,
+        };
         $.ajax({
           url: `${BASE_API_URL}/general/commonApi`,
           type: "POST",

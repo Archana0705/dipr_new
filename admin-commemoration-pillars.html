@@ -2219,7 +2219,8 @@ if (encryptedData) {
             data: encryptData({
               action: "delete",
               slno: id,
-              table: "TN_COMMEMORATION_PILLARS"
+              table: "TN_COMMEMORATION_PILLARS",
+              "user_id": userId,
             })
           }),
           success: function (response) {

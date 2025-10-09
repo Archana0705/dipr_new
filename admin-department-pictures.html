@@ -1886,6 +1886,7 @@ if (encryptedData) {
          "filters": {
             "LANGUAGE": langSwitch
           },
+          "user_id": userId,
         };
 
         $.ajax({
@@ -2155,6 +2156,7 @@ if (encryptedData) {
           "SEQUENCE": sequence,
           "upload_type": "video",
           "mimetype": pressInputFile && pressInputFile.mimetype ? pressInputFile.mimetype : null,
+          "user_id": userId,
         };
 
         // let formData = new FormData();
@@ -2273,7 +2275,8 @@ if (encryptedData) {
     action: "delete",
     table: "departments_pics",
     id: id,
-    primary_key: "id"
+    primary_key: "id",
+    "user_id": userId,
 };
         $.ajax({
           url: `${BASE_API_URL}/general/commonApi`,

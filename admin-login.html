@@ -1384,10 +1384,24 @@ function loadCaptcha() {
       let tableData;
       let selectedId;
       let orderName;
-      const userId = localStorage.getItem("role_id");
+      // const userId = localStorage.getItem("role_id");
       const apiUrl = `${BASE_API_URL}/general/governmentOrders/viewReport`;
       const tableBody = $("#governmentOrdersTableBody");
       tableBody.html('<tr><td colspan="9" class="text-center">Loading...</td></tr>');
+      const encryptedData = localStorage.getItem("userAdminName");
+
+let userId = null;
+
+if (encryptedData) {
+    try {
+        const decryptedData = JSON.parse(
+            CryptoJS.AES.decrypt(encryptedData, secretKey).toString(CryptoJS.enc.Utf8)
+        );
+        userId = decryptedData?.user_id || null; // assuming loginResult has user_id
+    } catch (err) {
+        console.error("Error decrypting user data:", err);
+    }
+}
       // $.ajax({
       //   url: apiUrl,
       //   method: "POST",
@@ -1562,6 +1576,7 @@ function loadCaptcha() {
             "Current_User": "admin_user",
             "V_DATE": formattedDate,
             "LANGUAGE": pressLangugage,
+            "user_id": userId,
             // "PRESS_FILE": pressInputFile && pressInputFile.fileBase64 ? pressInputFile.fileBase64 : null,
             // "PRESS_FILE_FILENAME": pressInputFile && pressInputFile.filename ? pressInputFile.filename : null,
             // "PRESS_FILE_MIMETYPE": pressInputFile && pressInputFile.mimetype ? pressInputFile.mimetype : null,
@@ -1571,7 +1586,10 @@ function loadCaptcha() {
             url: `${BASE_API_URL}/general/governmentOrders/InsertPressReleaseForm`,
             type: 'POST',
             contentType: 'application/json',
-            data: JSON.stringify(governmentOrderPayload),
+            // data: JSON.stringify(governmentOrderPayload),
+            data: JSON.stringify({
+            data: encryptData(governmentOrderPayload)
+          }),
             success: function (response) {
               // user_id.id = response.return_id;
               // Court_id.COURT_ID = response.return_id;
@@ -1665,13 +1683,17 @@ function loadCaptcha() {
           "Current_User": "admin",
           "V_DESC": "Order Description",
           "V_DATE": "2025-02-01",
-          "LANGUAGE": lang
+          "LANGUAGE": lang,
+          "user_id": userId,
         };
         $.ajax({
           url: `${BASE_API_URL}/general/governmentOrders/updatePressReleaseForm`,
           type: 'POST',
           contentType: 'application/json',
-          data: JSON.stringify(updatePayload),
+          // data: JSON.stringify(updatePayload),
+          data: JSON.stringify({
+            data: encryptData(updatePayload)
+          }),
           success: function (response) {
             showSuccessToast("Updated Successfully");
             setTimeout(() => window.location.href = "admin-goverment-orders.html", 1000);
@@ -1690,8 +1712,13 @@ function loadCaptcha() {
           type: "POST",
           dataType: "json",
           contentType: "application/json",
+          // data: JSON.stringify({
+          //   p_ID: id
+          // }),
           data: JSON.stringify({
-            p_ID: id
+            data: encryptData({ p_ID: id,
+              "user_id": userId,
+            })
           }),
           success: function (response) {
             $('#preloader').hide();

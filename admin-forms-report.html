@@ -1590,23 +1590,40 @@ if (encryptedData) {
       let tableData;
       let selectedId;
       let dataTable;
-      const userId = localStorage.getItem("role_id");
+      // const userId = localStorage.getItem("role_id");
       const apiUrl = `${BASE_API_URL}/general/tnforms`;
       const tableBody = $("#pressReleaseTableBody");
       tableBody.html('<tr><td colspan="9" class="text-center">Loading...</td></tr>');
+      const encryptedData = localStorage.getItem("userAdminName");
 
+        let userId = null;
+
+        if (encryptedData) {
+            try {
+                const decryptedData = JSON.parse(
+                    CryptoJS.AES.decrypt(encryptedData, secretKey).toString(CryptoJS.enc.Utf8)
+                );
+                userId = decryptedData?.user_id || null; // assuming loginResult has user_id
+            } catch (err) {
+                console.error("Error decrypting user data:", err);
+            }
+        }
       function fetchData() {
         //debugger
         var viewPayload = {
           // "lang": langSwitch
-          "action": "fetch"
+          "action": "fetch",
+          "user_id": userId,
         };
 
         $.ajax({
           url: apiUrl,
           method: "POST",
           contentType: "application/json",
-          data: JSON.stringify(viewPayload),
+          // data: JSON.stringify(viewPayload),
+          data: JSON.stringify({
+            data: encryptData(viewPayload)
+          }),
           success: function (response) {
             tableData = response.data;
             tableBody.empty();
@@ -1787,7 +1804,8 @@ if (encryptedData) {
             "attachment_name": pressInputFile && pressInputFile.fileBase64 ? pressInputFile.fileBase64 : null,
             "uploaded_by": "admin",
             "mime_type": pressInputFile && pressInputFile.mimetype ? pressInputFile.mimetype : null,
-            "language": pressLangugage
+            "language": pressLangugage,
+            "user_id": userId,
           };
 
 
@@ -1795,7 +1813,10 @@ if (encryptedData) {
             url: `${BASE_API_URL}/general/tnforms`,
             type: 'POST',
             contentType: 'application/json',
-            data: JSON.stringify(registrationPayload),
+            // data: JSON.stringify(registrationPayload),
+            data: JSON.stringify({
+            data: encryptData(registrationPayload)
+          }),
             success: function (response) {
               // user_id.id = response.return_id;
               // Court_id.COURT_ID = response.return_id;
@@ -1834,10 +1855,16 @@ if (encryptedData) {
           type: "POST",
           dataType: "json",
           contentType: "application/json",
+          // data: JSON.stringify({
+          //   "action": "delete",
+          //   "id": id
+          // }),
           data: JSON.stringify({
-            "action": "delete",
-            "id": id
+            data: encryptData({ "action": "delete",
+            "id": id,
+          "user_id": userId,})
           }),
+
           success: function (response) {
             $('#preloader').hide();
             if (response.success === 1) {

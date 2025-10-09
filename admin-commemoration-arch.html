@@ -2088,6 +2088,19 @@ if (encryptedData) {
         console.error("Error decrypting user data:", err);
     }
 }
+
+let userId = null;
+
+if (encryptedData) {
+    try {
+        const decryptedData = JSON.parse(
+            CryptoJS.AES.decrypt(encryptedData, secretKey).toString(CryptoJS.enc.Utf8)
+        );
+        userId = decryptedData?.user_id || null; // assuming loginResult has user_id
+    } catch (err) {
+        console.error("Error decrypting user data:", err);
+    }
+}
         let fileInput = $('#press_create_video_FileUpload_input')[0]; // Get file input
         let file = fileInput.files[0]; // Get selected file
 
@@ -2224,7 +2237,8 @@ if (encryptedData) {
               data: encryptData({
                 action: "delete",
                 slno: id,
-                table: "TN_COMMEMORATION_ARCH"
+                table: "TN_COMMEMORATION_ARCH",
+                "user_id": userId,
               })
             }),
           success: function (response) {
