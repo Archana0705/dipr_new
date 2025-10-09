@@ -1891,20 +1891,7 @@ async function registerNewData() {
   function sanitizeInput(input) {
     return $('<div>').text(input).html().trim();
   }
-if (!role) {
-  roleError.textContent = "Role is required.";
-  return;
-} else {
-  roleError.textContent = "";
-}
 
-// ✅ Validate district field
-if (!district) {
-  districtError.textContent = "District is required.";
-  return;
-} else {
-  districtError.textContent = "";
-}
   const email = sanitizeInput(emailInput);
   const sanitizedUsername = sanitizeInput(username);
 
@@ -1915,16 +1902,17 @@ const emailPattern = /^[a-zA-Z0-9._%+-]+@(gmail|hotmail|yahoo|outlook)\.com$/;
 const strongPasswordPattern =
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 const namePattern = /^[a-zA-Z\s]+$/;
-if (!namePattern.test(sanitizedUsername)) {
-    showErrorToast("username can only contain letters and spaces.");
-    return;
-}
+
  if (!sanitizedUsername) {
     usernameError.textContent = "Username is required.";
     return;
   }else {
     usernameError.textContent = "";
   }
+  if (!namePattern.test(sanitizedUsername)) {
+    showErrorToast("username can only contain letters and spaces.");
+    return;
+}
   // ✅ Validate email field
   if (!email) {
     emailError.textContent = "Email is required.";
@@ -1944,7 +1932,20 @@ if (!namePattern.test(sanitizedUsername)) {
   } else {
     passwordError.textContent = "";
   }
+if (!role) {
+  roleError.textContent = "Role is required.";
+  return;
+} else {
+  roleError.textContent = "";
+}
 
+// ✅ Validate district field
+if (!district) {
+  districtError.textContent = "District is required.";
+  return;
+} else {
+  districtError.textContent = "";
+}
   // Prepare payload
   const payload = {
     action: "function_call",
@@ -1999,22 +2000,42 @@ $("#createUploadBtn").on("click", function () {
       });
 
       function deleteData(id) {
+        alert(id);  
         //debugger
         $('#preloader').show();
-        $.ajax({
-          url: `${BASE_API_URL}/admin/pressRelease/deletePressReleaseForm`,
+    const apiUrl = `${BASE_API_URL}/general/deleteUser`;
+    const secretKey = decryptKey();
+    const encryptedData = localStorage.getItem("userAdminName");
+    let userId = null;
+
+    if (encryptedData) {
+        try {
+            const decryptedData = JSON.parse(
+                CryptoJS.AES.decrypt(encryptedData, secretKey).toString(CryptoJS.enc.Utf8)
+            );
+            userId = decryptedData?.user_id || null; // assuming loginResult has user_id
+        } catch (err) {
+            console.error("Error decrypting user data:", err);
+        }
+    }
+          const viewPayload = {
+            "ID": id,
+            "user_id": userId
+          };
+          $.ajax({
+          url: apiUrl,
           type: "POST",
           dataType: "json",
           contentType: "application/json",
           data: JSON.stringify({
-            ID: id
+          data: encryptData(viewPayload)
           }),
           success: function (response) {
-            $('#preloader').hide();
-            if (response.success === 1) {
-              showSuccessToast("Data deleted successfully!");
-              location.reload();
-            } else {
+          $('#preloader').hide();
+          if (response.success === 1) {
+          showSuccessToast("Data deleted successfully!");
+          location.reload();
+          } else {
               showErrorToast("Error: " + response.message);
             }
           },
