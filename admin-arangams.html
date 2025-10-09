@@ -2071,18 +2071,19 @@ if (encryptedData) {
         let formData = new FormData();
         formData.append("action", "insert");
         formData.append("slno", 12);
-        formData.append("monuments", $('#Press_create_memorial').val() || "");
+        formData.append("arangam", $('#Press_create_memorial').val() || "");
         formData.append("place", $('#Press_create_place').val() || "");
         formData.append("created_by", "admin");
+        formData.append("updated_by", "admin");
         formData.append("district", $('#Press_create_district').val() || "");
         formData.append("video_name", $('#Press_create_video_name').val() || "");
         formData.append("mime_type", file.type);
-        formData.append("video_attachment_name", file);
+        formData.append("video", file);
         formData.append("language", "en");
 
         // Send FormData using AJAX
         $.ajax({
-          url: `${BASE_API_URL}/general/Monuments`,
+          url: `${BASE_API_URL}/general/tn_arangams`,
           type: 'POST',
           data: formData,
           processData: false,
@@ -2090,7 +2091,7 @@ if (encryptedData) {
           success: function (response) {
             if (response.success === 1) {
               showSuccessToast("Video uploaded successfully!");
-              setTimeout(() => window.location.href = "admin-monuments.html", 1000);
+              setTimeout(() => window.location.href = "admin-arangams.html", 1000);
             } else {
               showErrorToast(response.message);
             }
@@ -2261,20 +2262,27 @@ if (encryptedData) {
       function deleteData(id) {
         //debugger
         $('#preloader').show();
+        const viewPayload = {
+            "ID": id,
+            "user_id": userId
+          };
         $.ajax({
           url: `${BASE_API_URL}/general/Monuments`,
           type: "POST",
           dataType: "json",
           contentType: "application/json",
+          // data: JSON.stringify({
+          //   "action": "delete",
+          //   "slno": id
+          // }),
           data: JSON.stringify({
-            "action": "delete",
-            "slno": id
+          data: encryptData(viewPayload)
           }),
           success: function (response) {
             $('#preloader').hide();
             if (response.success === 1) {
               showSuccessToast("Data deleted successfully!");
-              location.reload();
+              // location.reload();
             } else {
               showErrorToast("Error: " + response.message);
             }

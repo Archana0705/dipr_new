@@ -1845,7 +1845,6 @@ if (encryptedData) {
             "AMOUNT": pressYear,
             "CREATED_BY": "admin_user",
             "LANGUAGE": "en"
-
           };
 
 
@@ -1853,7 +1852,10 @@ if (encryptedData) {
             url: `${BASE_API_URL}/general/cineWorkersBeneficiaryDetails/insertCineWorkersBeneficiary`,
             type: 'POST',
             contentType: 'application/json',
-            data: JSON.stringify(registrationPayload),
+            // data: JSON.stringify(registrationPayload),
+            data: JSON.stringify({
+            data: encryptData(registrationPayload)
+          }),
             success: function (response) {
               // user_id.id = response.return_id;
               // Court_id.COURT_ID = response.return_id;
