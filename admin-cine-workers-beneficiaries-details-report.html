@@ -1852,15 +1852,28 @@ if (encryptedData) {
           //   showErrorToast("Please fill in all required fields.");
           //   return;
           // }
+          const secretKey = decryptKey();
+            const encryptedData = localStorage.getItem("userAdminName");
+            let userId = null;
 
+            if (encryptedData) {
+                try {
+                    const decryptedData = JSON.parse(
+                        CryptoJS.AES.decrypt(encryptedData, secretKey).toString(CryptoJS.enc.Utf8)
+                    );
+                    userId = decryptedData?.user_id || null; // assuming loginResult has user_id
+                } catch (err) {
+                    console.error("Error decrypting user data:", err);
+                }
+            }
           var registrationPayload = {
             "YEAR": pressYear,
             "NO_OF_BENEFICIARIES": pressNoOfBeneficiaries,
             "AMOUNT": pressYear,
             "CREATED_BY": "admin_user",
             "LANGUAGE": "en",
-            "user_id": userId,
-          };
+            "user_id": userId
+         };
 
 
           await $.ajax({
@@ -1918,7 +1931,20 @@ if (encryptedData) {
         const year = $('#Press_year').val();
         const noOfBeneficiaries = $('#Press_no_of_beneficiaries').val();
         const amount = $('#Press_amount').val();
+const secretKey = decryptKey();
+            const encryptedData = localStorage.getItem("userAdminName");
+            let userId = null;
 
+            if (encryptedData) {
+                try {
+                    const decryptedData = JSON.parse(
+                        CryptoJS.AES.decrypt(encryptedData, secretKey).toString(CryptoJS.enc.Utf8)
+                    );
+                    userId = decryptedData?.user_id || null; // assuming loginResult has user_id
+                } catch (err) {
+                    console.error("Error decrypting user data:", err);
+                }
+            }
         const updatePayload = {
           "SLNO": id,
           "YEAR": year,
@@ -1926,7 +1952,8 @@ if (encryptedData) {
           "AMOUNT": amount,
           "UPDATED_BY": "admin_user",
           "LANGUAGE": "EN",
-          "user_id": userId,
+          "user_id": userId
+
         };
         $.ajax({
           url: `${BASE_API_URL}/general/cineWorkersBeneficiaryDetails/updateCineWorkersBeneficiary`,
