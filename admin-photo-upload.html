@@ -1757,7 +1757,6 @@ var encryptedPayload = {
           p_language: localStorage.getItem('siteLang') || "en",
           "user_id": userId,
         };
-
         $.ajax({
           url: apiUrl,
           type: 'POST',
@@ -1921,10 +1920,9 @@ $("#cancelPhotoBtn").on("click", function () {
         $.ajax({
           url: apiUrl,
           method: "POST",
-
-          data:
-            JSON.stringify(createPayload)
-          ,
+          data: JSON.stringify({
+              data: encryptData(createPayload)
+          }),
           contentType: 'json',
           success: function (response) {
             if (response.success === 1) {
