@@ -1635,7 +1635,7 @@ if (encryptedData) {
                 }
                 const secretKey = 'V7gN4dY8pT2xB3kRz';
                 let encryptedData = CryptoJS.AES.encrypt(JSON.stringify(selectedItem), secretKey).toString();
-                window.location.href = `../admin-section-create.html?${encryptedData}`;
+                window.location.href = `admin-section-create.html?${encryptedData}`;
             });
 
             document.getElementById('P0_LANGUAGE').addEventListener('change', function () {

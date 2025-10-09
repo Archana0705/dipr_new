@@ -41,7 +41,7 @@
     type="text/css" />
   <link rel="stylesheet" href="https://static.oracle.com/cdn/apex/24.1.7/themes/theme_42/23.1/css/Core.min.css?v=24.1.7"
     type="text/css" />
-  <link rel="stylesheet" type="text/css" href="../assets/css/menu.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/menu.css">
   <style>
     .showlink {
       display: none !important;
@@ -1834,7 +1834,7 @@ if (encryptedData) {
       tableBody.html('<tr><td colspan="9" class="text-center">Loading...</td></tr>');
        let langSwitch = localStorage.getItem('siteLang') || 'en';
     const encryptedData = localStorage.getItem("userAdminName");
-
+      const secretKey = decryptKey();
        let userId = null;
 
         if (encryptedData) {
@@ -1853,7 +1853,7 @@ if (encryptedData) {
           "action": "fetch",
           "user_id": userId,
         };
-
+ 
         $.ajax({
           url: apiUrl,
           method: "POST",
@@ -2080,7 +2080,20 @@ if (encryptedData) {
           showErrorToast("File size exceeds the 5MB limit.");
           return;
         }
+        const secretKey = decryptKey();
+    const encryptedData = localStorage.getItem("userAdminName");
+    let userId = null;
 
+    if (encryptedData) {
+        try {
+            const decryptedData = JSON.parse(
+                CryptoJS.AES.decrypt(encryptedData, secretKey).toString(CryptoJS.enc.Utf8)
+            );
+            userId = decryptedData?.user_id || null; // assuming loginResult has user_id
+        } catch (err) {
+            console.error("Error decrypting user data:", err);
+        }
+    }
         // Create FormData and append video file
         let formData = new FormData();
         formData.append("action", "insert");
@@ -2094,6 +2107,7 @@ if (encryptedData) {
         formData.append("mime_type", file.type);
         formData.append("video", file);
         formData.append("language", "en");
+        formData.append("user_id", userId || "");
 
         // Send FormData using AJAX
         $.ajax({
@@ -2277,11 +2291,12 @@ if (encryptedData) {
         //debugger
         $('#preloader').show();
         const viewPayload = {
-            "ID": id,
+            "slno": id,
+             "action": "delete",
             "user_id": userId
           };
         $.ajax({
-          url: `${BASE_API_URL}/general/Monuments`,
+          url: `${BASE_API_URL}/general/tn_arangams`,
           type: "POST",
           dataType: "json",
           contentType: "application/json",
@@ -2296,7 +2311,7 @@ if (encryptedData) {
             $('#preloader').hide();
             if (response.success === 1) {
               showSuccessToast("Data deleted successfully!");
-              // location.reload();
+              location.reload();
             } else {
               showErrorToast("Error: " + response.message);
             }
